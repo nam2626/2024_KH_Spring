@@ -9,9 +9,12 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainController {
 	private RegisterService service;
+	private ComponentClass component;
 	
-	public MainController(RegisterService service) {
+	public MainController(RegisterService service, ComponentClass component) {
+		super();
 		this.service = service;
+		this.component = component;
 	}
 
 	@RequestMapping("/")
@@ -67,6 +70,8 @@ public class MainController {
 		view.setViewName("register_result");
 		//서비스 클래스 테스트
 		service.test();
+		//컴포넌트 클래스 테스트
+		component.test();
 		return view;
 	}
 }
