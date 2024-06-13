@@ -4,11 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
+	private RegisterService service;
+	
+	public MainController(RegisterService service) {
+		this.service = service;
+	}
 
 	@RequestMapping("/")
 	public String loginView() {
@@ -61,6 +65,8 @@ public class MainController {
 		view.addObject("msg","안녕하세요 - request영역");
 		//이동할 페이지 설정
 		view.setViewName("register_result");
+		//서비스 클래스 테스트
+		service.test();
 		return view;
 	}
 }
