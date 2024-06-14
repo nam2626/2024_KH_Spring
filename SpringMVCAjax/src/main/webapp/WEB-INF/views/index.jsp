@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <script>
 	window.onload = () => {
+		let area = document.querySelector("#result");
 		document.querySelector('.true').addEventListener("click",function(){
 			fetch("/map").then(response => response.json())
 			.then(result => {
@@ -18,9 +19,21 @@
 					tag += `\${item.memberId},\${item.name},\${item.age}`;
 					tag += `</p>`;
 				});
-				document.querySelector("#result").innerHTML = tag;
+				area.innerHTML = tag;
 			});
 		}) ;
+		document.querySelector(".false").onclick = () => {
+			fetch("/callData?data=false").then(response => response.json())
+			.then(result => {
+				console.log(result);
+				area.innerHTML = result.result;
+				if(result.errorCode)
+					area.innerHTML += result.errorCode;
+			}).catch(error => {
+				//요청실패일때 넘어옴
+				console.log(error);
+			});
+		}
 	}
 </script>
 </head>
