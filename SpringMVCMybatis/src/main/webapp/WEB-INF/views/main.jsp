@@ -13,7 +13,13 @@
 			item.onclick = () => {
 				const studentNo = item.parentNode.parentNode.querySelector('input[name=studentNo]').value;
 				/* alert(studentNo); */
-				
+				fetch("/student/delete/"+studentNo,{
+					method : "DELETE"
+				}).then(response => response.text())
+				.then(result => {
+					alert(result);
+					location.reload();
+				});
 				
 			}
 		})
