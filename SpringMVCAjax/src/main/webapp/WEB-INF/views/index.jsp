@@ -5,6 +5,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	window.onload = () => {
+		document.querySelector('.true').addEventListener("click",function(){
+			fetch("/map").then(response => reponse.json())
+			.then(result => {
+				let tag = '';
+				tag += `<p>resultCount : \${result.resultCount}</p>`;
+				tag += `<p>msg : \${result.msg}</p>`;
+				result.list.forEach(item => {
+					tag += `<p>`;
+					tag += `\${item.memberId},\${item.name},\${item.age}`;
+					tag += `</p>`;
+				});
+				document.querySelector("#result").innerHTML = tag;
+			});
+		}) ;
+	}
+</script>
 </head>
 <body>
 	<button type="button" class="true">정상 데이터 호출</button>
