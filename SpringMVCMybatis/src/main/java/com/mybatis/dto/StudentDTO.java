@@ -8,7 +8,7 @@ public class StudentDTO {
 	private String studentName;
 	private String studentGender;
 	private double studentScore;
-	private int majorNo;
+	private String majorNo;
 
 	public StudentDTO() {
 	}
@@ -45,11 +45,11 @@ public class StudentDTO {
 		this.studentScore = studentScore;
 	}
 
-	public int getMajorNo() {
+	public String getMajorNo() {
 		return majorNo;
 	}
 
-	public void setMajorNo(int majorNo) {
+	public void setMajorNo(String majorNo) {
 		this.majorNo = majorNo;
 	}
 
