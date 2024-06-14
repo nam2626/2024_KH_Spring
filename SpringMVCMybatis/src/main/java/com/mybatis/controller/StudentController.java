@@ -34,7 +34,7 @@ public class StudentController {
 		return msg;
 	}
 	
-	@PutMapping("/student/update/{id}")
+	@PutMapping("/update/{id}")
 	public String updateStudent(@PathVariable String id, 
 			@RequestBody Map<String, String> data) {
 		System.out.println(id);
