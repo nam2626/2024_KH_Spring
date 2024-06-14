@@ -19,6 +19,10 @@ public class StudentService {
 	public List<StudentDTO> selectAllStudent() {
 		return mapper.selectAllStudent();
 	}
+
+	public int deleteStudent(String stdNo) {
+		return mapper.deleteStudent(stdNo);
+	}
 	
 	
 }

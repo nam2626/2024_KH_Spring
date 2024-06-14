@@ -16,6 +16,9 @@
 		select * from student
 	</select>
 
+	<delete id="deleteStudent" parameterType="string">
+		delete from student where std_no = #{value}
+	</delete>
 </mapper>
 
 

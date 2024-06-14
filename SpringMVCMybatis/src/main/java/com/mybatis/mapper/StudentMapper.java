@@ -9,4 +9,5 @@ import com.mybatis.dto.StudentDTO;
 @Mapper
 public interface StudentMapper {
 	List<StudentDTO> selectAllStudent();
+	int deleteStudent(String stdNo);
 }

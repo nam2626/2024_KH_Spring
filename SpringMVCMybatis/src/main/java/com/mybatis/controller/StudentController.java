@@ -22,8 +22,12 @@ public class StudentController {
 	public String deleteStudent(@PathVariable String stdNo) {
 		System.out.println(stdNo);
 		//해당 학번 삭제 작업
+		int result = service.deleteStudent(stdNo);
 		//삭제 결과 리턴
-		return "삭제기능 호출";
+		String msg = "정상적으로 삭제 되었습니다.";
+		if(result != 1)
+			msg = "삭제시 문제가 생겼습니다.";
+		return msg;
 	}
 	
 	
