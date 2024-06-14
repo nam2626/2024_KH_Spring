@@ -6,6 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	window.onload = () => {
+		//삭제 버튼을 클릭했을때, 클릭한 버튼의 학생번호를 경고창으로 출력
+		document.querySelectorAll('.btn_delete').forEach(item => {
+			item.onclick = () => {
+				const studentNo = item.parentNode.parentNode.querySelector('input[name=studentNo]').value;
+				/* alert(studentNo); */
+				
+				
+			}
+		})
+		
+		
+	}
+
+</script>
 </head>
 <body>
 	<hr>
