@@ -33,7 +33,7 @@
 					value = {...value, [item.name] : item.value};
 				});
 				console.log(value);
-				fetch('/student/update/'+value.studentId,{
+				fetch('/student/update/'+value.studentNo,{
 					method:"PUT",
 					headers:{
 						"Content-Type" : "application/json"
