@@ -24,6 +24,28 @@
 			}
 		})
 		
+		document.querySelectorAll('.btn_update').forEach(item => {
+			item.onclick = () => {
+				let value = {};
+				item.parentNode.parentNode.querySelectorAll('input').forEach(item => {
+					console.log(item.name, item.value)
+					//[]로 묶어야 변수에 있는 값으로 키값으로 지정
+					value = {...value, [item.name] : item.value};
+				});
+				console.log(value);
+				fetch('/student/update/'+value.studentId,{
+					method:"PUT",
+					headers:{
+						"Content-Type" : "application/json"
+					},
+					body : JSON.stringify(value)
+				}).then(response => response.text())
+				.then(result => {
+					alert(result);
+				})
+			}
+		});
+		
 		
 	}
 
