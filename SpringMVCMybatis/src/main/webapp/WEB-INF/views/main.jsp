@@ -12,6 +12,15 @@
 	<table>
 		<thead>
 			<tr>
+				<td colspan="6">
+					<!-- 검색창  -->
+					<input type="text" id="search">
+					<button id="btnSearch">검색</button>				
+					<span>|</span>
+					<a href="/addStdView">학생정보 추가</a>
+				</td>
+			</tr>
+			<tr>
 				<th>학번</th>
 				<th>이름</th>
 				<th>평점</th>
