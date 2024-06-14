@@ -8,7 +8,7 @@
 <script>
 	window.onload = () => {
 		document.querySelector('.true').addEventListener("click",function(){
-			fetch("/map").then(response => reponse.json())
+			fetch("/map").then(response => response.json())
 			.then(result => {
 				let tag = '';
 				tag += `<p>resultCount : \${result.resultCount}</p>`;
