@@ -37,19 +37,12 @@ public class StudentController {
 	
 	@PutMapping("/update/{id}")
 	public String updateStudent(@PathVariable String id, 
-			@RequestBody Map<String, String> data) {
+			@RequestBody StudentDTO data) {
 		System.out.println(id);
 		System.out.println(data);
 		
-		StudentDTO dto = new StudentDTO();
-		dto.setStudentNo(data.get("studentNo"));
-		dto.setStudentName(data.get("studentName"));
-		dto.setStudentScore(Double.parseDouble(data.get("studentScore")));
-		dto.setMajorNo(data.get("majorNo"));
-		dto.setStudentGender(data.get("studentGender"));
-		
 		//데이터를 수정
-		int result = service.updateStudent(dto);
+		int result = service.updateStudent(data);
 		
 		if(result == 1) {
 			return "학생정보 수정 완료";
