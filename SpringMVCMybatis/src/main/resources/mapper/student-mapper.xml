@@ -32,6 +32,10 @@
 		values(#{studentNo},#{studentName},
 		#{studentScore},#{studentGender},#{majorNo})
 	</insert>
+	
+	<select id="selectStudent" parameterType="map">
+	
+	</select>
 </mapper>
 
 

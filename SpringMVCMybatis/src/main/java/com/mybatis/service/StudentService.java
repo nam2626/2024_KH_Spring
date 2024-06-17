@@ -1,6 +1,8 @@
 package com.mybatis.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,14 @@ public class StudentService {
 
 	public int insertStudent(StudentDTO dto) {
 		return mapper.insertStudent(dto);
+	}
+
+	public List<StudentDTO> selectStudent(String kind, String search) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("kind", kind);
+		map.put("search", search);
+		
+		return mapper.selectStudent(map);
 	}
 	
 	

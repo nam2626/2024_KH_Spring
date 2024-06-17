@@ -1,6 +1,7 @@
 package com.mybatis.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,4 +13,10 @@ public interface StudentMapper {
 	int deleteStudent(String stdNo);
 	int updateStudent(StudentDTO dto);
 	int insertStudent(StudentDTO dto);
+	List<StudentDTO> selectStudent(Map<String, Object> map);
 }
+
+
+
+
+
