@@ -49,9 +49,12 @@ public class StudentController {
 		dto.setStudentGender(data.get("studentGender"));
 		
 		//데이터를 수정
+		int result = service.updateStudent(dto);
 		
-		//결과를 리턴
-		return "수정기능 실행";
+		if(result == 1) {
+			return "학생정보 수정 완료";
+		}
+		return "학생정보 수정 실패";
 	}
 	
 }

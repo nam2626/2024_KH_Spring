@@ -23,6 +23,10 @@ public class StudentService {
 	public int deleteStudent(String stdNo) {
 		return mapper.deleteStudent(stdNo);
 	}
+
+	public int updateStudent(StudentDTO dto) {
+		return mapper.updateStudent(dto);
+	}
 	
 	
 }

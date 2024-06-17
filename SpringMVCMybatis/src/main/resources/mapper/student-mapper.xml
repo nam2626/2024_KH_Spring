@@ -19,6 +19,13 @@
 	<delete id="deleteStudent" parameterType="string">
 		delete from student where std_no = #{value}
 	</delete>
+	
+	<update id="updateStudent" parameterType="student">
+		update student set std_name = #{studentName}, 
+		std_score = #{studentScore}, std_gender = #{stduentGender},
+		major_no = #{majorNo}
+		where std_no = #{studentNo}
+	</update>
 </mapper>
 
 
