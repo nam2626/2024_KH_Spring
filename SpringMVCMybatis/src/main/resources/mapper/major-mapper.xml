@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.MajorMapper">
+	<resultMap type="major" id="major">
+		<id column="major_no" property="majorNo"/>
+		<result column="major_name" property="majorName"/>
+	</resultMap>
+	
+	<select id="selectAllMajor" resultMap="major">
+		select * from major
+	</select>	
+		
+
+</mapper>
+
+
+

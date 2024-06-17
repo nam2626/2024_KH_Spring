@@ -4,16 +4,16 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("major")
 public class MajorDTO {
-	private int majorNo;
+	private String majorNo;
 	private String majorName;
 
 	public MajorDTO() {	}
 
-	public int getMajorNo() {
+	public String getMajorNo() {
 		return majorNo;
 	}
 
-	public void setMajorNo(int majorNo) {
+	public void setMajorNo(String majorNo) {
 		this.majorNo = majorNo;
 	}
 
