@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	window.onload = () => {
+	function eventDelete(){
 		//삭제 버튼을 클릭했을때, 클릭한 버튼의 학생번호를 경고창으로 출력
 		document.querySelectorAll('.btn_delete').forEach(item => {
 			item.onclick = () => {
@@ -23,7 +23,8 @@
 				
 			}
 		})
-		
+	}
+	function eventUpdate(){
 		document.querySelectorAll('.btn_update').forEach(item => {
 			item.onclick = () => {
 				let value = {};
@@ -45,6 +46,10 @@
 				})
 			}
 		});
+	}
+	window.onload = () => {
+		eventDelete();
+		eventUpdate();
 		
 		document.querySelector("#btnSearch").onclick = () => {
 			const kind = document.querySelector("#kind").value;
@@ -70,6 +75,11 @@
 				});
 				
 				document.querySelector('#area').innerHTML = tag;
+				
+				//동적엘리먼트 이벤트 처리
+				eventDelete();
+				eventUpdate();
+				
 			})
 						
 		}
