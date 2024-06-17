@@ -33,8 +33,17 @@
 		#{studentScore},#{studentGender},#{majorNo})
 	</insert>
 	
-	<select id="selectStudent" parameterType="map">
-	
+	<select id="selectStudent" parameterType="map" resultMap="student">
+		select * from student
+		<if test="kind.equals('studentScore')"> 
+			where std_score >= #{search}
+		</if>
+		<if test="kind.equals('studentNo')"> 
+			where std_no like '%' || #{search} || '%'
+		</if>
+		<if test="kind.equals('studentName')"> 
+			where std_name like '%' || #{search} || '%'
+		</if>
 	</select>
 </mapper>
 
