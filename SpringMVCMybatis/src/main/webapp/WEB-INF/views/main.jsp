@@ -73,7 +73,7 @@
 					tag += '<button class="btn_delete">삭제</button></td>';
 					tag += '</tr>';
 				});
-				
+				`
 				document.querySelector('#area').innerHTML = tag;
 				
 				//동적엘리먼트 이벤트 처리
