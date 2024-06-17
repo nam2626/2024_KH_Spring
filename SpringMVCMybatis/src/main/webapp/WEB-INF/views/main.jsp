@@ -46,6 +46,18 @@
 			}
 		});
 		
+		document.querySelector("#btnSearch").onclick = () => {
+			const kind = document.querySelector("#kind").value;
+			const search = document.querySelector("#search").value;
+			
+			const url = `/student/search?kind=\${kind}&search=\${search}`;
+			fetch(url).then(response => response.json())
+			.then(result => {
+				//검색결과를 tbody에 출력
+				console.log(result);
+			})
+						
+		}
 		
 	}
 
@@ -58,6 +70,11 @@
 			<tr>
 				<td colspan="6">
 					<!-- 검색창  -->
+					<select id="kind">
+						<option value="studentNo">학번</option>
+						<option value="studentName">이름</option>
+						<option value="studentScore">평점</option>
+					</select>
 					<input type="text" id="search">
 					<button id="btnSearch">검색</button>				
 					<span>|</span>
