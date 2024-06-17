@@ -22,7 +22,7 @@
 	
 	<update id="updateStudent" parameterType="student">
 		update student set std_name = #{studentName}, 
-		std_score = #{studentScore}, std_gender = #{stduentGender},
+		std_score = #{studentScore}, std_gender = #{studentGender},
 		major_no = #{majorNo}
 		where std_no = #{studentNo}
 	</update>
