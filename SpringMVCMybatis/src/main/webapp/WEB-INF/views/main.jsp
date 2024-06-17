@@ -39,9 +39,9 @@
 						"Content-Type": "application/json"
 					},
 					body : JSON.stringify(value)
-				}).then(response => response.text())
+				}).then(response => response.json())
 				.then(result => {
-					alert(result);
+					alert(result.msg);
 				})
 			}
 		});
