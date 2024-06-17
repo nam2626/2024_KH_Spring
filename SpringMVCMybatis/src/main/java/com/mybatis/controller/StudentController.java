@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mybatis.dto.StudentDTO;
 import com.mybatis.service.StudentService;
 
 @RestController
@@ -40,6 +41,16 @@ public class StudentController {
 		System.out.println(id);
 		System.out.println(data);
 		
+		StudentDTO dto = new StudentDTO();
+		dto.setStudentNo(data.get("studentNo"));
+		dto.setStudentName(data.get("studentName"));
+		dto.setStudentScore(Double.parseDouble(data.get("studentScore")));
+		dto.setMajorNo(data.get("majorNo"));
+		dto.setStudentGender(data.get("studentGender"));
+		
+		//데이터를 수정
+		
+		//결과를 리턴
 		return "수정기능 실행";
 	}
 	
