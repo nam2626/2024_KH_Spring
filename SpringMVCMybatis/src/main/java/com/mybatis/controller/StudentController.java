@@ -1,5 +1,6 @@
 package com.mybatis.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,18 +37,22 @@ public class StudentController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public String updateStudent(@PathVariable String id, 
+	public Map<String, Object> updateStudent(@PathVariable String id, 
 			@RequestBody StudentDTO data) {
 		System.out.println(id);
 		System.out.println(data);
 		
 		//데이터를 수정
 		int result = service.updateStudent(data);
-		
+		Map<String, Object> map = new HashMap<String, Object>();
 		if(result == 1) {
-			return "학생정보 수정 완료";
+			map.put("resultCode", 1);
+			map.put("msg", "학생정보 수정에 성공하였습니다.");
+		}else {
+			map.put("resultCode", 0);
+			map.put("msg", "학생정보 수정에 실패하였습니다.");
 		}
-		return "학생정보 수정 실패";
+		return map;
 	}
 	
 }
