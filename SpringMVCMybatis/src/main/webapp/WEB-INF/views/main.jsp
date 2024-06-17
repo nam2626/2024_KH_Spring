@@ -55,6 +55,21 @@
 			.then(result => {
 				//검색결과를 tbody에 출력
 				console.log(result);
+				let tag = '';
+				result.forEach(item => {
+					console.log(item)
+					tag += '<tr>';
+					tag += `<td><input type="text" name="studentNo" value="\${item.studentNo}"></td>`;
+					tag += `<td><input type="text" name="studentName" value="\${item.studentName }"></td>`;
+					tag += `<td><input type="text" name="studentScore" value="\${item.studentScore }"></td>`;
+					tag += `<td><input type="text" name="majorNo" value="\${item.majorNo}"></td>`;
+					tag += `<td><input type="text" name="studentGender" value="\${item.studentGender }"></td>`;
+					tag += '<td><button class="btn_update">수정</button>'
+					tag += '<button class="btn_delete">삭제</button></td>';
+					tag += '</tr>';
+				});
+				
+				document.querySelector('#area').innerHTML = tag;
 			})
 						
 		}
@@ -90,7 +105,7 @@
 				<th>비고</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="area">
 			<!-- 
 				studentList 출력
 				input 태그를 이용해서 출력 
