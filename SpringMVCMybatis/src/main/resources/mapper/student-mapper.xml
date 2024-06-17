@@ -35,7 +35,18 @@
 	
 	<select id="selectStudent" parameterType="map" resultMap="student">
 		select * from student
-		<if test="kind.equals('studentScore')"> 
+		<choose>
+			<when test="kind.equals('studentScore')"> 
+				where std_score >= #{search}
+			</when>
+			<when test="kind.equals('studentNo')">
+				where std_no like '%' || #{search} || '%'
+			</when>
+			<otherwise>
+				where std_name like '%' || #{search} || '%'
+			</otherwise>
+		</choose>
+		<!-- <if test="kind.equals('studentScore')"> 
 			where std_score >= #{search}
 		</if>
 		<if test="kind.equals('studentNo')"> 
@@ -43,7 +54,7 @@
 		</if>
 		<if test="kind.equals('studentName')"> 
 			where std_name like '%' || #{search} || '%'
-		</if>
+		</if> -->
 	</select>
 </mapper>
 
