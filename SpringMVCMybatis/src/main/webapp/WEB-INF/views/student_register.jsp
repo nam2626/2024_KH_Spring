@@ -44,11 +44,11 @@
 		<!-- 학번, 이름, 평점, 성별, 학과번호 -->
 		<input type="text" name="studentNo" placeholder="학번 입력">
 		<input type="text" name="studentName" placeholder="학생 이름 입력">
-		<input type="text" name="score" placeholder="학생 평점 입력">
+		<input type="text" name="studentScore" placeholder="학생 평점 입력">
 		<div class='gender_bar'>
-			<input type="radio" name="gender" value="M" id="g1">
+			<input type="radio" name="studentGender" value="M" id="g1">
 			<label for="g1">남</label>		
-			<input type="radio" name="gender" value="F" id="g2">		
+			<input type="radio" name="studentGender" value="F" id="g2">		
 			<label for="g2">여</label>		
 		</div>
 		<select name="majorNo">

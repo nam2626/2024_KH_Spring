@@ -27,6 +27,10 @@ public class StudentService {
 	public int updateStudent(StudentDTO dto) {
 		return mapper.updateStudent(dto);
 	}
+
+	public int insertStudent(StudentDTO dto) {
+		return mapper.insertStudent(dto);
+	}
 	
 	
 }

@@ -26,7 +26,20 @@
 		major_no = #{majorNo}
 		where std_no = #{studentNo}
 	</update>
+	<insert id="insertStudent" parameterType="student">
+		insert into 
+		student(std_no, std_name, std_score, std_gender, major_no)
+		values(#{studentNo},#{studentName},
+		#{studentScore},#{studentGender},#{majorNo})
+	</insert>
 </mapper>
+
+
+
+
+
+
+
 
 
 

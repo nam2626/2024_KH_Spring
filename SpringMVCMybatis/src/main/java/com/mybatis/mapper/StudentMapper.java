@@ -11,4 +11,5 @@ public interface StudentMapper {
 	List<StudentDTO> selectAllStudent();
 	int deleteStudent(String stdNo);
 	int updateStudent(StudentDTO dto);
+	int insertStudent(StudentDTO dto);
 }
