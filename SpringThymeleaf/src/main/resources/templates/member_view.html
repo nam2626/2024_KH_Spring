@@ -28,5 +28,19 @@
     <button>수정하기</button>
     <button type="button" id="btn_delete">삭제하기</button>
   </form>
+  <script th:inline='javascript'>
+  	document.querySelector("#btn_delete").onclick = () => {
+  		const memberId = [[${dto.boardMemberId}]];
+  		location.href=`/member/delete/${memberId}`;
+// 		location.href=/*<![CDATA[*/`/member/delete/${memberId}`/*]]>*/; 
+// 		location.href='/member/delete/' + memberId;
+  	}
+  </script>
 </body>
 </html>
+
+
+
+
+
+
