@@ -18,6 +18,10 @@
 		where board_member_id like #{id} and
 		board_member_passwd like STANDARD_HASH(#{pass},'SHA512')
 	</select>
+	
+	<select id="selectAllMember" resultMap="member">
+		select * from board_member
+	</select>
 </mapper>
 
 

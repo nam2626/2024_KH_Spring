@@ -1,5 +1,7 @@
 package com.thym.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +36,9 @@ public class MainController {
 	
 	@GetMapping("/main")
 	public ModelAndView main(ModelAndView view) {
+		//전체 회원 정보를 조회해서 request영역에 저장
+		List<BoardMemberDTO> list = service.selectAllMember();
+		view.addObject("list",list);		
 		view.setViewName("main");
 		return view;
 	}

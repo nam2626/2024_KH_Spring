@@ -1,6 +1,7 @@
 package com.thym.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -23,8 +24,17 @@ public class MemberService {
 		
 		return mapper.login(map);
 	}
+
+	public List<BoardMemberDTO> selectAllMember() {
+		return mapper.selectAllMember();
+	}
 	
 }
+
+
+
+
+
 
 
 
