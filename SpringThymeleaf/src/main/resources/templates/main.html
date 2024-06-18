@@ -3,23 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+  table {
+    border-collapse: collapse;
+    margin: 30px auto;
+  }
+  
+  td, th {
+    padding: 10px;
+    font-size: 1.3em;
+    border: 1px solid black;
+    text-align: center;
+  }
+  </style>
 </head>
 <body>
-  <!-- 로그인이 안되어 있으면 index.html로 이동 -->
-  <th:block th:if="${session.user == null}">
-  		<script>
-  			alert('로그인 하셔야 이용하실 수 있습니다.');
-  			location.href='/';
-  		</script>
-  </th:block>
-  <ul th:if="${session.user != null}" class="main_menu">
-    <li><a href="/">홈</a></li>
-    <li><a href="/main">회원목록</a></li>
-    <li th:if="${session.user.boardMemberGrade == 0}"><a href="/member/register/view">회원추가</a></li>
-    <li th:if="${session.user.boardMemberGrade == 0}"><a href="/grade">등급관리</a></li>
-    <li><a href="/logout">로그아웃</a></li>
-  </ul>
-  <hr>
+  	<th:block th:include="/fragments/header.html"></th:block>
   <table>
   	<thead>
   		<tr>
@@ -31,7 +30,9 @@
   	</thead>
   	<tbody>
   		<tr th:each="member : ${list}">
-  			<td>[[${member.boardMemberId}]]</td>
+  			<!-- <td><a th:href="@{/member/{id}(id=${member.boardMemberId},passwd=${member.boardMemberPasswd})}">[[${member.boardMemberId}]]</a></td> -->
+  			<td><a th:href="@{/member/{id}(id=${member.boardMemberId})}">[[${member.boardMemberId}]]</a></td>
+  			<!--링크 속성값 http://localhost:9999/member/en6842 -->
   			<td th:text="${member.boardMemberName}"></td>
   			<td>[(${member.boardMemberNick})]</td>
   			<td th:utext="${member.boardMemberGrade}"></td>

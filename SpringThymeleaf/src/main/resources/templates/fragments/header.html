@@ -1,0 +1,40 @@
+<style>
+	.main_menu{
+		list-style-type: none;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		width: 1200px;
+		margin:0 auto;
+		border:1px solid black;
+	}
+	li{
+		width: 200px;
+	}
+	.main_menu a{
+		color : black;
+		text-decoration: none;
+		font-size: 20px;
+		text-align: center;
+		display: inline-block;
+		width: 100%;
+		padding:20px 0px;
+	}
+</style>
+<!-- 로그인이 안되어 있으면 index.html로 이동 -->
+  <th:block th:if="${session.user == null}">
+  		<script>
+  			alert('로그인 하셔야 이용하실 수 있습니다.');
+  			location.href='/';
+  		</script>
+  </th:block>
+  <ul th:if="${session.user != null}" class="main_menu">
+    <li><a href="/">홈</a></li>
+    <li><a href="/main">회원목록</a></li>
+    <li th:if="${session.user.boardMemberGrade == 0}"><a href="/member/register/view">회원추가</a></li>
+    <li th:if="${session.user.boardMemberGrade == 0}"><a href="/grade">등급관리</a></li>
+    <li><a href="/logout">로그아웃</a></li>
+  </ul>
+  <hr>
+  
+  
