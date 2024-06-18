@@ -20,7 +20,24 @@
     <li><a href="/logout">로그아웃</a></li>
   </ul>
   <hr>
-  <div>[[${list}]]</div>
+  <table>
+  	<thead>
+  		<tr>
+  			<th>아이디</th>
+  			<th>이름</th>
+  			<th>닉네임</th>
+  			<th>회원 등급</th>
+  		</tr>
+  	</thead>
+  	<tbody>
+  		<tr th:each="member : ${list}">
+  			<td>[[${member.boardMemberId}]]</td>
+  			<td th:text="${member.boardMemberName}"></td>
+  			<td>[(${member.boardMemberNick})]</td>
+  			<td th:utext="${member.boardMemberGrade}"></td>
+  		</tr>
+  	</tbody>
+  </table>
 </body>
 </html>
 
