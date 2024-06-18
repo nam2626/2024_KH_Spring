@@ -1,7 +1,11 @@
 package com.thym.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
+import com.thym.dto.BoardMemberDTO;
 import com.thym.mapper.MemberMapper;
 
 @Service
@@ -11,5 +15,19 @@ public class MemberService {
 	public MemberService(MemberMapper mapper) {
 		this.mapper = mapper;
 	}
+
+	public BoardMemberDTO login(String id, String passwd) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("passwd", passwd);
+		
+		return mapper.login(map);
+	}
 	
 }
+
+
+
+
+
+
