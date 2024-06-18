@@ -12,6 +12,14 @@
   			location.href='/';
   		</script>
   </th:block>
+  <ul th:if="${session.user != null}" class="main_menu">
+    <li><a href="/">홈</a></li>
+    <li><a href="/main">회원목록</a></li>
+    <li th:if="${session.user.boardMemberGrade == 0}"><a href="/member/register/view">회원추가</a></li>
+    <li th:if="${session.user.boardMemberGrade == 0}"><a href="/grade">등급관리</a></li>
+    <li><a href="/logout">로그아웃</a></li>
+  </ul>
+  
 </body>
 </html>
 
