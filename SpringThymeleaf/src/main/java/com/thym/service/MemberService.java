@@ -19,7 +19,7 @@ public class MemberService {
 	public BoardMemberDTO login(String id, String passwd) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
-		map.put("passwd", passwd);
+		map.put("pass", passwd);
 		
 		return mapper.login(map);
 	}

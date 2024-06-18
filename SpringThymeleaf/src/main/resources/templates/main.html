@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <!-- 로그인이 안되어 있으면 index.html로 이동 -->
+  <th:block th:if="${session.user == null}">
+  		<script>
+  			alert('로그인 하셔야 이용하실 수 있습니다.');
+  			location.href='/';
+  		</script>
+  </th:block>
+</body>
+</html>
+
+
+
+
+
+
