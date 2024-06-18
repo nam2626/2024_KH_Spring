@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style> 
+  input, select {
+    width: 300px;
+    text-align: center;
+    font-size: 1.5em;
+    box-sizing: border-box;
+  }
+</style>
+</head>
+<body>
+  <th:block th:include="/fragments/header.html"></th:block>
+<!--   <span>[[${dto}]]</span> -->
+  <h2>회원정보 페이지</h2>
+  <form action="/member/update" method="post">
+    <input type="text" th:value="${dto.boardMemberId}" name="boardMemberId" readonly/><br>
+    <input type="password" name="boardMemberPasswd" placeholder="암호 입력"/><br>
+    <input type="text" th:value="${dto.boardMemberName}" name="boardMemberName" placeholder="이름 입력"/><br>
+    <input type="text" th:value="${dto.boardMemberNick}" name="boardMemberNick" placeholder="닉네임 입력"/><br>
+    <select name="boardMemberGrade">
+    	<option th:each="i : ${#numbers.sequence(0,5)}" th:selected="${i == dto.boardMemberGrade}">[[${i}]]</option>
+    </select> 
+    <br>
+    <button>수정하기</button>
+    <button type="button" id="btn_delete">삭제하기</button>
+  </form>
+</body>
+</html>

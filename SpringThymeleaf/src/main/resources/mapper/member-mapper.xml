@@ -14,14 +14,32 @@
 	</resultMap>
 	<!-- 로그인 -->
 	<select id="login" parameterType="map" resultMap="member">
-		select * from board_member
+		select * from
+		board_member
 		where board_member_id like #{id} and
-		board_member_passwd like STANDARD_HASH(#{pass},'SHA512')
+		board_member_passwd
+		like STANDARD_HASH(#{pass},'SHA512')
 	</select>
-	
+
 	<select id="selectAllMember" resultMap="member">
-		select * from board_member
+		select * from
+		board_member
 	</select>
+
+	<select id="selectMember" parameterType="string"
+		resultMap="member">
+		select * from board_member where board_member_id = #{id}
+	</select>
+
+	<update id="updateMember" parameterType="member">
+		update board_member set board_member_name = #{boardMemberName},
+		board_member_nick = #{boardMemberNick}
+		, board_member_passwd =
+		standard_hash(#{boardMemberPasswd},'SHA512'),
+		board_member_grade = #{boardMemberGrade}
+		where board_member_id like
+		#{boardMemberId}
+	</update>
 </mapper>
 
 

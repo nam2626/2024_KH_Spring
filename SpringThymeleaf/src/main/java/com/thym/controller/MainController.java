@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,6 +42,28 @@ public class MainController {
 		view.addObject("list",list);		
 		view.setViewName("main");
 		return view;
+	}
+	
+	@GetMapping("/member/{id}")
+	public ModelAndView memberView(@PathVariable String id,
+			ModelAndView view) {
+		//회원아이디값 확인
+		System.out.println(id);
+		//회원정보 조회해서 request 영역에 저장
+		BoardMemberDTO dto = service.selectMember(id);
+		
+		view.addObject("dto",dto);		
+		view.setViewName("member_view");
+		return view;
+	}
+	
+	@PostMapping("/member/update")
+	public String memberUpdate(BoardMemberDTO dto) {
+//		System.out.println(dto);
+		int result = service.updateMember(dto);
+		System.out.println(result);
+		
+		return "redirect:/main";
 	}
 }
 

@@ -12,6 +12,8 @@ public interface MemberMapper {
 
 	BoardMemberDTO login(Map<String, Object> map);
 	List<BoardMemberDTO> selectAllMember();
+	BoardMemberDTO selectMember(String id);
+	int updateMember(BoardMemberDTO dto);
 
 }
 

@@ -28,6 +28,14 @@ public class MemberService {
 	public List<BoardMemberDTO> selectAllMember() {
 		return mapper.selectAllMember();
 	}
+
+	public BoardMemberDTO selectMember(String id) {
+		return mapper.selectMember(id);
+	}
+
+	public int updateMember(BoardMemberDTO dto) {
+		return mapper.updateMember(dto);
+	}
 	
 }
 
