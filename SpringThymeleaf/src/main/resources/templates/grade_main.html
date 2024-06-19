@@ -3,6 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.container {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+h2 {
+	text-align: center;
+}
+
+.container ul {
+	list-style-type: none;
+}
+
+.container li {
+	width: 100%;
+	text-align: center;
+}
+
+.container li>* {
+	font-size: 1.5em;
+	padding: 10px 5px;
+	text-align: center;
+}
+</style>
 </head>
 <body>
 	<th:block th:include="/fragments/header.html"></th:block>
@@ -10,25 +35,27 @@
 		회원 등급이 0인 회원만 해당 페이지에 있게끔 처리
 		회원 등급이 0이 아니면 접근 권한이 없습니다. 경고창 출력 후 main.html로 이동
 	-->
-	<th:block th:if="${session.user != null && session.user.boardMemberGrade != 0}">
-  		<script>
-  			alert('접근 권한이 없습니다.');
-  			location.href='/main';
-  		</script>
-  </th:block>
-  <h2>회원 등급 관리 페이지</h2>
- 	
- 	<ul>
-	 	<!-- 회원 등급 출력  -->
- 		<li th:each="grade : ${list}">
- 			<input type="number" class="grade_no" th:value="${grade.gradeNo}" readonly>
- 			<input type="text" class="grade_name" th:value="${grade.gradeName}">
- 			<button class="btn_update">수정</button>
- 			<button class="btn_delete">삭제</button>
- 		</li>
- 	</ul>
-  
-  
+	<th:block
+		th:if="${session.user != null && session.user.boardMemberGrade != 0}">
+		<script>
+			alert('접근 권한이 없습니다.');
+			location.href = '/main';
+		</script>
+	</th:block>
+	<h2>회원 등급 관리 페이지</h2>
+	<div class="container">
+		<ul>
+			<!-- 회원 등급 출력  -->
+			<li th:each="grade : ${list}"><input type="number"
+				class="grade_no" th:value="${grade.gradeNo}" readonly> <input
+				type="text" class="grade_name" th:value="${grade.gradeName}">
+				<button class="btn_update">수정</button>
+				<button class="btn_delete">삭제</button></li>
+		</ul>
+	</div>
+
+
+
 </body>
 </html>
 
