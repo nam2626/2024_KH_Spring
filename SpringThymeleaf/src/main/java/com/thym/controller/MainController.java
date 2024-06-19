@@ -87,6 +87,11 @@ public class MainController {
 		response.getWriter().println("<script>location.href='/main';</script>");
 		return null;
 	}
+	
+	@GetMapping("/member/register/view")
+	public String registerView() {
+		return "member_register";
+	}
 }
 
 
