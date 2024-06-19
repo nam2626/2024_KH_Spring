@@ -129,6 +129,10 @@ public class MainController {
 	
 	@GetMapping("/grade")
 	public ModelAndView gradeMain(ModelAndView view) {
+		//전체 회원 등급을 조회
+		
+		//request영역에 전체 회원 등급 리스트를 저장
+		
 		view.setViewName("grade_main");
 		return view;
 	}
