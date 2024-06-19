@@ -1,7 +1,12 @@
 package com.thym.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.apache.tomcat.util.digester.DocumentProperties.Charset;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.thym.dto.BoardMemberDTO;
 import com.thym.service.MemberService;
 
-import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -64,6 +69,23 @@ public class MainController {
 		System.out.println(result);
 		
 		return "redirect:/main";
+	}
+	
+	@GetMapping("/member/delete/{id}")
+	public String memberDelete(@PathVariable String id, 
+			HttpServletResponse response) throws IOException {
+//		System.out.println(id);
+		//데이터 삭제 작업
+		response.setContentType("text/html;charset=utf-8");
+		int result = service.deleteMember(id);
+		//성공/실패 경고창 띄운 후, /main 으로 이동하게끔 처리
+		if(result != 0)
+			response.getWriter().println("<script>alert('회원정보 삭제 성공');</script>");
+		else
+			response.getWriter().println("<script>alert('회원정보 삭제 실패');</script>");
+
+		response.getWriter().println("<script>location.href='/main';</script>");
+		return null;
 	}
 }
 
