@@ -22,12 +22,40 @@ h2 {
 	text-align: center;
 }
 
-.container li>* {
+.container li > form > * {
 	font-size: 1.5em;
 	padding: 10px 5px;
 	text-align: center;
 }
 </style>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		//수정 버튼 클릭 등급번호, 등급명을 경고창으로 띄움
+		$(".btn_update").click((e) => {
+			console.log($(e.target).parent().children('input'));
+			console.log($(e.target).prevAll('input'));
+			console.log($(e.target).siblings('input'));
+			//jquery foreach 문
+			let param = '';
+			/* $.each($(e.target).siblings('input'),(index, item) => {
+				console.log($(item).val());
+				param += `${$(item).attr('class')}=${$(item).val()}&`; 
+			}); */
+			param = $(e.target).parent().serialize();
+			console.log(param);
+			$.ajax({
+				url : '/grade/update',
+				type : 'PUT',
+				data : param,
+				dataType : 'json',
+				success: function(result){
+					console.log(result);
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body>
 	<th:block th:include="/fragments/header.html"></th:block>
@@ -46,11 +74,14 @@ h2 {
 	<div class="container">
 		<ul>
 			<!-- 회원 등급 출력  -->
-			<li th:each="grade : ${list}"><input type="number"
-				class="grade_no" th:value="${grade.gradeNo}" readonly> <input
-				type="text" class="grade_name" th:value="${grade.gradeName}">
-				<button class="btn_update">수정</button>
-				<button class="btn_delete">삭제</button></li>
+			<li th:each="grade : ${list}">
+				<form>
+					<input type="number" name="gradeNo" class="grade_no" th:value="${grade.gradeNo}" readonly> 
+					<input type="text" name="gradeName" class="grade_name" th:value="${grade.gradeName}">
+					<button type="button" class="btn_update">수정</button>
+					<button type="button" class="btn_delete">삭제</button>
+				</form>
+			</li>
 		</ul>
 	</div>
 
