@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thym.dto.BoardMemberDTO;
+import com.thym.dto.GradeDTO;
 import com.thym.service.MemberService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -130,9 +131,9 @@ public class MainController {
 	@GetMapping("/grade")
 	public ModelAndView gradeMain(ModelAndView view) {
 		//전체 회원 등급을 조회
-		
+		List<GradeDTO> list = service.selectAllGrade();
 		//request영역에 전체 회원 등급 리스트를 저장
-		
+		view.addObject("list", list);
 		view.setViewName("grade_main");
 		return view;
 	}

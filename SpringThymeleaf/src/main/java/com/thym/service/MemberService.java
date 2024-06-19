@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.thym.dto.BoardMemberDTO;
+import com.thym.dto.GradeDTO;
 import com.thym.mapper.MemberMapper;
 
 @Service
@@ -44,6 +45,10 @@ public class MemberService {
 
 	public int insertMember(BoardMemberDTO dto) throws SQLException{
 		return mapper.insertMember(dto);
+	}
+
+	public List<GradeDTO> selectAllGrade() {
+		return mapper.selectAllGrade();
 	}
 	
 }

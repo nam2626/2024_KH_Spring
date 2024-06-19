@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.thym.dto.BoardMemberDTO;
+import com.thym.dto.GradeDTO;
 
 @Mapper
 public interface MemberMapper {
@@ -16,6 +17,7 @@ public interface MemberMapper {
 	int updateMember(BoardMemberDTO dto);
 	int deleteMember(String id);
 	int insertMember(BoardMemberDTO dto);
+	List<GradeDTO> selectAllGrade();
 
 }
 

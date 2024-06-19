@@ -12,6 +12,12 @@
 		<result column="board_member_nick" property="boardMemberNick" />
 		<result column="board_member_grade" property="boardMemberGrade" />
 	</resultMap>
+	
+	<resultMap type="grade" id="grade">
+		<id column="grade_no" property="gradeNo"/>
+		<result column="grade_name" property="gradeName"/>
+	</resultMap>
+	
 	<!-- 로그인 -->
 	<select id="login" parameterType="map" resultMap="member">
 		select * from
@@ -49,6 +55,10 @@
 		insert into board_member
 		values(#{boardMemberId},#{boardMemberName},#{boardMemberPasswd},#{boardMemberNick},#{boardMemberGrade})
 	</insert>
+
+	<select id="selectAllGrade" parameterMap="grade">
+		select * from board_member_grade
+	</select>	
 </mapper>
 
 
