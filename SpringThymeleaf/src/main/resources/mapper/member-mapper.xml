@@ -56,7 +56,7 @@
 		values(#{boardMemberId},#{boardMemberName},#{boardMemberPasswd},#{boardMemberNick},#{boardMemberGrade})
 	</insert>
 
-	<select id="selectAllGrade" parameterMap="grade">
+	<select id="selectAllGrade" resultMap="grade">
 		select * from board_member_grade
 	</select>	
 </mapper>

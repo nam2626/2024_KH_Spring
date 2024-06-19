@@ -20,9 +20,9 @@
  	
  	<ul>
 	 	<!-- 회원 등급 출력  -->
- 		<li>
- 			<input type="number" class="grade_no" value="">
- 			<input type="text" class="grade_name" value="">
+ 		<li th:each="grade : ${list}">
+ 			<input type="number" class="grade_no" th:value="${grade.gradeNo}" readonly>
+ 			<input type="text" class="grade_name" th:value="${grade.gradeName}">
  			<button class="btn_update">수정</button>
  			<button class="btn_delete">삭제</button>
  		</li>
