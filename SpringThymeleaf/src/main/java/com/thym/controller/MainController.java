@@ -1,12 +1,8 @@
 package com.thym.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.CharsetEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.apache.tomcat.util.digester.DocumentProperties.Charset;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -91,6 +87,38 @@ public class MainController {
 	@GetMapping("/member/register/view")
 	public String registerView() {
 		return "member_register";
+	}
+	
+	@PostMapping("/member/insert")
+	public String registerMember(BoardMemberDTO dto, HttpSession session,
+			HttpServletResponse response) throws IOException {
+		System.out.println(dto);
+		//모든 데이터가 정상인지 체크
+		response.setContentType("text/html;charset=utf-8");
+		if(dto.getBoardMemberId().isEmpty() || dto.getBoardMemberName().isEmpty() || dto.getBoardMemberNick().isEmpty() || dto.getBoardMemberPasswd().isEmpty()) {
+			response.getWriter().println("<script>"
+					+ "alert('잘못된 데이터가 있습니다');"
+					+ "history.back();"
+					+ "</script>");
+		}else{
+			//DB에 등록 작업 시작
+			try {
+				service.insertMember(dto);
+				dto.setBoardMemberPasswd(null);
+				session.setAttribute("user", dto);
+				response.getWriter().println("<script>"
+						+ "alert('회원가입 성공, 메인페이지로 이동합니다.');"
+						+ "location.href='/main';"
+						+ "</script>");
+			}catch (Exception e) {
+				//회원 가입 실패시 경고창 띄우고 이전페이지로 이동
+				response.getWriter().println("<script>"
+						+ "alert('회원 가입에 실패하였습니다.\\n데이터를 확인하세요.');"
+						+ "history.back();"
+						+ "</script>");
+			}
+		}
+		return null;
 	}
 }
 

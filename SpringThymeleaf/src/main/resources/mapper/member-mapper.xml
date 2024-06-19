@@ -44,6 +44,11 @@
 	<delete id="deleteMember" parameterType="string">
 		delete from board_member where board_member_id like #{id}
 	</delete>
+	
+	<insert id="insertMember" parameterType="member">
+		insert into board_member
+		values(#{boardMemberId},#{boardMemberName},#{boardMemberPasswd},#{boardMemberNick},#{boardMemberGrade})
+	</insert>
 </mapper>
 
 

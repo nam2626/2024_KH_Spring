@@ -1,5 +1,6 @@
 package com.thym.service;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,10 @@ public class MemberService {
 
 	public int deleteMember(String id) {
 		return mapper.deleteMember(id);
+	}
+
+	public int insertMember(BoardMemberDTO dto) throws SQLException{
+		return mapper.insertMember(dto);
 	}
 	
 }
