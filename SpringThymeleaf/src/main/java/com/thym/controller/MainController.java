@@ -126,6 +126,12 @@ public class MainController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	@GetMapping("/grade")
+	public ModelAndView gradeMain(ModelAndView view) {
+		view.setViewName("grade_main");
+		return view;
+	}
 }
 
 
