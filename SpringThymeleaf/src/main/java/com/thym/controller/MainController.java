@@ -150,11 +150,15 @@ public class MainController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		System.out.println(dto);
-
 		//수정 작업
+		int result = service.updateGrade(dto);
 		
 		//수정 결과 메세지
- 		map.put("result", "호출완료");
+		if(result == 0)
+			map.put("result", "등급정보 수정 실패");
+		else
+			map.put("result", "등급정보 수정 성공");
+			
 		return new ResponseEntity(map, HttpStatus.OK);
 	}
 }

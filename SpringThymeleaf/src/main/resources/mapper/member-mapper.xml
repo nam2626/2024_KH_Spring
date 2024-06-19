@@ -59,6 +59,11 @@
 	<select id="selectAllGrade" resultMap="grade">
 		select * from board_member_grade
 	</select>	
+	
+	<update id="updateGrade" parameterType="grade">
+		update board_member_grade set grade_name = #{gradeName}
+		where grade_no = #{gradeNo}
+	</update>
 </mapper>
 
 

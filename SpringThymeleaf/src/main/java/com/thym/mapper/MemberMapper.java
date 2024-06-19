@@ -18,6 +18,7 @@ public interface MemberMapper {
 	int deleteMember(String id);
 	int insertMember(BoardMemberDTO dto);
 	List<GradeDTO> selectAllGrade();
+	int updateGrade(GradeDTO dto);
 
 }
 

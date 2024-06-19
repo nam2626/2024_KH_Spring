@@ -50,6 +50,10 @@ public class MemberService {
 	public List<GradeDTO> selectAllGrade() {
 		return mapper.selectAllGrade();
 	}
+
+	public int updateGrade(GradeDTO dto) {
+		return mapper.updateGrade(dto);
+	}
 	
 }
 
