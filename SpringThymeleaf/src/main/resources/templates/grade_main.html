@@ -30,7 +30,30 @@ h2 {
 </style>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
-	$(function(){
+	function deleteButton(){
+		//삭제 버튼 클릭 등급번호만 경고창으로 띄움
+		$('.btn_delete').click(function(){
+			//console.log($(this).prevAll().last().val());
+			//console.log($(this).prevAll('input[name=gradeNo]').val());
+			//console.log($(this).siblings('input[name=gradeNo]').val());
+			//console.log($(this).prev().prev().prev().val());
+			//console.log($(this).parent().children().first().val());
+			//console.log($(this).parent().children().eq(0).val());
+			//Ajax 호출 - /grade/delete/{등급번호}
+			let gradeNo = $(this).prevAll().last().val();
+			$.ajax({
+				url:`/grade/delete/${gradeNo}`,
+				type:'DELETE',
+				dataType:'json',
+				success:function(result){
+					alert(result.msg);	
+				}
+			});
+			
+		});
+		
+	}
+	function updateButton(){
 		//수정 버튼 클릭 등급번호, 등급명을 경고창으로 띄움
 		$(".btn_update").click((e) => {
 			console.log($(e.target).parent().children('input'));
@@ -51,9 +74,14 @@ h2 {
 				dataType : 'json',
 				success: function(result){
 					console.log(result);
+					alert(result.result);
 				}
 			});
 		});
+	}
+	$(function(){
+		updateButton();
+		deleteButton();
 		$('.btn_add').click(function(){
 			let param = '';
 			$(this).prevAll().each((idx, item) => {
@@ -88,12 +116,15 @@ h2 {
 						//document.querySelector("#grade_list").innerHTML = tag;
 						$("#grade_list").html(tag);
 						//수정, 삭제 버튼에 대한 이벤트 처리
-						
+						updateButton();
+						deleteButton();
 						//입력 폼에 있는 내용을 초기화
+						$('.btn_add').prevAll().val("");
 					}
 				}				
 			});
-		})
+		});
+		
 	});
 </script>
 </head>
