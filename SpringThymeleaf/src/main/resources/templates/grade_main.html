@@ -73,7 +73,16 @@ h2 {
 						//list에 있는 내용을 grade_list에 출력
 						let tag = '';
 						result.list.forEach((grade) => {
-							tag += `<li><form><input type="number" name="gradeNo" class="grade_no" value="${grade.gradeNo}" readonly><input type="text" name="gradeName" class="grade_name" value="${grade.gradeName}"><button type="button" class="btn_update">수정</button><button type="button" class="btn_delete">삭제</button></form></li>`
+//							tag += `<li><form><input type="number" name="gradeNo" class="grade_no" value="${grade.gradeNo}" readonly><input type="text" name="gradeName" class="grade_name" value="${grade.gradeName}"><button type="button" class="btn_update">수정</button><button type="button" class="btn_delete">삭제</button></form></li>`
+							tag +=`<li>`;
+							tag +=`<form>`;
+							tag +=`<input type="number" name="gradeNo" class="grade_no" value="${grade.gradeNo}" readonly>` ;
+							tag +=`<input type="text" name="gradeName" class="grade_name" value="${grade.gradeName}">`;
+							tag +=`<button type="button" class="btn_update">수정</button>`;
+							tag +=`<button type="button" class="btn_delete">삭제</button>`;
+							tag +=`</form>`;
+							tag +=`</li>`;
+							
 						});
 						console.log(tag);
 						//document.querySelector("#grade_list").innerHTML = tag;
