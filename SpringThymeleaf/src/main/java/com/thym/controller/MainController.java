@@ -169,12 +169,17 @@ public class MainController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			service.insertGrade(dto);
+			map.put("resultCode", 1);
 			map.put("msg", "회원등급 등록 성공");
+			//전체 등급 정보를 읽어와서 map에 등록
+			List<GradeDTO> list = service.selectAllGrade();
+			map.put("list", list);
 		}catch(Exception e) {
+			map.put("resultCode", 0);
 			map.put("msg", "회원등급 등록 실패");
 		}
 		
-		return new ResponseEntity(null,HttpStatus.OK);
+		return new ResponseEntity(map,HttpStatus.OK);
 	}
 	
 }

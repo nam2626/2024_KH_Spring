@@ -68,6 +68,14 @@ h2 {
 				dataType:'json',
 				success:function(result){
 					console.log(result);
+					alert(result.msg);
+					if(result.resultCode == 1){
+						//list에 있는 내용을 grade_list에 출력
+						
+						//수정, 삭제 버튼에 대한 이벤트 처리
+						
+						//입력 폼에 있는 내용을 초기화
+					}
 				}				
 			});
 		})
@@ -95,7 +103,7 @@ h2 {
 			<button class="btn_add">등급 추가</button>
 		</div>
 		<hr>
-		<ul>
+		<ul id="grade_list">
 			<!-- 회원 등급 출력  -->
 			<li th:each="grade : ${list}">
 				<form>
