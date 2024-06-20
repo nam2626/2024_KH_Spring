@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -180,6 +181,20 @@ public class MainController {
 		}
 		
 		return new ResponseEntity(map,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/grade/delete/{gradeNo}")
+	public ResponseEntity<String> deleteGrade(@PathVariable int gradeNo){
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(gradeNo);
+		int result = service.deleteGrade(gradeNo);
+		
+		if(result == 1)
+			map.put("msg", "해당 등급 삭제 완료");
+		else
+			map.put("msg", "해당 등급 삭제 실패");
+		
+		return new ResponseEntity(map, HttpStatus.OK);
 	}
 	
 }

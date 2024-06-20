@@ -69,6 +69,11 @@
 		insert into board_member_grade
 		values(#{gradeNo}, #{gradeName})
 	</insert>
+	
+	<delete id="deleteGrade" parameterType="int">
+		delete from board_member_grade
+		where grade_no = #{gradeNo}
+	</delete>
 </mapper>
 
 

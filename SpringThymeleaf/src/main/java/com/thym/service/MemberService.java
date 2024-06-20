@@ -58,6 +58,10 @@ public class MemberService {
 	public int insertGrade(GradeDTO dto) {
 		return mapper.insertGrade(dto);		
 	}
+
+	public int deleteGrade(int gradeNo) {
+		return mapper.deleteGrade(gradeNo);
+	}
 	
 }
 
