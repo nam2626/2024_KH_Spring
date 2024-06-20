@@ -21,6 +21,15 @@
 		$(function(){
 			$('.btn_search').click(function(){
 				alert($(this).parent().serialize());
+				$.ajax({
+					url:'/member/grade/list',
+					data : $(this).parent().serialize(),
+					dataType:'json',
+					type:'get',
+					success: function(result){
+						console.log(result);						
+					}
+				})
 			})
 		});
 	</script>
