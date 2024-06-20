@@ -71,7 +71,13 @@ h2 {
 					alert(result.msg);
 					if(result.resultCode == 1){
 						//list에 있는 내용을 grade_list에 출력
-						
+						let tag = '';
+						result.list.forEach((grade) => {
+							tag += `<li><form><input type="number" name="gradeNo" class="grade_no" value="${grade.gradeNo}" readonly><input type="text" name="gradeName" class="grade_name" value="${grade.gradeName}"><button type="button" class="btn_update">수정</button><button type="button" class="btn_delete">삭제</button></form></li>`
+						});
+						console.log(tag);
+						//document.querySelector("#grade_list").innerHTML = tag;
+						$("#grade_list").html(tag);
 						//수정, 삭제 버튼에 대한 이벤트 처리
 						
 						//입력 폼에 있는 내용을 초기화
