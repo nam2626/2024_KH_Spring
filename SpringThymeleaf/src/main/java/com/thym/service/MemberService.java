@@ -62,6 +62,10 @@ public class MemberService {
 	public int deleteGrade(int gradeNo) {
 		return mapper.deleteGrade(gradeNo);
 	}
+
+	public List<BoardMemberDTO> selectGradeMember(int[] gradeNo) {
+		return mapper.selectGradeMember(gradeNo);
+	}
 	
 }
 

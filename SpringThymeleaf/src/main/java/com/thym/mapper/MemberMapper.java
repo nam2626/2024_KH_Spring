@@ -21,6 +21,7 @@ public interface MemberMapper {
 	int updateGrade(GradeDTO dto);
 	int insertGrade(GradeDTO dto);
 	int deleteGrade(int gradeNo);
+	List<BoardMemberDTO> selectGradeMember(int[] gradeNo);
 
 }
 

@@ -70,11 +70,24 @@
 		values(#{gradeNo}, #{gradeName})
 	</insert>
 	
-	<delete id="deleteGrade" parameterType="int">
+	<delete id="deleteGrade">
 		delete from board_member_grade
 		where grade_no = #{gradeNo}
 	</delete>
+	
+	<select id="selectGradeMember" resultMap="member">
+		select * from board_member
+		where 
+		board_member_grade in
+		<foreach collection="array" open="(" item="i" separator="," close=")">
+		#{i}
+		</foreach>		
+		
+	</select>
 </mapper>
+
+
+
 
 
 

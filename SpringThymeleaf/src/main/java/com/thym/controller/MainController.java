@@ -1,6 +1,7 @@
 package com.thym.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -197,6 +198,16 @@ public class MainController {
 		return new ResponseEntity(map, HttpStatus.OK);
 	}
 	
+	@GetMapping("/member/grade/list")
+	public ResponseEntity<String> selectMemberGradeList(int[] gradeNo){
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(Arrays.toString(gradeNo));
+		
+		List<BoardMemberDTO> list = service.selectGradeMember(gradeNo);
+		map.put("list", list);
+		
+		return new ResponseEntity(map, HttpStatus.OK);
+	}
 }
 
 
