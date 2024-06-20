@@ -72,6 +72,12 @@ h2 {
 	</th:block>
 	<h2>회원 등급 관리 페이지</h2>
 	<div class="container">
+		<div>
+			<input type="number" class="grade_no" name="gradeNo" placeholder="등록할 회원 등급 번호 입력하세요">
+			<input type="text" class="grade_name" name="gradeName" placeholder="등록할 회원 등급명 입력하세요">
+			<button class="btn_add">등급 추가</button>
+		</div>
+		<hr>
 		<ul>
 			<!-- 회원 등급 출력  -->
 			<li th:each="grade : ${list}">
