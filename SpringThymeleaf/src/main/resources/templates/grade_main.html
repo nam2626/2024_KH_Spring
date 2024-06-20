@@ -54,6 +54,15 @@ h2 {
 				}
 			});
 		});
+		$('.btn_add').click(function(){
+			let param = '';
+			$(this).prevAll().each((idx, item) => {
+				param += `${$(item).attr("name")}=${$(item).val()}&`;
+			});
+			console.log(param);
+			//ajax 요청
+			
+		})
 	});
 </script>
 </head>
