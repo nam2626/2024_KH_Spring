@@ -27,7 +27,17 @@
 					dataType:'json',
 					type:'get',
 					success: function(result){
-						console.log(result);						
+						console.log(result);	
+						let tag = '';
+						result.list.forEach(item => {
+							tag += `<tr>`;
+							tag += `<td><a href='/member/${item.boardMemberId}'>${item.boardMemberId}</a></td>`;
+							tag += `<td>${item.boardMemberName}</td>`;
+							tag += `<td>${item.boardMemberNick}</td>`;
+							tag += `<td>${item.boardMemberGrade}</td>`;
+							tag += `</tr>`;
+						});
+						$("#member_list").html(tag);
 					}
 				})
 			})
@@ -68,7 +78,7 @@
   			<th>회원 등급</th>
   		</tr>
   	</thead>
-  	<tbody>
+  	<tbody id="member_list">
   		<tr th:each="member : ${list}">
   			<!-- <td><a th:href="@{/member/{id}(id=${member.boardMemberId},passwd=${member.boardMemberPasswd})}">[[${member.boardMemberId}]]</a></td> -->
   			<td><a th:href="@{/member/{id}(id=${member.boardMemberId})}">[[${member.boardMemberId}]]</a></td>
