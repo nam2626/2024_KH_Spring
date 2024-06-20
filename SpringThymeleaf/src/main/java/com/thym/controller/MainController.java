@@ -188,7 +188,7 @@ public class MainController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println(gradeNo);
 		int result = service.deleteGrade(gradeNo);
-		
+		map.put("resultCode", result);
 		if(result == 1)
 			map.put("msg", "해당 등급 삭제 완료");
 		else

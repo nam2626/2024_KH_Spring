@@ -45,8 +45,12 @@ h2 {
 				url:`/grade/delete/${gradeNo}`,
 				type:'DELETE',
 				dataType:'json',
-				success:function(result){
+				success:(result) => {
 					alert(result.msg);	
+					if(result.resultCode == 1){
+						console.log($(this));
+						$(this).parent().parent().remove();
+					}
 				}
 			});
 			
