@@ -61,7 +61,15 @@ h2 {
 			});
 			console.log(param);
 			//ajax 요청
-			
+			$.ajax({
+				url:'/grade/add',
+				type:'POST',
+				data:param,
+				dataType:'json',
+				success:function(result){
+					console.log(result);
+				}				
+			});
 		})
 	});
 </script>

@@ -161,6 +161,22 @@ public class MainController {
 			
 		return new ResponseEntity(map, HttpStatus.OK);
 	}
+	
+	@PostMapping("/grade/add")
+	public ResponseEntity<String> insertGrade(GradeDTO dto) {
+		System.out.println(dto);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			service.insertGrade(dto);
+			map.put("msg", "회원등급 등록 성공");
+		}catch(Exception e) {
+			map.put("msg", "회원등급 등록 실패");
+		}
+		
+		return new ResponseEntity(null,HttpStatus.OK);
+	}
+	
 }
 
 

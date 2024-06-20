@@ -19,6 +19,7 @@ public interface MemberMapper {
 	int insertMember(BoardMemberDTO dto);
 	List<GradeDTO> selectAllGrade();
 	int updateGrade(GradeDTO dto);
+	int insertGrade(GradeDTO dto);
 
 }
 

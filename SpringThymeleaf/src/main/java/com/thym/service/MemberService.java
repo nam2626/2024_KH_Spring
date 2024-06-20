@@ -54,6 +54,10 @@ public class MemberService {
 	public int updateGrade(GradeDTO dto) {
 		return mapper.updateGrade(dto);
 	}
+
+	public int insertGrade(GradeDTO dto) {
+		return mapper.insertGrade(dto);		
+	}
 	
 }
 

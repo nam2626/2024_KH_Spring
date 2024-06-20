@@ -64,6 +64,11 @@
 		update board_member_grade set grade_name = #{gradeName}
 		where grade_no = #{gradeNo}
 	</update>
+	
+	<insert id="insertGrade" parameterType="grade">
+		insert into board_member_grade
+		values(#{gradeNo}, #{gradeName})
+	</insert>
 </mapper>
 
 
