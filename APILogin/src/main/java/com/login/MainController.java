@@ -94,6 +94,7 @@ public class MainController {
 		}else {
 			view.addObject("res", "로그인 실패");
 		}
+		view.setViewName("naver_login_result");
 		return view;
 	}
 	
