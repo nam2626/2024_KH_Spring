@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,9 +47,17 @@ public class MainController {
 		apiURL += "&redirect_uri=" + redirectURI;
 		apiURL += "&code=" + code;
 		apiURL += "&state=" + state;
-		String access_token = "";
-		String refresh_token = "";
-		System.out.println("apiURL=" + apiURL);
+		
+		String res = requestNaverServer(apiURL, null);
+		
+		if(res != null && !res.equals("")) {
+			JSONObject json = new JSONObject(res);
+			session.setAttribute("user", res);
+			session.setAttribute("accessToken", json.get("access_token"));
+			session.setAttribute("refreshToken", json.get("refresh_token"));
+		}else {
+			view.addObject("res", "로그인 실패");
+		}
 		
 		view.setViewName("naver_login_result");
 		return view;
