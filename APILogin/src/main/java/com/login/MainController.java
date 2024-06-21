@@ -36,7 +36,7 @@ public class MainController {
 	}
 	
 	@GetMapping("/naver/callback")
-	public ModelAndView naverCallBack(HttpSession session, ModelAndView view, String state, String code) {
+	public ModelAndView naverCallBack(HttpSession session, ModelAndView view, String state, String code) throws UnsupportedEncodingException {
 		String redirectURI = URLEncoder.encode("http://localhost:9999/naver/callback", "UTF-8");
 	    String apiURL;
 	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
@@ -67,12 +67,12 @@ public class MainController {
 	      }
 	      br.close();
 	      if(responseCode==200) {
-	        out.println(res.toString());
+	    	  session.setAttribute("user", res.toString());
 	      }
 	    } catch (Exception e) {
 	      System.out.println(e);
 	    }
-		
+		view.setViewName("naver_login_result");
 		return view;
 	}
 
