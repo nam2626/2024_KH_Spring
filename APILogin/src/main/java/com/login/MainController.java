@@ -63,6 +63,20 @@ public class MainController {
 		return view;
 	}
 
+	@GetMapping("/naver/profile")
+	public ModelAndView getProfile(ModelAndView view, HttpSession session) {
+		String token = (String) session.getAttribute("accessToken");
+		String header = "Bearer " + token; 
+        String apiURL = "https://openapi.naver.com/v1/nid/me";
+        
+        String result = requestNaverServer(apiURL, header);
+        
+        view.addObject("userInfo",result);
+        view.setViewName("naver_login_result");
+        
+		return view;
+	}
+	
 	public String requestNaverServer(String apiURL, String header) {
 		StringBuffer res = new StringBuffer();
 		try {
@@ -94,4 +108,14 @@ public class MainController {
 		}
 		return res.toString();
 	}
+	
+
+	
 }
+
+
+
+
+
+
+
