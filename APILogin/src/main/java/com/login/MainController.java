@@ -77,6 +77,27 @@ public class MainController {
 		return view;
 	}
 	
+	@GetMapping("/naver/refresh")
+	public ModelAndView refreshToken(ModelAndView view, HttpSession session) {
+		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=refresh_token"
+				+ "&client_id=" + CLIENT_ID
+				+ "&client_secret=" + CLIENT_SECRET_ID
+				+ "&refresh_token=" + session.getAttribute("refreshToken");
+
+		String res = requestNaverServer(apiURL, null);
+		
+		if(res != null && !res.equals("")) {
+			JSONObject json = new JSONObject(res);
+			session.setAttribute("user", res);
+			session.setAttribute("accessToken", json.get("access_token"));
+			session.setAttribute("refreshToken", json.get("refresh_token"));
+		}else {
+			view.addObject("res", "로그인 실패");
+		}
+		return view;
+	}
+	
+	
 	public String requestNaverServer(String apiURL, String header) {
 		StringBuffer res = new StringBuffer();
 		try {
