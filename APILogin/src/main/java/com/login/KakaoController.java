@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class KakaoController {
-	private final String REST_API_KEY = "";
+	private final String REST_API_KEY = "REST_API_KEY";
 	private final String REDIRECT_URI = "http://localhost:9999/kakao/callback";
 	//kakao_login.html
 	//kakao_login_result.html
