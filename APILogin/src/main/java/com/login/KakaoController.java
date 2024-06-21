@@ -33,6 +33,10 @@ public class KakaoController {
 	
 	@GetMapping("/kakao/callback")
 	public ModelAndView kakaoCallBack(ModelAndView view, HttpSession session, String code) {
+		String logoutURL = "https://kauth.kakao.com/oauth/logout?"
+				+ "&client_id="+REST_API_KEY
+				+ "&logout_redirect_uri=http://localhost:9999/kakao/logout";
+		
 		String apiURL = "https://kauth.kakao.com/oauth/token?";
 		apiURL += "grant_type=authorization_code"
 				+ "&client_id=" + REST_API_KEY
@@ -49,11 +53,45 @@ public class KakaoController {
 		}else {
 			view.addObject("res", "로그인 실패");
 		}
-		
+		view.addObject("logoutURL", logoutURL);
 		view.setViewName("kakao_login_result");
 		
 		return view;
 	}
+	
+	@GetMapping("/kakao/profile")
+	public ModelAndView getProfile(ModelAndView view, HttpSession session) {
+		String token = (String) session.getAttribute("accessToken");
+		String header = "Bearer " + token;
+		String apiURL = "https://kapi.kakao.com/v2/user/me";
+		
+		String res = requestKakaoServer(apiURL, header);
+		System.out.println(res);
+		view.addObject("userInfo", res);
+		view.setViewName("kakao_login_result");
+		return view;
+	}
+	
+	@GetMapping("/kakao/delete")
+	public ModelAndView deleteToken(ModelAndView view, HttpSession session) {
+		String token = (String) session.getAttribute("accessToken");
+		String header = "Bearer " + token;
+		String apiURL = "https://kapi.kakao.com/v1/user/unlink";
+		
+		String res = requestKakaoServer(apiURL, header);
+		System.out.println(res);
+		session.invalidate();
+		view.setViewName("redirect:/kakao");
+		return view;
+	}
+	
+	@GetMapping("/kakao/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		System.out.println("logout");
+		return "redirect:/kakao";
+	}
+	
 	
 	public String requestKakaoServer(String apiURL, String header) {
 		StringBuffer res = new StringBuffer();
