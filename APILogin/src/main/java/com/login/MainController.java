@@ -18,8 +18,8 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
-	private final String CLIENT_ID = "";
-	private final String CLIENT_SECRET_ID = "";
+	private final String CLIENT_ID = "클라이언트 아이디";
+	private final String CLIENT_SECRET_ID = "클라이언트 시크릿";
 	
 	@GetMapping("/naver")
 	public ModelAndView naverLoginView(ModelAndView view, HttpSession session) throws UnsupportedEncodingException {
