@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
 public class MainController {
 	private final String CLIENT_ID = "";
 	private final String CLIENT_SECRET_ID = "";
-
+	
 	@GetMapping("/naver")
 	public ModelAndView naverLoginView(ModelAndView view, HttpSession session) throws UnsupportedEncodingException {
 		String redirectURI = URLEncoder.encode("http://localhost:9999/naver/callback", "UTF-8");
@@ -98,6 +98,26 @@ public class MainController {
 		return view;
 	}
 	
+	@GetMapping("/naver/delete")
+	public ModelAndView deleteToken(ModelAndView view, HttpSession session) {
+		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete"
+				+ "&client_id=" + CLIENT_ID
+				+ "&client_secret=" + CLIENT_SECRET_ID
+				+ "&access_token=" + session.getAttribute("accessToken");
+
+		String res = requestNaverServer(apiURL, null);
+		System.out.println("delete : " + res);
+		session.invalidate();
+		view.setViewName("redirect:/naver");
+		return view;
+	}
+	
+	@GetMapping("/naver/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/naver";
+	}
+ 
 	
 	public String requestNaverServer(String apiURL, String header) {
 		StringBuffer res = new StringBuffer();
