@@ -1,12 +1,15 @@
 <nav>
 	<ul>
 		<!-- 홈, 회원관리, 회원가입, 로그인, 로그아웃 -->
+		<li><a href="/main">홈</a></li>
 		<!-- 
 			로그인 안한 상태
 				홈, 로그인, 회원가입
 		-->
-			
-		
+		<th:block th:if="${session.user == null}">
+			<li><a href="">회원가입</a></li>	
+			<li><a href="">로그인</a></li>	
+		</th:block>
 		<!-- 로그인 한 상태 
 			홈
 			로그아웃
@@ -14,7 +17,12 @@
 			관리자
 				회원관리
 		-->
-
+		<th:block th:if="${session.user != null}">
+			<li><a href="/" th:if="${session.user.boardMemberGrade == 0}">회원관리</a></li>
+			<li><a href="/logout">로그아웃</a></li>
+		</th:block>
 	</ul>
 
 </nav>
+
+
