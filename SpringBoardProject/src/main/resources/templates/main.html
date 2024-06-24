@@ -3,9 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	body{
+		height:3000px;
+	}
+	table{
+		border-collapse: collapse;
+		margin: 20px auto;
+		width: 1200px;
+	}
+	td, th{
+		padding:10px;
+		border: 1px solid black;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
-  <p>[[${list}]]</p>
-  <p>[[${pagging}]]</p>
+  
+	<table>
+		<thead>
+			<tr>
+				<th>글번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>조회수</th>
+				<th>작성일</th>
+				<th>좋아요</th>
+				<th>싫어요</th>
+			</tr>	
+		</thead>
+		<tbody>
+			<tr th:each="board : ${list}">
+				<td>[[${board.boardNo}]]</td>
+				<td><a th:href="@{/board/{bno}(id=${board.boardNo})}">[[${board.boardTitle}]]</a></td>
+				<td>[[${board.boardMemberNick}]]</td>
+				<td>[[${board.boardCount}]]</td>
+				<td>[[${board.boardWriteDate}]]</td>
+				<td>[[${board.boardLike}]]</td>
+				<td>[[${board.boardHate}]]</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+			
+			</tr>
+		</tfoot>	
+	</table>  
+  
+  
 </body>
 </html>
+
+
+
+
+
