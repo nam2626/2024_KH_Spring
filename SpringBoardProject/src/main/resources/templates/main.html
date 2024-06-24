@@ -54,7 +54,7 @@
 					<!-- 페이지 번호, ◀  ▶  -->
 					<a th:href="@{/main(pageNo=${pagging.startPageOfPageGroup - 1},pageContentEa={pagging.pageOfContentCount})}" th:if="${pagging.priviousPageGroup}">◀</a>
 					
-					<!-- <a th:href="" th:each=""></a> -->
+					<a th:href="@{/main(pageNo=${i},pageContentEa=${pagging.pageOfContentCount})}" th:each="i : ${#numbers.sequence(pagging.startPageOfPageGroup,pagging.endPageOfPageGroup)}">[[${i}]]</a>
 					
 					<a th:href="@{/main(pageNo=${pagging.endPageOfPageGroup + 1},pageContentEa=${pagging.pageOfContentCount})}" th:if="${pagging.nextPageGroup}">▶</a>
 				</td>
