@@ -36,7 +36,7 @@ public class MainController {
 		
 		//request 영역에 저장
 		view.addObject("list", boardList);
-		view.addObject("pagging", vo)
+		view.addObject("pagging", vo);
 		
 		view.setViewName("main");
 		return view;
