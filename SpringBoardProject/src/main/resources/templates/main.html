@@ -40,7 +40,7 @@
 		<tbody>
 			<tr th:each="board : ${list}">
 				<td>[[${board.boardNo}]]</td>
-				<td><a th:href="@{/board/{bno}(id=${board.boardNo})}">[[${board.boardTitle}]]</a></td>
+				<td><a th:href="@{/board/{bno}(bno=${board.boardNo})}">[[${board.boardTitle}]]</a></td>
 				<td>[[${board.boardMemberNick}]]</td>
 				<td>[[${board.boardCount}]]</td>
 				<td>[[${board.boardWriteDate}]]</td>
@@ -50,7 +50,14 @@
 		</tbody>
 		<tfoot>
 			<tr>
-			
+				<td colspan="7">
+					<!-- 페이지 번호, ◀  ▶  -->
+					<a th:href="" th:if=""></a>
+					
+					<a th:href="" th:each=""></a>
+					
+					<a th:href="" th:if=""></a>
+				</td>
 			</tr>
 		</tfoot>	
 	</table>  
