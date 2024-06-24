@@ -22,7 +22,7 @@ public class MainController {
 		this.memberService = memberService;
 	}
 	
-	@GetMapping("/")
+	@GetMapping(value = {"/", "/main"})
 	public ModelAndView main(ModelAndView view,
 			@RequestParam(defaultValue = "1") int pageNo,
 			@RequestParam(defaultValue = "20") int pageContentEa) {
