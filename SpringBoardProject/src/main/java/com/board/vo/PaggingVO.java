@@ -19,6 +19,10 @@ public class PaggingVO {
 	public int getCurrentPage() {
 		return currentPage;
 	}
+	
+	public int getPageOfContentCount() {
+		return pageOfContentCount;
+	}
 
 	//전체 페이지 개수 : 전체 게시글 개수 / 한페이지당 출력할 게시글 개수 + (나머지가 0 아니면 1)
 	public int getTotalPage() {

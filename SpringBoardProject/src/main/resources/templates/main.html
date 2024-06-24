@@ -52,11 +52,11 @@
 			<tr>
 				<td colspan="7">
 					<!-- 페이지 번호, ◀  ▶  -->
-					<a th:href="" th:if=""></a>
+					<a th:href="@{/main(pageNo=${pagging.startPageOfPageGroup - 1},pageContentEa={pagging.pageOfContentCount})}" th:if="${pagging.priviousPageGroup}">◀</a>
 					
-					<a th:href="" th:each=""></a>
+					<!-- <a th:href="" th:each=""></a> -->
 					
-					<a th:href="" th:if=""></a>
+					<a th:href="@{/main(pageNo=${pagging.endPageOfPageGroup + 1},pageContentEa=${pagging.pageOfContentCount})}" th:if="${pagging.nextPageGroup}">▶</a>
 				</td>
 			</tr>
 		</tfoot>	
