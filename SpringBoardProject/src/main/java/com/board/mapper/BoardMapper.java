@@ -12,5 +12,6 @@ public interface BoardMapper {
 
 	List<BoardDTO> selectBoardNewList(Map<String, Object> map);
 	int selectBoardTotalCount();
+	BoardDTO selectBoard(int bno);
 
 }

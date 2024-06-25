@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,6 +76,18 @@ public class MainController {
 		return view;
 	}
 	
+	//게시글 한건 조회하는 메서드
+	@GetMapping("/board/{bno}")
+	public ModelAndView boardView(ModelAndView view,
+			@PathVariable int bno) {
+		//글번호에 해당하는 게시글 조회
+		BoardDTO dto = boardService.selectBoard(bno);
+		//request 영역에 저장
+		view.addObject("board", dto);
+		//board_view.html로 이동해서 게시글을 출력
+		view.setViewName("board_view");
+		return view;
+	}
 }
 
 
