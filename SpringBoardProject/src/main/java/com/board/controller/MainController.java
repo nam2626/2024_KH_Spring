@@ -1,13 +1,16 @@
 package com.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -95,6 +98,29 @@ public class MainController {
 		//board_view.html로 이동해서 게시글을 출력
 		view.setViewName("board_view");
 		return view;
+	}
+	
+	@GetMapping("/boardLike/{bno}")
+	public ResponseEntity<String> boardLike(@PathVariable int bno,
+			HttpSession session){
+		Map<String, Object> map = new HashMap<String,Object>();
+		if(session.getAttribute("user") == null) {
+			map.put("code", 2);
+			map.put("msg", "로그인 하셔야 이용하실수 있습니다.");
+		}else {
+			BoardMemberDTO dto = (BoardMemberDTO) session.getAttribute("user");
+			try {
+				boardService.insertBoardLike(bno,dto.getBoardMemberId());
+				map.put("msg","해당 게시글에 좋아요 하셨습니다.");
+			}catch (Exception e) {
+				boardService.deleteBoardLike(bno,dto.getBoardMemberId());
+				map.put("msg","해당 게시글에 좋아요를 취소하셨습니다.");
+			}
+			int count = boardService.selectBoardLikeCount(bno);
+			map.put("count", count);
+		}
+		
+		return new ResponseEntity(map,HttpStatus.OK);
 	}
 }
 
