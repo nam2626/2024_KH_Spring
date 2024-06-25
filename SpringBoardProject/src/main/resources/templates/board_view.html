@@ -108,17 +108,17 @@
 		margin:0;
 	}
 </style>
-<script>
+<script th:inline='javascript'>
 	window.onload = () => {
 		//좋아요 링크 클릭 -> 경고창 띄우기
 		document.querySelector('#btn_like').onclick = () => {
 			//alert('좋아요 클릭')
-			fetch('./boardLike.do?bno=${board.boardNo}')
+			fetch('/boardLike/[[${board.boardNo}]]')
 			.then(response => response.json())
 			.then((result) => {
 				console.log(result);
 				if(result.code == 2){
-					if(confirm(result.msg))	location.href='./index.jsp';
+					if(confirm(result.msg))	location.href='/login/view';
 				}
 				else alert(result.msg);
 				//좋아요 개수 갱신
@@ -129,12 +129,12 @@
 			})
 		}
 		document.querySelector('#btn_hate').onclick = () => {
-			fetch('./boardHate.do?bno=${board.boardNo}')
+			fetch('/boardHate/[[${board.boardNo}]]')
 			.then(response => response.json())
 			.then((result) => {
 				console.log(result);
 				if(result.code == 2){
-					if(confirm(result.msg))	location.href='./index.jsp';
+					if(confirm(result.msg))	location.href='/login/view';
 				}
 				else alert(result.msg);
 				document.querySelector("#hate_count").innerHTML = result.count;
@@ -159,12 +159,12 @@
 					//싫어요를 눌렀을 때
 					count = commentLikeHateAjax(false,cno);
 				//페이지 새로고침
-				location.reload();
+				//location.reload();
 			}
 		});
 	}
 	function commentLikeHateAjax(mode, cno){
-		let url = `./comment\${mode ? "Like" : "Hate"}.do?cno=\${cno}`;
+		let url = `/comment${mode ? "Like" : "Hate"}/${cno}`;
 		console.log(url);
 		//ajax 호출
 		fetch(url).then(response => response.json())
