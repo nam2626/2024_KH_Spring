@@ -227,24 +227,15 @@
 			 </td>
 	 	</tr>
 		 </th:block>
-		 <!-- 
-		 <c:if test="${!fileList.isEmpty() }">
-			 <tr>
+			 <tr th:if="${!fileList.isEmpty() }">
 			 	<td colspan="2">
-				 <c:forEach var="file" items="${fileList }">
-				 	<a href="./fileDown.do?bno=${file.bno }&fno=${file.fno}" download>${file.fileName}</a><br>
-				 	<c:if test="${file.type == 'image' }">
-				 		<img src="./fileDown.do?bno=${file.bno }&fno=${file.fno}">
-				 	</c:if>
-				 	<c:if test="${file.type == 'video' }">
-				 		<video src="./fileDown.do?bno=${file.bno }&fno=${file.fno}" controls></video>
-				 	</c:if>
-				 	
-				 </c:forEach>
+				 <th:block th:each="file : ${fileList }">
+				 	<a th:href="@{/file(bno=${file.bno },fno=${file.fno})}" download>[[${file.fileName}]]</a><br>
+			 		<img th:if="${file.type == 'image' }" src="@{/file(bno=${file.bno },fno=${file.fno})}">
+			 		<video th:if="${file.type == 'video' }" src="@{/file(bno=${file.bno },fno=${file.fno})}" controls></video>
+				 </th:block>
 			 	</td>
 			 </tr>	 
-		 </c:if>
-		  -->
 		 <tr>
 		 	
 		 </tr>
