@@ -101,6 +101,10 @@ public class BoardService {
 		map.put("cno", cno);
 		return mapper.deleteBoardCommentHate(map);
 	}
+
+	public int insertBoardComment(BoardCommentDTO dto) {
+		return mapper.insertBoardComment(dto);
+	}
 	
 	
 }

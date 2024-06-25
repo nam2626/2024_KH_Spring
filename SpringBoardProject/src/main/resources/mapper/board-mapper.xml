@@ -96,7 +96,7 @@
 		SELECT COUNT(*) FROM BOARD_VIEW
 	</select>
 	
-	<insert id="insertBoardComment" parameterType="com.board.dto.BoardCommentDTO">
+	<insert id="insertBoardComment" parameterType="comment">
 		INSERT INTO 
 		BOARD_COMMENT(BOARD_COMMENT_NO, BOARD_NO, BOARD_MEMBER_ID, BOARD_COMMENT_CONTENT)
 		VALUES(BOARD_COMMENT_SEQ.NEXTVAL,#{bno},#{writer},#{comment})

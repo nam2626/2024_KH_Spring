@@ -189,6 +189,18 @@ public class MainController {
 		
 		return new ResponseEntity(map,HttpStatus.OK);
 	}
+	
+	@PostMapping("/comment/add")
+	public String commentAdd(BoardCommentDTO dto,HttpSession session) {
+		System.out.println(dto);
+		BoardMemberDTO user = (BoardMemberDTO) session.getAttribute("user");
+		dto.setWriter(user.getBoardMemberId());
+		
+		boardService.insertBoardComment(dto);
+		
+		return "redirect:/board/"+dto.getBno();
+	}
+	
 }
 
 
