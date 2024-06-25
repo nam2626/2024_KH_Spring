@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.board.dto.BoardCommentDTO;
 import com.board.dto.BoardDTO;
 import com.board.dto.BoardMemberDTO;
+import com.board.dto.FileDTO;
 import com.board.service.BoardService;
 import com.board.service.MemberService;
 import com.board.vo.PaggingVO;
@@ -82,8 +84,14 @@ public class MainController {
 			@PathVariable int bno) {
 		//글번호에 해당하는 게시글 조회
 		BoardDTO dto = boardService.selectBoard(bno);
+		//해당 게시글의 댓글 조회 
+		List<BoardCommentDTO> commentList = boardService.selectBoardCommentList(bno);
+		//해당 게시글의 첨부파일 목록을 조회
+		List<FileDTO> fileList = boardService.selectBoardFileList(bno);
 		//request 영역에 저장
 		view.addObject("board", dto);
+		view.addObject("commentList", commentList);
+		view.addObject("fileList", fileList );
 		//board_view.html로 이동해서 게시글을 출력
 		view.setViewName("board_view");
 		return view;
