@@ -116,9 +116,10 @@ public class MainController {
 				boardService.deleteBoardLike(bno,dto.getBoardMemberId());
 				map.put("msg","해당 게시글에 좋아요를 취소하셨습니다.");
 			}
-			int count = boardService.selectBoardLikeCount(bno);
-			map.put("count", count);
+			map.put("code", 1);
 		}
+		int count = boardService.selectBoardLikeCount(bno);
+		map.put("count", count);
 		
 		return new ResponseEntity(map,HttpStatus.OK);
 	}

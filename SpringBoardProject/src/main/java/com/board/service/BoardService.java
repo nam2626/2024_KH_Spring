@@ -41,6 +41,23 @@ public class BoardService {
 	public List<FileDTO> selectBoardFileList(int bno) {
 		return mapper.selectBoardFileList(bno);
 	}
+
+	public int insertBoardLike(int bno, String boardMemberId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", boardMemberId);
+		map.put("bno", bno);
+		return mapper.insertBoardLike(map);
+	}
+	public int deleteBoardLike(int bno, String boardMemberId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", boardMemberId);
+		map.put("bno", bno);
+		return mapper.deleteBoardLike(map);
+	}
+
+	public int selectBoardLikeCount(int bno) {
+		return mapper.selectBoardLikeCount(bno);
+	}
 	
 	
 }
