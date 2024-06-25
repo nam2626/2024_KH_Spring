@@ -28,6 +28,7 @@ public interface BoardMapper {
 	int insertBoardCommentHate(Map<String, Object> map);
 	int deleteBoardCommentHate(Map<String, Object> map);
 	int insertBoardComment(BoardCommentDTO dto);
+	int deleteBoardComment(int cno);
 
 }
 

@@ -201,6 +201,14 @@ public class MainController {
 		return "redirect:/board/"+dto.getBno();
 	}
 	
+	@GetMapping("/boardComment/delete")
+	public String deleteBoardComment(int cno, int bno) {
+		int result = boardService.deleteBoardComment(cno);
+		System.out.println(result);
+		
+		return "redirect:/board/"+bno;
+	}
+	
 }
 
 

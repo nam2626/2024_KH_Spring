@@ -105,6 +105,10 @@ public class BoardService {
 	public int insertBoardComment(BoardCommentDTO dto) {
 		return mapper.insertBoardComment(dto);
 	}
+
+	public int deleteBoardComment(int cno) {
+		return mapper.deleteBoardComment(cno);
+	}
 	
 	
 }
