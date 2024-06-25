@@ -20,6 +20,9 @@ public interface BoardMapper {
 	int insertBoardLike(Map<String, Object> map);
 	int deleteBoardLike(Map<String, Object> map);
 	int selectBoardLikeCount(int bno);
+	int insertBoardHate(Map<String, Object> map);
+	int deleteBoardHate(Map<String, Object> map);
+	int selectBoardHateCount(int bno);
 
 }
 
