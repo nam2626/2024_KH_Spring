@@ -146,6 +146,49 @@ public class MainController {
 		
 		return new ResponseEntity(map,HttpStatus.OK);
 	}
+	
+	@GetMapping("/commentLike/{cno}")
+	public ResponseEntity<String> commentLike(@PathVariable int cno,
+			HttpSession session){
+		Map<String, Object> map = new HashMap<String,Object>();
+		if(session.getAttribute("user") == null) {
+			map.put("code", 2);
+			map.put("msg", "로그인 하셔야 이용하실수 있습니다.");
+		}else {
+			BoardMemberDTO dto = (BoardMemberDTO) session.getAttribute("user");
+			try {
+				boardService.insertBoardCommentLike(cno,dto.getBoardMemberId());
+				map.put("msg","해당 댓글에 좋아요 하셨습니다.");
+			}catch (Exception e) {
+				boardService.deleteBoardCommentLike(cno,dto.getBoardMemberId());
+				map.put("msg","해당 댓글에 좋아요를 취소하셨습니다.");
+			}
+			map.put("code", 1);
+		}
+			
+		return new ResponseEntity(map,HttpStatus.OK);
+	}
+	@GetMapping("/commentHate/{cno}")
+	public ResponseEntity<String> commentHate(@PathVariable int cno,
+			HttpSession session){
+		Map<String, Object> map = new HashMap<String,Object>();
+		if(session.getAttribute("user") == null) {
+			map.put("code", 2);
+			map.put("msg", "로그인 하셔야 이용하실수 있습니다.");
+		}else {
+			BoardMemberDTO dto = (BoardMemberDTO) session.getAttribute("user");
+			try {
+				boardService.insertBoardCommentHate(cno,dto.getBoardMemberId());
+				map.put("msg","해당 댓글에 싫어요 하셨습니다.");
+			}catch (Exception e) {
+				boardService.deleteBoardCommentHate(cno,dto.getBoardMemberId());
+				map.put("msg","해당 댓글에 싫어요를 취소하셨습니다.");
+			}
+			map.put("code", 1);
+		}
+		
+		return new ResponseEntity(map,HttpStatus.OK);
+	}
 }
 
 
