@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="/ckeditor.js"></script>
+<script src="/UploadAdapter.js"></script>
+<script>
+
+window.onload = () => {
+	let myEditor = null;
+    ClassicEditor
+        .create( document.querySelector( '#editor' ))
+        .then(editor => {
+        	myEditor = editor;
+        })
+        .catch( error => {
+            console.error( error );
+        } );
+    
+    	document.querySelector("#btn_submit").onclick = () => {
+			console.log(myEditor.getData());
+    	}
+}
+</script>
+<style type="text/css">
+	.ck-editor__editable_inline {
+	    min-height: 500px;
+	}
+</style>
+</head>
+<body>
+	<div id="editor"></div>
+	<button id="btn_submit">전송</button>
+</body>
+</html>
