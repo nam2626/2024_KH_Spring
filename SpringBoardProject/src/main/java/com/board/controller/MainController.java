@@ -290,7 +290,7 @@ public class MainController {
 		
 		
 		
-		return "redirect:/board/";
+		return "redirect:/board/"+bno;
 	}
 }
 
