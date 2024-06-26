@@ -211,7 +211,7 @@ public class MainController {
 	
 	@GetMapping("/board/delete/{bno}")
 	public String deleteBoard(@PathVariable int bno,
-			HttpSession session,HttpServletResponse response) {
+			HttpSession session,HttpServletResponse response) throws IOException {
 		//세션 및 작성자 체크
 		BoardMemberDTO member = (BoardMemberDTO) session.getAttribute("user");
 		BoardDTO board = boardService.selectBoard(bno);
@@ -219,11 +219,16 @@ public class MainController {
 		if(member != null && 
 				member.getBoardMemberId().equals(board.getBoardMemberId())) {
 			//삭제 처리
-			
+			boardService.deleteBoard(bno);
 		}else {
 			//권한이 없는 사용자가 삭제를 수행
 			//경고창 출력 이전 페이지로 이동
-			
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().println("<script>"
+					+ "alert('삭제할 권한이 없습니다.');"
+					+ "history.back();"
+					+ "</script>");
+			return null;
 		}
 		
 		

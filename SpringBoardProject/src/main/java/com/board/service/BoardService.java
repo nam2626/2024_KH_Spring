@@ -109,6 +109,10 @@ public class BoardService {
 	public int deleteBoardComment(int cno) {
 		return mapper.deleteBoardComment(cno);
 	}
+
+	public int deleteBoard(int bno) {
+		return mapper.deleteBoard(bno);
+	}
 	
 	
 }
