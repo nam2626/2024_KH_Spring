@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.board.dto.BoardCommentDTO;
@@ -253,6 +254,26 @@ public class MainController {
 		return "board_write";
 	}
 	
+	@PostMapping("/board/write")
+	public String boardWrite(BoardDTO dto, HttpSession session,
+			@RequestParam(value = "file") MultipartFile[] file) {
+		//1. 사용자가 작성한 게시글 제목, 내용, 파일 받아옴
+		//2. 작성자는 세션에서 아이디만 빌려옴
+		BoardMemberDTO memberDTO = (BoardMemberDTO) session.getAttribute("user");
+		dto.setBoardMemberId(memberDTO.getBoardMemberId());
+		//3. 게시글 새번호 받아옴
+		
+		//4. 해당 게시글 DB에 등록
+		
+		//5. 파일 업로드
+		
+		//6. 해당 파일 경로를 DB에 등록
+		
+		
+		
+		
+		return "redirect:/board/";
+	}
 }
 
 
