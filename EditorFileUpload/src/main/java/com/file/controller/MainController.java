@@ -10,5 +10,9 @@ public class MainController {
 		return "editor";
 	}
 	
+	@GetMapping("/board/write/view")
+	public String boardWriteView() {
+		return "board_write";
+	}
 	
 }

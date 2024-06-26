@@ -42,7 +42,7 @@
 window.onload = () => {
 	let myEditor = null;
     ClassicEditor
-        .create( document.querySelector( '#editor' ))
+        .create( document.querySelector( 'textarea' ))
         .then(editor => {
         	myEditor = editor;
         })
@@ -50,10 +50,7 @@ window.onload = () => {
             console.error( error );
         } );
     
-    	document.querySelector("#btn_submit").onclick = () => {
-			console.log(myEditor.getData());
-    	}
-}
+ }
 	
 </script>
 </head>
