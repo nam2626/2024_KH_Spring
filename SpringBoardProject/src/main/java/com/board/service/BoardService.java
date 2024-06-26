@@ -113,6 +113,10 @@ public class BoardService {
 	public int deleteBoard(int bno) {
 		return mapper.deleteBoard(bno);
 	}
+
+	public int updateBoardCount(int bno) {
+		return mapper.updateBoardCount(bno);
+	}
 	
 	
 }

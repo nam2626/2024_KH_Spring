@@ -2,6 +2,7 @@ package com.board.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -84,13 +85,25 @@ public class MainController {
 	//게시글 한건 조회하는 메서드
 	@GetMapping("/board/{bno}")
 	public ModelAndView boardView(ModelAndView view,
-			@PathVariable int bno) {
+			@PathVariable int bno, HttpSession session) {
 		//글번호에 해당하는 게시글 조회
 		BoardDTO dto = boardService.selectBoard(bno);
 		//해당 게시글의 댓글 조회 
 		List<BoardCommentDTO> commentList = boardService.selectBoardCommentList(bno);
 		//해당 게시글의 첨부파일 목록을 조회
 		List<FileDTO> fileList = boardService.selectBoardFileList(bno);
+		//게시글 조회수 업데이트
+		HashSet<Integer> set = (HashSet<Integer>) session.getAttribute("history");
+		//세션에 방문한 게시글 목록이 없을때
+		if(set == null) {
+			set = new HashSet<Integer>();
+			session.setAttribute("history", set);
+		}
+		if(set.add(bno)) {
+			boardService.updateBoardCount(bno);
+		}
+		
+		
 		//request 영역에 저장
 		view.addObject("board", dto);
 		view.addObject("commentList", commentList);
