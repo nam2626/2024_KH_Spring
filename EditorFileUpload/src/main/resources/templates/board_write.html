@@ -59,7 +59,7 @@ window.onload = () => {
 <body>
 	<section>
 		<h2>글쓰기</h2>
-		<form action="./boardWrite.do" method="post" enctype="multipart/form-data">
+		<form action="/board/write" method="post" enctype="multipart/form-data">
 			<input type="text" name="title" placeholder="제목을 입력하세요">
 			<textarea name="content" placeholder="내용을 입력하세요"></textarea><br>
 			<input type="hidden" name="writer"
