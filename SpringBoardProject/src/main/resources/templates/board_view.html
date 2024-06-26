@@ -216,12 +216,12 @@
 			 <td colspan="2">
 			 	<button id="btn_update">수정</button>
 			 	<button id="btn_delete">삭제</button>
-			 	<script>
+			 	<script th:inline="javascript">
 			 		document.querySelector("#btn_update").onclick = () =>{
 			 			location.href='./boardUpdateView.do?bno=${board.boardNo}';
 			 		}
 			 		document.querySelector("#btn_delete").onclick = () =>{
-			 			location.href='./boardDelete.do?bno=${board.boardNo}';
+			 			location.href='/board/delete/[[${board.boardNo}]]';
 			 		}
 			 	</script>
 			 </td>

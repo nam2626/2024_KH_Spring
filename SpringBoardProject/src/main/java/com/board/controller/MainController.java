@@ -209,6 +209,27 @@ public class MainController {
 		return "redirect:/board/"+bno;
 	}
 	
+	@GetMapping("/board/delete/{bno}")
+	public String deleteBoard(@PathVariable int bno,
+			HttpSession session,HttpServletResponse response) {
+		//세션 및 작성자 체크
+		BoardMemberDTO member = (BoardMemberDTO) session.getAttribute("user");
+		BoardDTO board = boardService.selectBoard(bno);
+		
+		if(member != null && 
+				member.getBoardMemberId().equals(board.getBoardMemberId())) {
+			//삭제 처리
+			
+		}else {
+			//권한이 없는 사용자가 삭제를 수행
+			//경고창 출력 이전 페이지로 이동
+			
+		}
+		
+		
+		return "redirect:/";
+	}
+	
 }
 
 
