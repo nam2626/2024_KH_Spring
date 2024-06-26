@@ -1,5 +1,6 @@
 package com.board.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -256,7 +257,7 @@ public class MainController {
 	
 	@PostMapping("/board/write")
 	public String boardWrite(BoardDTO dto, HttpSession session,
-			@RequestParam(value = "file") MultipartFile[] file) {
+			@RequestParam(value = "file") MultipartFile[] file) throws IllegalStateException, IOException {
 		//1. 사용자가 작성한 게시글 제목, 내용, 파일 받아옴
 		//2. 작성자는 세션에서 아이디만 빌려옴
 		BoardMemberDTO memberDTO = (BoardMemberDTO) session.getAttribute("user");
@@ -267,8 +268,24 @@ public class MainController {
 		//4. 해당 게시글 DB에 등록
 		boardService.insertBoard(dto);
 		//5. 파일 업로드
+		//업로드할 기본 경로 지정 및 없으면 생성
+		File root = new File("c:\\fileupload");
+		if(!root.exists())
+			root.mkdirs();
 		
-		//6. 해당 파일 경로를 DB에 등록
+		for(int i=0;i<file.length;i++) {
+			System.out.println(file[i].getSize() + " " + file[i].getOriginalFilename());
+			//파일 사이즈 체크 해서 0이면 업로드가 안된 항목
+			if(file[i].getSize() == 0)
+				continue;
+			//파일 쓰기
+			//업로드할 경로 설정
+			File f = new File(root, file[i].getOriginalFilename());
+			file[i].transferTo(f);//실제 파일 쓰기를 수행
+			//6. 해당 파일 경로를 DB에 등록
+			FileDTO fileDTO = new FileDTO(f, bno, i+1);
+			boardService.insertBoardFile(fileDTO);
+		}
 		
 		
 		

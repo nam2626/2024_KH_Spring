@@ -125,6 +125,10 @@ public class BoardService {
 	public int insertBoard(BoardDTO dto) {
 		return mapper.insertBoard(dto);
 	}
+
+	public int insertBoardFile(FileDTO fileDTO) {
+		return mapper.insertBoardFile(fileDTO);
+	}
 	
 	
 }

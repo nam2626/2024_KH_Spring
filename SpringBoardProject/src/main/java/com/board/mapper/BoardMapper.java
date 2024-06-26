@@ -33,6 +33,7 @@ public interface BoardMapper {
 	int updateBoardCount(int bno);
 	int getBoardNo();
 	int insertBoard(BoardDTO dto);
+	int insertBoardFile(FileDTO fileDTO);
 
 }
 
