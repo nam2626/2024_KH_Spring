@@ -19,6 +19,7 @@
 		-->
 		<th:block th:if="${session.user != null}">
 			<li><a href="/" th:if="${session.user.boardMemberGrade == 0}">회원관리</a></li>
+			<li><a href="/board/write/view">글쓰기</a></li>
 			<li><a href="/logout">로그아웃</a></li>
 		</th:block>
 	</ul>

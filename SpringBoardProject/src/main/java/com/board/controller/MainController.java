@@ -248,6 +248,11 @@ public class MainController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/board/write/view")
+	public String boardWriteView() {
+		return "board_write";
+	}
+	
 }
 
 

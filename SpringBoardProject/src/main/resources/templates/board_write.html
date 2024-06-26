@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	section{
+		width: 1200px;
+		margin:0 auto;
+	}
+	
+	section form {
+		display: flex;
+		flex-direction: column;  
+	}
+	form > * {
+		margin-top :10px;
+	}
+	.form_bar > button{
+		width: 49%;
+		box-sizing: border-box;
+		font-size: 20px;
+		height: 50px;
+		
+	}
+	section h2{
+		text-align: center;
+	}
+	section form > input{
+		height: 30px;
+		font-size: 20px;
+	}
+	section form > textarea{
+		height: 300px;
+		font-size: 20px;
+		resize: none;
+	}
+	.ck-editor__editable_inline {
+	    min-height: 500px;
+	}
+</style>
+<script src="/js/ckeditor.js"></script>
+<script>
+window.onload = () => {
+	let myEditor = null;
+    ClassicEditor
+        .create( document.querySelector( 'textarea' ))
+        .then(editor => {
+        	myEditor = editor;
+        })
+        .catch( error => {
+            console.error( error );
+        } );
+    
+ }
+	
+</script>
+<link href="/css/menu.css" rel="stylesheet">
+
+</head>
+<body>
+<th:block th:if="${session.user == null}">
+	<script>
+		alert('로그인 하셔야 이용하실 수 있습니다.');
+		location.href = '/login/view';
+	</script>
+</th:block>
+	<th:block th:include="/fragments/header.html"></th:block>
+	<section>
+		<h2>글쓰기</h2>
+		<form action="/board/write" method="post" enctype="multipart/form-data">
+			<input type="text" name="boardTitle" placeholder="제목을 입력하세요">
+			<textarea name="boardContent" placeholder="내용을 입력하세요"></textarea><br>
+			파일 1:<input type="file" name="file"><br>
+			파일 2:<input type="file" name="file"><br>
+			파일 3:<input type="file" name="file"><br>
+			<div class="form_bar">
+				<button type="submit" class="btn_submit">글쓰기</button>
+				<button type="button" class="btn_back">뒤로가기</button>
+			</div>
+		</form>
+	</section>
+</body>
+</html>
+
+
+
+
