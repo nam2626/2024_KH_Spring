@@ -117,6 +117,14 @@ public class BoardService {
 	public int updateBoardCount(int bno) {
 		return mapper.updateBoardCount(bno);
 	}
+
+	public int getBoardNo() {
+		return mapper.getBoardNo();
+	}
+
+	public int insertBoard(BoardDTO dto) {
+		return mapper.insertBoard(dto);
+	}
 	
 	
 }

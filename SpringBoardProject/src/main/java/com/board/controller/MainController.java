@@ -262,9 +262,10 @@ public class MainController {
 		BoardMemberDTO memberDTO = (BoardMemberDTO) session.getAttribute("user");
 		dto.setBoardMemberId(memberDTO.getBoardMemberId());
 		//3. 게시글 새번호 받아옴
-		
+		int bno = boardService.getBoardNo();
+		dto.setBoardNo(bno);
 		//4. 해당 게시글 DB에 등록
-		
+		boardService.insertBoard(dto);
 		//5. 파일 업로드
 		
 		//6. 해당 파일 경로를 DB에 등록
