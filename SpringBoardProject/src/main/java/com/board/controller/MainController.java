@@ -297,8 +297,6 @@ public class MainController {
 		//파일 정보 읽어옴
 		FileDTO dto = boardService.selectFile(bno,fno);
 		
-		
-		
 		//출력 스트림 연결 데이터 전송
 		File file = new File(dto.getPath());
 		
@@ -347,6 +345,35 @@ public class MainController {
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("url", "/file/ajax/down/"+fno);
 		return new ResponseEntity(map,HttpStatus.OK);
+	}
+	
+	@GetMapping("/file/ajax/down/{fno}")
+	public void fileAjaxDownload(@PathVariable int fno, HttpServletResponse response) throws IOException {
+		//파일 정보 읽어옴
+		FileDTO dto = boardService.selectImageFile(fno);
+		
+		//출력 스트림 연결 데이터 전송
+		File file = new File(dto.getPath());
+		
+		response.setHeader("Content-Disposition", "attachement;fileName="+dto.getFileName());
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setContentLength((int)file.length());
+		
+		
+		FileInputStream fis = new FileInputStream(file);
+		BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+		
+		byte[] buffer = new byte[1024*1024];
+		
+		while(true) {
+			int size = fis.read(buffer);
+			if(size == -1) break;
+			bos.write(buffer, 0, size);
+			bos.flush();
+		}
+		
+		bos.close();
+		fis.close();
 	}
  }
 

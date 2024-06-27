@@ -145,7 +145,7 @@
 	</insert>
 	
 	<select id="selectImageFile" parameterType="int" resultMap="boardFile">
-		select fno, path as BOARD_FILE_URL from board_image_view where fno = #{fno}
+		select fno, path as BOARD_FILE_URL from board_view_image where fno = #{fno}
 	</select>
 </mapper>
 
