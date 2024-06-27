@@ -19,9 +19,6 @@
     <input type="password" name="boardMemberPasswd" placeholder="암호 입력"/><br>
     <input type="text" name="boardMemberName" placeholder="이름 입력"/><br>
     <input type="text"  name="boardMemberNick" placeholder="닉네임 입력"/><br>
-    <select name="boardMemberGrade">
-    	<option th:each="i : ${#numbers.sequence(0,5)}">[[${i}]]</option>
-    </select> 
     <br>
     <button>가입하기</button>
     <button type="button" id="btn_back">뒤로가기</button>

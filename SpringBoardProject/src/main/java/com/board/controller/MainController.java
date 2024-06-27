@@ -375,6 +375,17 @@ public class MainController {
 		bos.close();
 		fis.close();
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	@GetMapping("/member/register/view")
+	public String memberReigsterView() {
+		return "member_register";
+	}
  }
 
 
