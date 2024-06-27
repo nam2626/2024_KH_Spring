@@ -20,7 +20,23 @@
         }
     </style>
     <script>
-    
+    	window.onload = () => {
+    		let file_area = document.querySelector('.file_drop_area');
+    		let file_tag = document.querySelector('#file');
+
+    		
+    		file_area.ondrop = (e) => {
+    			e.preventDefault();
+    			//console.log(e);
+    			//드롭된 파일 리스트 가져오기
+    			const data = e.dataTransfer;
+    			console.log(data);
+    			console.log(data.files);
+    		}
+    		file_area.ondragover = (e) => e.preventDefault();
+    		file_area.ondragenter = (e) => e.preventDefault();
+    		file_area.ondragleave = (e) => e.preventDefault();
+    	}
     </script>
 </head>
 <body>
