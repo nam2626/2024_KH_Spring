@@ -297,8 +297,16 @@ public class MainController {
 		//파일 정보 읽어옴
 		FileDTO dto = boardService.selectFile(bno,fno);
 		
+		
+		
 		//출력 스트림 연결 데이터 전송
 		File file = new File(dto.getPath());
+		
+		response.setHeader("Content-Disposition", "attachement;fileName="+dto.getFileName());
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setContentLength((int)file.length());
+		
+		
 		FileInputStream fis = new FileInputStream(file);
 		BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
 		

@@ -134,7 +134,7 @@ public class BoardService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("bno", bno);
 		map.put("fno", fno);
-		return mapper.selectFile(map);
+		return mapper.selectBoardFile(map);
 	}
 	
 	
