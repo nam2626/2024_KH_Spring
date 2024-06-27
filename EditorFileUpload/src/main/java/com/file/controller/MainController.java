@@ -2,7 +2,10 @@ package com.file.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +18,28 @@ public class MainController {
 	public String ajaxView() {
 		return "ajax_upload";
 	}
+	
+	@PostMapping("/fileAjaxUpload.do")
+	public ResponseEntity<String> fileAjaxUpload(@RequestParam(value = "file") MultipartFile[] file) throws IllegalStateException, IOException{
+		//업로드할 기본 경로 지정 및 없으면 생성
+		File root = new File("c:\\fileupload");
+		if(!root.exists())
+			root.mkdirs();
+		ArrayList<String> list = new ArrayList<String>();
+		for(int i=0;i<file.length;i++) {
+			System.out.println(file[i].getSize() + " " + file[i].getOriginalFilename());
+			//파일 사이즈 체크 해서 0이면 업로드가 안된 항목
+			if(file[i].getSize() == 0)
+				continue;
+			//파일 쓰기
+			//업로드할 경로 설정
+			File f = new File(root, file[i].getOriginalFilename());
+			file[i].transferTo(f);//실제 파일 쓰기를 수행
+			list.add(file[i].getOriginalFilename());
+		}
+		return new ResponseEntity(list,HttpStatus.OK);
+	}
+	
 	
 	@GetMapping("/editor")
 	public String editor() {

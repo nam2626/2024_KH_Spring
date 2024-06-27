@@ -129,6 +129,13 @@ public class BoardService {
 	public int insertBoardFile(FileDTO fileDTO) {
 		return mapper.insertBoardFile(fileDTO);
 	}
+
+	public FileDTO selectFile(int bno, int fno) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("fno", fno);
+		return mapper.selectFile(map);
+	}
 	
 	
 }

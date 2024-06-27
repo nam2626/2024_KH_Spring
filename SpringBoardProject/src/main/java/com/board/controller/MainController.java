@@ -1,6 +1,9 @@
 package com.board.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -286,11 +289,30 @@ public class MainController {
 			FileDTO fileDTO = new FileDTO(f, bno, i+1);
 			boardService.insertBoardFile(fileDTO);
 		}
-		
-		
-		
-		
 		return "redirect:/board/"+bno;
+	}
+	
+	@GetMapping("/file")
+	public void fileDown(int bno, int fno, HttpServletResponse response) throws IOException {
+		//파일 정보 읽어옴
+		FileDTO dto = boardService.selectFile(bno,fno);
+		
+		//출력 스트림 연결 데이터 전송
+		File file = new File(dto.getPath());
+		FileInputStream fis = new FileInputStream(file);
+		BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+		
+		byte[] buffer = new byte[1024*1024];
+		
+		while(true) {
+			int size = fis.read(buffer);
+			if(size == -1) break;
+			bos.write(buffer, 0, size);
+			bos.flush();
+		}
+		
+		bos.close();
+		fis.close();
 	}
 }
 

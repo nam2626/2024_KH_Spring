@@ -36,10 +36,25 @@
     			file_tag.files = data.files;
     			
     			let file_list_view = document.querySelector(".file_list_view");
-    			
+    			let form_data = new FormData();
     			for(let i=0;i<data.files.length;i++){
+    				form_data.append('file',data.files[i]);
     				file_list_view.innerHTML += `${data.files[i].name}<br>`;
     			}
+    			
+    			fetch('/fileAjaxUpload.do',{
+    				method:'POST',
+    				body : form_data,
+    				processData:false,
+    				contentType:false
+    			})
+    			.then(response => response.json())
+    			.then(data => {
+    				console.log(data);
+    			})
+    			.catch(error => console.error('Error:',error));
+    			
+    			
     		}
     		file_area.ondragover = (e) => e.preventDefault();
     		file_area.ondragenter = (e) => e.preventDefault();
