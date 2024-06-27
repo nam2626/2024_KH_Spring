@@ -386,6 +386,33 @@ public class MainController {
 	public String memberReigsterView() {
 		return "member_register";
 	}
+	
+	@PostMapping("/ajax/profile/upload")
+	public ResponseEntity<String> fileAjaxProfileUpload(@RequestParam(value="upload") MultipartFile file) throws IllegalStateException, IOException{
+		File root = new File("c:\\fileupload\\profile");
+		if(!root.exists())
+			root.mkdirs();
+		
+		System.out.println(file.getSize() + " " + file.getOriginalFilename());
+		//파일 사이즈 체크 해서 0이면 업로드가 안된 항목
+
+		//파일 쓰기
+		//업로드할 경로 설정
+		File f = new File(root, file.getOriginalFilename());
+		file.transferTo(f);//실제 파일 쓰기를 수행
+		//6. 해당 파일 경로를 DB에 등록
+		//	6-1. 파일 번호 받아옴
+		int fno = boardService.selectFileNo();
+		//	6-2. fileDTO에 파일번호 등록
+		FileDTO fileDTO = new FileDTO(f, 0, fno);
+		//	6-3. DB에 데이터 추가
+		boardService.insertImageFile(fileDTO);
+		//	6-4. map에 url로 경로를 만들어서 리턴
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("url", "/file/ajax/down/"+fno);
+		map.put("fno",fno);
+		return new ResponseEntity(map,HttpStatus.OK);
+	}
  }
 
 

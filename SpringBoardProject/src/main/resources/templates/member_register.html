@@ -17,6 +17,7 @@
   	background-image: url('/img/file.png');
   	background-repeat: no-repeat;
   	background-position: center;
+  	background-size: contain;
   }
 </style>
 <script>
@@ -27,16 +28,18 @@
 			e.preventDefault();
 			const data = e.dataTransfer;
 			let form_data = new FormData();
-			form_data.append('file', data.files[0]);
+			form_data.append('upload', data.files[0]);
 			fetch('/ajax/profile/upload',{
 				method:"POST",
 				body:form_data,
 				processData : false,
 				contentType : false
-			}).then(reponse => response.json())
+			}).then(response => response.json())
 			.then(data => {
 				console.log(data);
 				//profile_img의 css를 변경
+				profile_img.style.backgroundImage=`url('${data.url}')`;
+				document.querySelector('input[name=boardMemberProfile]').value=data.fno;
 			}).catch(error => console.error(error));
 			
 		}
@@ -51,6 +54,7 @@
   <h2>회원가입 페이지</h2>
   <form action="/member/insert" method="post">
   	<div id="profile_img"></div>
+  	<input type="hidden" name="boardMemberProfile" value="0">
     <input type="text" name="boardMemberId" placeholder="아이디 입력"/><br>
     <input type="password" name="boardMemberPasswd" placeholder="암호 입력"/><br>
     <input type="text" name="boardMemberName" placeholder="이름 입력"/><br>
