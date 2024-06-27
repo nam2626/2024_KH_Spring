@@ -11,6 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class MainController {
+	@GetMapping("/ajax")
+	public String ajaxView() {
+		return "ajax_upload";
+	}
+	
 	@GetMapping("/editor")
 	public String editor() {
 		return "editor";
