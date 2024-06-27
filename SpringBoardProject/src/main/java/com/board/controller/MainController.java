@@ -322,7 +322,27 @@ public class MainController {
 		bos.close();
 		fis.close();
 	}
-}
+	
+	@PostMapping("/file/ajax")
+	public ResponseEntity<String> fileAjaxUpload(MultipartFile file) throws IllegalStateException, IOException{
+		File root = new File("c:\\fileupload");
+		if(!root.exists())
+			root.mkdirs();
+		
+		System.out.println(file.getSize() + " " + file.getOriginalFilename());
+		//파일 사이즈 체크 해서 0이면 업로드가 안된 항목
+
+		//파일 쓰기
+		//업로드할 경로 설정
+		File f = new File(root, file.getOriginalFilename());
+		file.transferTo(f);//실제 파일 쓰기를 수행
+		//6. 해당 파일 경로를 DB에 등록
+		FileDTO fileDTO = new FileDTO(f, 0, 0);
+//		boardService.insertAjaxFile(fileDTO);
+		
+		return new ResponseEntity(null,HttpStatus.OK);
+	}
+ }
 
 
 

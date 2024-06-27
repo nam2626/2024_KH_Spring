@@ -40,11 +40,20 @@
 	}
 </style>
 <script src="/js/ckeditor.js"></script>
+<script src="/js/UploadAdapter.js"></script>
 <script>
+function uploadAdaterPlugin(editor){
+	editor.plugins.get('FileRepository').createUploadAdaper = (loader) =>{
+		return new UploadAdapter(loader);
+	}
+}
 window.onload = () => {
 	let myEditor = null;
     ClassicEditor
-        .create( document.querySelector( 'textarea' ))
+        .create( document.querySelector( 'textarea' ),
+       		{
+       			extraPlugins:[uploadAdaterPlugin]
+       		})
         .then(editor => {
         	myEditor = editor;
         })
