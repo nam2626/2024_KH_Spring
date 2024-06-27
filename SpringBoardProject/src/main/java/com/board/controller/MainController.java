@@ -340,12 +340,13 @@ public class MainController {
 		//	6-1. 파일 번호 받아옴
 		int fno = boardService.selectFileNo();
 		//	6-2. fileDTO에 파일번호 등록
-		FileDTO fileDTO = new FileDTO(f, 0, 0);
+		FileDTO fileDTO = new FileDTO(f, 0, fno);
 		//	6-3. DB에 데이터 추가
-//		boardService.insertAjaxFile(fileDTO);
+		boardService.insertImageFile(fileDTO);
 		//	6-4. map에 url로 경로를 만들어서 리턴
-		
-		return new ResponseEntity(null,HttpStatus.OK);
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("url", "/file/ajax/down/"+fno);
+		return new ResponseEntity(map,HttpStatus.OK);
 	}
  }
 

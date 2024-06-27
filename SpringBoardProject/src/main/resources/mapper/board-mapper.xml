@@ -138,6 +138,15 @@
 	<select id="selectFileNo" resultType="int">
 		select board_image_seq.nextval from dual
 	</select>
+	
+	<insert id="insertImageFile" parameterType="file">
+		insert into board_view_image
+		values(#{fno}, #{path})
+	</insert>
+	
+	<select id="selectImageFile" parameterType="int" resultMap="boardFile">
+		select fno, path as BOARD_FILE_URL from board_image_view where fno = #{fno}
+	</select>
 </mapper>
 
 

@@ -140,6 +140,10 @@ public class BoardService {
 	public int selectFileNo() {
 		return mapper.selectFileNo();
 	}
+
+	public int insertImageFile(FileDTO fileDTO) {
+		return mapper.insertImageFile(fileDTO);
+	}
 	
 	
 }

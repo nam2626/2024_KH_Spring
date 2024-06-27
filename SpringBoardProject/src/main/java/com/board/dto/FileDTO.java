@@ -2,6 +2,9 @@ package com.board.dto;
 
 import java.io.File;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("file")
 public class FileDTO {
 	private String path;
 	private String fileName;
