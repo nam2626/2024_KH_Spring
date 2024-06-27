@@ -35,6 +35,7 @@ public interface BoardMapper {
 	int insertBoard(BoardDTO dto);
 	int insertBoardFile(FileDTO fileDTO);
 	FileDTO selectBoardFile(Map<String, Object> map);
+	int selectFileNo();
 
 }
 

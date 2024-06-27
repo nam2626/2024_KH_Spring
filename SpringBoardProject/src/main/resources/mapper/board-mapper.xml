@@ -134,6 +134,10 @@
 		update board set board_count = board_count + 1
 		where board_no = #{bno}
 	</update>
+	
+	<select id="selectFileNo" resultType="int">
+		select board_image_seq.nextval from dual
+	</select>
 </mapper>
 
 

@@ -324,7 +324,7 @@ public class MainController {
 	}
 	
 	@PostMapping("/file/ajax")
-	public ResponseEntity<String> fileAjaxUpload(MultipartFile file) throws IllegalStateException, IOException{
+	public ResponseEntity<String> fileAjaxUpload(@RequestParam(value="upload") MultipartFile file) throws IllegalStateException, IOException{
 		File root = new File("c:\\fileupload");
 		if(!root.exists())
 			root.mkdirs();
@@ -337,8 +337,13 @@ public class MainController {
 		File f = new File(root, file.getOriginalFilename());
 		file.transferTo(f);//실제 파일 쓰기를 수행
 		//6. 해당 파일 경로를 DB에 등록
+		//	6-1. 파일 번호 받아옴
+		int fno = boardService.selectFileNo();
+		//	6-2. fileDTO에 파일번호 등록
 		FileDTO fileDTO = new FileDTO(f, 0, 0);
+		//	6-3. DB에 데이터 추가
 //		boardService.insertAjaxFile(fileDTO);
+		//	6-4. map에 url로 경로를 만들어서 리턴
 		
 		return new ResponseEntity(null,HttpStatus.OK);
 	}

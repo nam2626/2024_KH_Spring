@@ -43,7 +43,7 @@
 <script src="/js/UploadAdapter.js"></script>
 <script>
 function uploadAdaterPlugin(editor){
-	editor.plugins.get('FileRepository').createUploadAdaper = (loader) =>{
+	editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
 		return new UploadAdapter(loader);
 	}
 }
@@ -51,9 +51,9 @@ window.onload = () => {
 	let myEditor = null;
     ClassicEditor
         .create( document.querySelector( 'textarea' ),
-       		{
-       			extraPlugins:[uploadAdaterPlugin]
-       		})
+		{
+				extraPlugins:[uploadAdaterPlugin]
+		})
         .then(editor => {
         	myEditor = editor;
         })

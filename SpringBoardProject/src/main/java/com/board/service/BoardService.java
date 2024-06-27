@@ -136,6 +136,10 @@ public class BoardService {
 		map.put("fno", fno);
 		return mapper.selectBoardFile(map);
 	}
+
+	public int selectFileNo() {
+		return mapper.selectFileNo();
+	}
 	
 	
 }
