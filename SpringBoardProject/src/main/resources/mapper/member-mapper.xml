@@ -11,6 +11,7 @@
 			property="boardMemberPasswd" />
 		<result column="board_member_nick" property="boardMemberNick" />
 		<result column="board_member_grade" property="boardMemberGrade" />
+		<result column="board_member_profile" property="boardMemberProfile" />
 	</resultMap>
 	
 	<resultMap type="grade" id="grade">
@@ -53,7 +54,7 @@
 	
 	<insert id="insertMember" parameterType="member">
 		insert into board_member
-		values(#{boardMemberId},#{boardMemberName},#{boardMemberPasswd},#{boardMemberNick},#{boardMemberGrade})
+		values(#{boardMemberId},#{boardMemberName},STANDARD_HASH(#{boardMemberPasswd},'SHA512'),#{boardMemberNick},1,#{boardMemberProfile})
 	</insert>
 
 	<select id="selectAllGrade" resultMap="grade">

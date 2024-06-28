@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -412,6 +413,26 @@ public class MainController {
 		map.put("url", "/file/ajax/down/"+fno);
 		map.put("fno",fno);
 		return new ResponseEntity(map,HttpStatus.OK);
+	}
+	
+	@PostMapping("/member/insert")
+	public String insertMember(BoardMemberDTO dto, HttpSession session,
+			HttpServletResponse response) throws IOException {
+		
+		try {
+			memberService.insertMember(dto);
+			dto.setBoardMemberPasswd("");
+			session.setAttribute("user", dto);
+		} catch (Exception e) {
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().println("<script>"
+					+ "alert('회원가입에 실패하셨습니다.\\n입력하신 내용을 확인하세요');"
+					+ "location.href='/member/register/view';"
+					+ "</script>");
+			return null;
+		}
+		
+		return "redirect:/";
 	}
  }
 

@@ -9,8 +9,18 @@ public class BoardMemberDTO {
 	private String boardMemberPasswd;
 	private String boardMemberNick;
 	private int boardMemberGrade;
-
+	private int boardMemberProfile;
+	
 	public BoardMemberDTO() {	}
+
+	public int getBoardMemberProfile() {
+		return boardMemberProfile;
+	}
+
+	public void setBoardMemberProfile(int boardMemberProfile) {
+		this.boardMemberProfile = boardMemberProfile;
+	}
+
 
 	public String getBoardMemberId() {
 		return boardMemberId;
@@ -56,7 +66,8 @@ public class BoardMemberDTO {
 	public String toString() {
 		return "BoardMemberDTO [boardMemberId=" + boardMemberId + ", boardMemberName=" + boardMemberName
 				+ ", boardMemberPasswd=" + boardMemberPasswd + ", boardMemberNick=" + boardMemberNick
-				+ ", boardMemberGrade=" + boardMemberGrade + "]";
+				+ ", boardMemberGrade=" + boardMemberGrade + ", boardMemberProfile=" + boardMemberProfile + "]";
 	}
 
+	
 }
