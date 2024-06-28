@@ -23,7 +23,9 @@
 			<li><a href="/logout">로그아웃</a></li>
 		</th:block>
 	</ul>
-
+	<a th:if="${session.user != null}" th:href="@{/member/update/{id}(id=${session.user.boardMemberId})}">
+		<img th:src="@{/file/ajax/down/{fno}(fno=${session.user.boardMemberProfile})}" alt=""><span>[[${session.user.boardMemberNick}]]님이 로그인 하셨습니다.</span>
+	</a>
 </nav>
 
 
