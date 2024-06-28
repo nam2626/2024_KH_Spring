@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.file.upload.mapper.BoardMapper">
+ 	<!-- FileDTO에 해당하는 resultMap -->
+ 	<resultMap type="com.file.upload.dto.FileDTO" id="boardFile">
+ 		<result column="BOARD_FILE_NO" property="fno"/>
+ 		<result column="BOARD_NO" property="bno"/>
+ 		<result column="BOARD_FILE_URL" property="path"/>
+ 		<result column="PATH" property="path"/>
+ 	</resultMap>
+	
+	<select id="selectFileNo" resultType="int">
+		select board_image_seq.nextval from dual
+	</select>
+	<insert id="insertAjaxFile" parameterType="file">
+		insert into board_view_image
+		values(#{fno}, #{path})
+	</insert>
+	<select id="selectImageFile" parameterType="int" resultMap="boardFile">
+		select * from board_view_image where fno = #{fno}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
