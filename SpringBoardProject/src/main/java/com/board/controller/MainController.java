@@ -25,6 +25,7 @@ import com.board.dto.BoardCommentDTO;
 import com.board.dto.BoardDTO;
 import com.board.dto.BoardMemberDTO;
 import com.board.dto.FileDTO;
+import com.board.dto.GradeDTO;
 import com.board.service.BoardService;
 import com.board.service.MemberService;
 import com.board.vo.PaggingVO;
@@ -449,6 +450,20 @@ public class MainController {
 		memberService.updateMember(dto);
 		session.setAttribute("user", dto);
 		return "redirect:/";
+	}
+	
+
+	@GetMapping("/member")
+	public ModelAndView memberMain(ModelAndView view) {
+		//전체 회원정보, 전체 등급정보
+		List<BoardMemberDTO> memberList = memberService.selectAllMember(); 		
+		List<GradeDTO> gradeList = memberService.selectAllGrade();
+		
+		view.addObject("memberList", memberList);
+		view.addObject("gradeList", gradeList);
+		
+		view.setViewName("member_manage");
+		return view;
 	}
  }
 
