@@ -32,13 +32,10 @@ import {
 	TableToolbar,
 	Underline,
 	Undo
-} from 'ckeditor5';
+} from './ckeditor5/ckeditor5';
 
-import translations from 'ckeditor5/translations/ko.js';
+import translations from './ckeditor5/translations/ko.js';
 
-import 'ckeditor5/ckeditor5.css';
-
-import './style.css';
 
 const editorConfig = {
 	toolbar: {
@@ -140,3 +137,7 @@ const editorConfig = {
 };
 
 ClassicEditor.create(document.querySelector('#editor'), editorConfig);
+
+
+
+

@@ -39,8 +39,9 @@ public class MainController {
 
     @GetMapping("/")
     public String main() {
-        return "ckeditor_new";
+        return "new_ckeditor";
     }
+    
     @GetMapping("/register")
     public String registerView() {
         return "member_register";
