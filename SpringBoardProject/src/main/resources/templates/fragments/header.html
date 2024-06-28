@@ -24,7 +24,7 @@
 		</th:block>
 	</ul>
 	<div class="profile">
-		<a class="user" th:if="${session.user != null}"  th:href="@{/member/update/{id}(id=${session.user.boardMemberId})}"><img th:src="@{/file/ajax/down/{fno}(fno=${session.user.boardMemberProfile})}" alt=""></a>
+		<a class="user" th:if="${session.user != null}" th:href="@{/member/update/{id}(id=${session.user.boardMemberId})}"><img th:src="@{/file/ajax/down/{fno}(fno=${session.user.boardMemberProfile})}" alt=""></a>
 		<span>[[${session.user.boardMemberNick}]]님이 로그인 하셨습니다.</span>
 	</div>
 </nav>
