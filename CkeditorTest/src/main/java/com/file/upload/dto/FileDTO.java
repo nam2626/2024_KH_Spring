@@ -3,6 +3,7 @@ package com.file.upload.dto;
 import java.io.File;
 
 import org.apache.ibatis.type.Alias;
+
 @Alias("file")
 public class FileDTO {
 	private String path;

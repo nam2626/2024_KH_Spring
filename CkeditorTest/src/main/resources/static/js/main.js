@@ -32,7 +32,7 @@ import {
 	TableToolbar,
 	Underline,
 	Undo
-} from './ckeditor5/ckeditor5';
+} from './ckeditor5/ckeditor5.js';
 
 import translations from './ckeditor5/translations/ko.js';
 
