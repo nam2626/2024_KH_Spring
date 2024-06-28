@@ -20,15 +20,15 @@
   			</tr>
   		</thead>
   		<tbody>
-	  		<tr th:each="">
-	  			<td><img src=""></td>
-	  			<td><input type="text"></td>
-	  			<td><input type="text"></td>
-	  			<td><input type="text"></td>
+	  		<tr th:each="member : ${memberList}">
+	  			<td><img th:src="@{/file/ajax/down/{fno}(fno=${member.boardMemberProfile})}"></td>
+	  			<td><input type="text" class="boardMemberId" th:value="${member.boardMemberId}" readonly></td>
+	  			<td><input type="text" class="boardMemberName" th:value="${member.boardMemberName}"></td>
+	  			<td><input type="text" class="boardMemberNick" th:value="${member.boardMemberNick}"></td>
 	  			<td>
-	  				<select>
-	  					<th:block th:each="">
-		  					<option th:value="등급번호" th:selected="">[[]]</option>
+	  				<select class="boardMemberGrade">
+	  					<th:block th:each="grade : ${gradeList}">
+		  					<option th:value="${grade.gradeNo}" th:selected="${grade.gradeNo == member.boardMemberGrade}">[[${grade.gradeName}]]</option>
 	  					</th:block>
 	  				</select>
 	  			</td>
