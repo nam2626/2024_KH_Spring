@@ -4,6 +4,31 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/css/menu.css" rel="stylesheet">
+<style>
+	
+	*{
+		margin:0;
+		padding:0;
+	}
+	.member_profile{
+		width: 48px;
+		height: 48px;
+		border-radius: 24px;
+	}
+	body{
+		height:3000px;
+	}
+	table{
+		border-collapse: collapse;
+		margin: 20px auto;
+		width: 1200px;
+	}
+	td, th{
+		padding:10px;
+		border: 1px solid black;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 	<th:block th:include="/fragments/header.html"></th:block>
@@ -21,7 +46,10 @@
   		</thead>
   		<tbody>
 	  		<tr th:each="member : ${memberList}">
-	  			<td><img th:src="@{/file/ajax/down/{fno}(fno=${member.boardMemberProfile})}"></td>
+	  			<td>
+	  				<img th:if="${member.boardMemberProfile != 0}" th:src="@{/file/ajax/down/{fno}(fno=${member.boardMemberProfile})}" class="member_profile">
+	  				<img th:if="${member.boardMemberProfile == 0}" src="/img/profile.png" class="member_profile">
+	  			</td>
 	  			<td><input type="text" class="boardMemberId" th:value="${member.boardMemberId}" readonly></td>
 	  			<td><input type="text" class="boardMemberName" th:value="${member.boardMemberName}"></td>
 	  			<td><input type="text" class="boardMemberNick" th:value="${member.boardMemberNick}"></td>
