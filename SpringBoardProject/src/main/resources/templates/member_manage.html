@@ -45,7 +45,19 @@
             
             //Ajax로 삭제할 데이터를 전송
             //	호출 경로 : /member/delete
+            const obj = {
+            	'id' : memberId
+            }
+            $.ajax({
+            	url:'/member/delete',
+            	method : 'DELETE',
+            	data : obj,
+            	dataType : 'json',
+            	success : function (result){
+            		console.log(result)
+            	}
             	
+            })
 		});
 	});
 </script>
