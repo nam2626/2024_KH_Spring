@@ -434,6 +434,15 @@ public class MainController {
 		
 		return "redirect:/";
 	}
+	
+	@GetMapping("/member/update/{id}")
+	public ModelAndView myPage(@PathVariable String id, ModelAndView view) {
+		//회원정보 조회
+		BoardMemberDTO dto = memberService.selectMember(id);
+		view.addObject("dto", dto);		
+		view.setViewName("my_page");
+		return view;
+	}
  }
 
 
