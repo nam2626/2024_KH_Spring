@@ -470,8 +470,13 @@ public class MainController {
 	
 	@DeleteMapping("/member/delete")
 	public ResponseEntity<String> deleteMember(String id){
-		System.out.println("내용 : " + id);		
-		return new ResponseEntity(null,HttpStatus.OK);
+		System.out.println("내용 : " + id);	
+		//회원정보 삭제하고 결과값 리턴해서 Ajax로 응답
+		int count = memberService.deleteMember(id);
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("count", count);
+		map.put("msg", count == 0 ? "회원정보 삭제 실패" : "회원정보 삭제 성공" );
+		return new ResponseEntity(map, HttpStatus.OK);
 	}
  }
 
