@@ -14,7 +14,7 @@
   	width: 100px;
   	height: 100px;
   	border:1px solid black;
-  	background-image: url('/img/file.png');
+  	background-image: url('/file/ajax/down/[[${dto.boardMemberProfile}]]');
   	background-repeat: no-repeat;
   	background-position: center;
   	background-size: contain;
@@ -57,11 +57,11 @@
   <h2>마이 페이지</h2>
   <form action="/member/update" method="post">
   	<div id="profile_img"></div>
-  	<input type="hidden" name="boardMemberProfile" value="0">
-    <input type="text" name="boardMemberId" placeholder="아이디 입력"/><br>
-    <input type="password" name="boardMemberPasswd" placeholder="암호 입력"/><br>
-    <input type="text" name="boardMemberName" placeholder="이름 입력"/><br>
-    <input type="text"  name="boardMemberNick" placeholder="닉네임 입력"/><br>
+  	<input type="hidden" name="boardMemberProfile" th:value="${dto.boardMemberProfile}">
+    <input type="text" name="boardMemberId" th:value="${dto.boardMemberId}" readonly/><br>
+    <input type="password" name="boardMemberPasswd" placeholder="암호 입력" required/><br>
+    <input type="text" name="boardMemberName" th:value="${dto.boardMemberName}" placeholder="이름 입력"/><br>
+    <input type="text"  name="boardMemberNick" th:value="${dto.boardMemberNick}" placeholder="닉네임 입력"/><br>
     <br>
     <button>수정하기</button>
     <button type="button" id="btn_back">뒤로가기</button>
