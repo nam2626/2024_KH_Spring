@@ -33,9 +33,14 @@ import {
 	Underline,
 	Undo
 } from './ckeditor5/ckeditor5.js';
-
+import UploadAdapter from './UploadAdapter.js';
 import translations from './ckeditor5/translations/ko.js';
 
+function uploadAdaterPlugin(editor){
+	editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+		return new UploadAdapter(loader);
+	}
+}
 
 const editorConfig = {
 	toolbar: {
@@ -132,7 +137,8 @@ const editorConfig = {
 	table: {
 		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
 	},
-	translations: [translations]
+	translations: [translations],
+	extraPlugins:[uploadAdaterPlugin]
 };
 
 ClassicEditor.create(document.querySelector('#editor'), editorConfig);
