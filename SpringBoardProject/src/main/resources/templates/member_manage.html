@@ -3,8 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="/css/menu.css" rel="stylesheet">
 </head>
 <body>
-
+	<th:block th:include="/fragments/header.html"></th:block>
+  	<hr>
+  	<table>
+  		<thead>
+  			<tr>
+  				<th>프로필</th>
+  				<th>아이디</th>
+  				<th>이름</th>
+  				<th>닉네임</th>
+  				<th>회원등급</th>
+  				<th>비고</th>
+  			</tr>
+  		</thead>
+  		<tbody>
+	  		<tr th:each="">
+	  			<td><img src=""></td>
+	  			<td><input type="text"></td>
+	  			<td><input type="text"></td>
+	  			<td><input type="text"></td>
+	  			<td>
+	  				<select>
+	  					<th:block th:each="">
+		  					<option th:value="등급번호" th:selected="">[[]]</option>
+	  					</th:block>
+	  				</select>
+	  			</td>
+	  			<td>
+	  				<button class="btn_update">수정</button>	
+	  				<button class="btn_delete">삭제</button>	
+	  			</td>
+	  		</tr>
+  		</tbody>
+  	</table>
 </body>
 </html>
