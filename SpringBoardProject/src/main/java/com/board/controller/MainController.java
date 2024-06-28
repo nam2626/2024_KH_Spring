@@ -443,6 +443,13 @@ public class MainController {
 		view.setViewName("my_page");
 		return view;
 	}
+	
+	@PostMapping("/member/update")
+	public String updateMember(BoardMemberDTO dto, HttpSession session) {
+		memberService.updateMember(dto);
+		session.setAttribute("user", dto);
+		return "redirect:/";
+	}
  }
 
 

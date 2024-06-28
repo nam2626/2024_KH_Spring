@@ -43,7 +43,8 @@
 		board_member_nick = #{boardMemberNick}
 		, board_member_passwd =
 		standard_hash(#{boardMemberPasswd},'SHA512'),
-		board_member_grade = #{boardMemberGrade}
+		board_member_grade = #{boardMemberGrade},
+		board_member_profile = #{boardMemberProfile}
 		where board_member_id like
 		#{boardMemberId}
 	</update>
