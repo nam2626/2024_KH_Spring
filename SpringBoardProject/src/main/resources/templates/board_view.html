@@ -227,15 +227,15 @@
 			 </td>
 	 	</tr>
 		 </th:block>
-			 <tr th:if="${!fileList.isEmpty() }">
-			 	<td colspan="2">
-				 <th:block th:each="file : ${fileList }">
-				 	<a th:href="@{/file(bno=${file.bno },fno=${file.fno})}" download>[[${file.fileName}]]</a><br>
-			 		<img th:if="${file.type == 'image' }" th:src="@{/file(bno=${file.bno },fno=${file.fno})}">
-			 		<video th:if="${file.type == 'video' }" th:src="@{/file(bno=${file.bno },fno=${file.fno})}" controls></video>
-				 </th:block>
-			 	</td>
-			 </tr>	 
+		 <tr th:if="${!fileList.isEmpty() }">
+		 	<td colspan="2">
+			 <th:block th:each="file : ${fileList }">
+			 	<a th:href="@{/file(bno=${file.bno },fno=${file.fno})}" download>[[${file.fileName}]]</a><br>
+		 		<img th:if="${file.type == 'image' }" th:src="@{/file(bno=${file.bno },fno=${file.fno})}">
+		 		<video th:if="${file.type == 'video' }" th:src="@{/file(bno=${file.bno },fno=${file.fno})}" controls></video>
+			 </th:block>
+		 	</td>
+		 </tr>	 
 		 <tr>
 		 	
 		 </tr>

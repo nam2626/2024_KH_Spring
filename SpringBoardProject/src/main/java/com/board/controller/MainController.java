@@ -508,6 +508,18 @@ public class MainController {
 		map.put("grade",memberService.selectAllGrade());
 		return new ResponseEntity(map, HttpStatus.OK);
 	}
+	
+	@GetMapping("/board/update/{bno}")
+	public ModelAndView boardUpdateView(ModelAndView view,
+			@PathVariable int bno) {
+		BoardDTO dto = boardService.selectBoard(bno);
+		List<FileDTO> fileList = boardService.selectBoardFileList(bno);
+
+		view.addObject("board", dto);
+		view.addObject("fileList", fileList );
+		view.setViewName("board_update_view");
+		return view;
+	}
  }
 
 
