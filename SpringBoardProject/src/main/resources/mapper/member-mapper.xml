@@ -41,10 +41,17 @@
 	<update id="updateMember" parameterType="member">
 		update board_member set board_member_name = #{boardMemberName},
 		board_member_nick = #{boardMemberNick}
-		, board_member_passwd =
+		, 
+		<if test="boardMemberPasswd != null">
+		board_member_passwd =
 		standard_hash(#{boardMemberPasswd},'SHA512'),
-		board_member_grade = #{boardMemberGrade},
-		board_member_profile = #{boardMemberProfile}
+		</if>
+		
+		<if test="boardMemberProfile > -1">
+		board_member_profile = #{boardMemberProfile}, 
+		</if>
+		board_member_grade = #{boardMemberGrade}
+		
 		where board_member_id like
 		#{boardMemberId}
 	</update>

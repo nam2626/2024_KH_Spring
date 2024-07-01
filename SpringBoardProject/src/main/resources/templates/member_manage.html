@@ -70,9 +70,17 @@
 				obj = {...obj,[val.className]:val.value};
 			});
 			console.log(obj);
-			$(this).closest('tr').find('input, select').forEach((item)=>{
-				console.log(item)
+			
+			$.ajax({
+				url:"/member/admin/update",
+				data : obj,
+				dataType : 'json',
+				method : "PUT",
+				success : function(r){
+					console.log(r);
+				}
 			});
+			
 		});
 	});
 </script>
