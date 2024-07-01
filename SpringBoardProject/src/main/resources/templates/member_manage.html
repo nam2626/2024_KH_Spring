@@ -35,33 +35,34 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-	$(function(){
+	function btnDelete() {
 		$('.btn_delete').click(function(e){
 			//삭제 버튼을 클릭하면 해당 줄에있는 아이디값을 뽑음
 			//경고창이나 콘솔로 아이디값을 출력
 			var memberId = $(this).closest('tr').find('.boardMemberId').val();
-            // 경고창으로 회원 아이디 출력
-            //alert('회원 아이디: ' + memberId);
-            
-            //Ajax로 삭제할 데이터를 전송
-            //	호출 경로 : /member/delete
-            const obj = {
-            	'id' : memberId
-            }
-            $.ajax({
-            	url:'/member/delete',
-            	method : 'DELETE',
-            	data : obj,
-            	dataType : 'json',
-            	success : function (result){
-            		console.log(result)
-            		alert(result.msg);
-            		location.reload();
-            	}
-            	
-            })
+	        // 경고창으로 회원 아이디 출력
+	        //alert('회원 아이디: ' + memberId);
+	        
+	        //Ajax로 삭제할 데이터를 전송
+	        //	호출 경로 : /member/delete
+	        const obj = {
+	        	'id' : memberId
+	        }
+	        $.ajax({
+	        	url:'/member/delete',
+	        	method : 'DELETE',
+	        	data : obj,
+	        	dataType : 'json',
+	        	success : function (result){
+	        		console.log(result)
+	        		alert(result.msg);
+	        		location.reload();
+	        	}
+	        	
+	        })
 		});
-		
+	}
+	function btnUpdate(){
 		$(".btn_update").click(function(){
 			console.log($(this).closest('tr').find('input, select'));
 			let obj = {};
@@ -82,6 +83,8 @@
 			});
 			
 		});
+	}
+	function gradeChange() {
 		$(".boardMemberGrade").change((e) => {
 			console.log($(e.target).val());
 			console.log(e.target.value);
@@ -103,6 +106,12 @@
 				
 			});
 		});
+	}
+	$(function(){
+		btnDelete();
+		btnUpdate();
+		gradeChange();
+		
 		$('.txt_search').keyup(function(e){
 			console.log(e,e.keyCode);
 			let obj = {};
@@ -143,6 +152,9 @@
 					$('.member_list').html(tag);
 					//출력된 태그들에게 동적 엘리먼트 처리
 					//출력된 태그들에게 수정, 삭제 이벤트 추가
+					btnDelete();
+					btnUpdate();
+					gradeChange();
 				}
 				
 			});
