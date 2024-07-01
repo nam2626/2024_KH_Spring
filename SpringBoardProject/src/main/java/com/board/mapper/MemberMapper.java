@@ -24,6 +24,7 @@ public interface MemberMapper {
 	int deleteGrade(int gradeNo);
 	List<BoardMemberDTO> selectGradeMember(int[] gradeNo);
 	int updateMemberGrade(Map<String, String> param);
+	List<BoardMemberDTO> searchMember(Map<String, String> param);
 
 }
 

@@ -498,6 +498,15 @@ public class MainController {
 		map.put("msg", count == 0 ? "회원정보 등급 수정 실패" : "회원정보 등급 수정 성공" );
 		return new ResponseEntity(map, HttpStatus.OK);
 	}
+	@GetMapping("/member/search")
+	public ResponseEntity<String> searchMember(@RequestParam Map<String , String> param){
+		System.out.println(param);
+		List<BoardMemberDTO> list = memberService.searchMember(param);
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("msg", "회원정보 조회 성공");
+		map.put("list", list);
+		return new ResponseEntity(map, HttpStatus.OK);
+	}
  }
 
 

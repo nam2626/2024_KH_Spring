@@ -71,6 +71,10 @@ public class MemberService {
 		return mapper.updateMemberGrade(param);
 	}
 
+	public List<BoardMemberDTO> searchMember(Map<String, String> param) {
+		return mapper.searchMember(param);
+	}
+
 	
 }
 

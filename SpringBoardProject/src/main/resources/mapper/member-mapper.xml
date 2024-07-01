@@ -55,6 +55,12 @@
 		where board_member_id like
 		#{boardMemberId}
 	</update>
+	
+	<select id="searchMember" parameterType="map" resultMap="member">
+		select * from board_member
+		where ${search_kind} like '%' || #{txt_search} || '%'
+	</select>
+	
 	<update id="updateMemberGrade" parameterType="map">
 		update board_member set board_member_grade = #{boardMemberGrade}
 		where board_member_id like #{boardMemberId}
