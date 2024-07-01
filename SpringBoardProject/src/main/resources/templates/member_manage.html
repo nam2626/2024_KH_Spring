@@ -103,6 +103,28 @@
 				
 			});
 		});
+		$('.txt_search').keyup(function(e){
+			console.log(e,e.keyCode);
+			let obj = {};
+			
+			$(this).parent().children().each(function(idx, val){
+				obj = {...obj, [val.className]:val.value};
+			})
+			
+			console.log(obj);
+			//ajax 호출
+			$.ajax({
+				url:'/member/search',
+				data: obj,
+				method:'GET',
+				dataType:'json',
+				success: function(r){
+					console.log(r);
+				}
+				
+			});
+			
+		});
 	});
 </script>
 </head>
@@ -111,6 +133,16 @@
   	<hr>
   	<table>
   		<thead>
+  			<tr>
+  				<td colspan="6">
+  					<select class="search_kind">
+  						<option value="board_member_name">이름</option>
+  						<option value="board_member_id">아이디</option>
+  						<option value="board_member_nick">닉네임</option>
+  					</select>
+  					<input type="text" class="txt_search" placeholder="검색어 입력">
+  				</td>
+  			</tr>
   			<tr>
   				<th>프로필</th>
   				<th>아이디</th>
