@@ -218,7 +218,7 @@
 			 	<button id="btn_delete">삭제</button>
 			 	<script th:inline="javascript">
 			 		document.querySelector("#btn_update").onclick = () =>{
-			 			location.href='./boardUpdateView.do?bno=${board.boardNo}';
+			 			location.href='/board/update/[[${board.boardNo}]]';
 			 		}
 			 		document.querySelector("#btn_delete").onclick = () =>{
 			 			location.href='/board/delete/[[${board.boardNo}]]';
