@@ -23,6 +23,7 @@ public interface MemberMapper {
 	int insertGrade(GradeDTO dto);
 	int deleteGrade(int gradeNo);
 	List<BoardMemberDTO> selectGradeMember(int[] gradeNo);
+	int updateMemberGrade(Map<String, String> param);
 
 }
 

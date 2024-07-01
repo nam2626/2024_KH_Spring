@@ -67,6 +67,10 @@ public class MemberService {
 		return mapper.selectGradeMember(gradeNo);
 	}
 
+	public int updateMemberGrade(Map<String, String> param) {
+		return mapper.updateMemberGrade(param);
+	}
+
 	
 }
 

@@ -55,6 +55,10 @@
 		where board_member_id like
 		#{boardMemberId}
 	</update>
+	<update id="updateMemberGrade" parameterType="map">
+		update board_member set board_member_grade = #{boardMemberGrade}
+		where board_member_id like #{boardMemberId}
+	</update>
 		
 	<delete id="deleteMember" parameterType="string">
 		delete from board_member where board_member_id like #{id}

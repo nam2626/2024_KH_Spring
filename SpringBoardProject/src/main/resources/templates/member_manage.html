@@ -90,6 +90,18 @@
 			let id = $(e.target).closest('tr').find('input.boardMemberId');
 			obj = {...obj, [$(id).attr('class')] : $(id).val()};
 			console.log(obj);
+			
+			//ajax 호출
+			$.ajax({
+				url:'/member/update/grade',
+				method : 'PATCH',
+				data : obj,
+				dataType:'json',
+				success:function(r){
+					console.log(r);
+				}
+				
+			});
 		});
 	});
 </script>
