@@ -55,7 +55,7 @@
 		where board_member_id like
 		#{boardMemberId}
 	</update>
-	
+		
 	<delete id="deleteMember" parameterType="string">
 		delete from board_member where board_member_id like #{id}
 	</delete>

@@ -66,6 +66,7 @@ public class MemberService {
 	public List<BoardMemberDTO> selectGradeMember(int[] gradeNo) {
 		return mapper.selectGradeMember(gradeNo);
 	}
+
 	
 }
 
