@@ -505,6 +505,7 @@ public class MainController {
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("msg", "회원정보 조회 성공");
 		map.put("list", list);
+		map.put("grade",memberService.selectAllGrade());
 		return new ResponseEntity(map, HttpStatus.OK);
 	}
  }

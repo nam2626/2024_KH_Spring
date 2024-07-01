@@ -121,6 +121,28 @@
 				success: function(r){
 					console.log(r);
 					//검색 결과를 tbody에 출력
+					let tag = '';
+					r.list.forEach((item) => {
+						tag += '<tr>';
+						if(item.boardMemberProfile != 0)
+							tag += `<td><img src='/file/ajax/down/${item.boardMemberProfile}'></td>`;
+						else
+							tag += `<td><img src='/img/profile.png'></td>`;
+						tag += `<td><input type="text" class="boardMemberId" value="${item.boardMemberId}" readonly></td>`;
+						tag += `<td><input type="text" class="boardMemberName" value="${item.boardMemberName}"></td>`;
+						tag += `<td><input type="text" class="boardMemberNick" value="${item.boardMemberNick}"></td>`;
+						tag += '<td><select class="boardMemberGrade">';
+						r.grade.forEach((g) => {
+							tag += `<option value="${g.gradeNo}" ${g.gradeNo == item.boardMemberGrade ? 'selected' : ''}>${g.gradeName}</option>`;
+						})
+						
+						tag += '</select></td>';
+						tag += `<td><button class="btn_update">수정</button><button class="btn_delete">삭제</button></td>`;
+						tag += '</tr>';
+					});
+					$('.member_list').html(tag);
+					//출력된 태그들에게 동적 엘리먼트 처리
+					//출력된 태그들에게 수정, 삭제 이벤트 추가
 				}
 				
 			});
@@ -153,7 +175,7 @@
   				<th>비고</th>
   			</tr>
   		</thead>
-  		<tbody>
+  		<tbody class="member_list">
 	  		<tr th:each="member : ${memberList}">
 	  			<td>
 	  				<img th:if="${member.boardMemberProfile != 0}" th:src="@{/file/ajax/down/{fno}(fno=${member.boardMemberProfile})}" class="member_profile">
