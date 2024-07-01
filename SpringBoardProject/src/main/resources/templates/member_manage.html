@@ -125,7 +125,7 @@
 					r.list.forEach((item) => {
 						tag += '<tr>';
 						if(item.boardMemberProfile != 0)
-							tag += `<td><img src='/file/ajax/down/${item.boardMemberProfile}'></td>`;
+							tag += `<td><img src='/file/ajax/down/${item.boardMemberProfile}' class='member_profile'></td>`;
 						else
 							tag += `<td><img src='/img/profile.png'></td>`;
 						tag += `<td><input type="text" class="boardMemberId" value="${item.boardMemberId}" readonly></td>`;
