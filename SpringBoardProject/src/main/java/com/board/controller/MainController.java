@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -522,9 +523,17 @@ public class MainController {
 	}
 	
 	@PostMapping("/board/update")
-	public ModelAndView updateBoard(BoardDTO dto, ModelAndView view) {
+	public ModelAndView updateBoard(BoardDTO dto, ModelAndView view,
+			@RequestParam("file") MultipartFile[] file, 
+			@RequestParam("dfile") int[] fnoList) {
+		System.out.println(Arrays.toString(fnoList));
 		System.out.println(dto);
+		//파일 삭제
+		
+		//새 파일 업로드
+		
 		int count = boardService.updateBoard(dto);
+		
 		
 		view.setViewName("redirect:/board/"+dto.getBoardNo());
 		return view;
