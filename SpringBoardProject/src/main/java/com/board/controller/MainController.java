@@ -525,16 +525,47 @@ public class MainController {
 	@PostMapping("/board/update")
 	public ModelAndView updateBoard(BoardDTO dto, ModelAndView view,
 			@RequestParam("file") MultipartFile[] file, 
-			@RequestParam("dfile") int[] fnoList) {
+			@RequestParam("dfile") int[] fnoList) throws IOException {
 		System.out.println(Arrays.toString(fnoList));
 		System.out.println(dto);
+		
 		//파일 삭제
+		//	1. 삭제할 파일 목록을 조회
+		List<FileDTO> deleteFileList = boardService.selectBoardFileList(dto.getBoardNo());
+		//	2. 물리적으로 삭제
+		for(int fno : fnoList) {
+			for(int i = 0; i<deleteFileList.size();i++) {
+				if(deleteFileList.get(i).getFno() == fno) {
+					File f = new File(deleteFileList.get(i).getPath());
+					f.delete();
+				}
+			}
+		}
+		//	3. DB에서 삭제
+		boardService.deleteBoardFileList(dto.getBoardNo(),fnoList);
 		
 		//새 파일 업로드
+		//	1. 물리적으로 저장
+		//	2. DB에 추가
+		File root = new File("c:\\fileupload");
+		if(!root.exists())
+			root.mkdirs();
 		
+		for(int i=0;i<file.length;i++) {
+			System.out.println(file[i].getSize() + " " + file[i].getOriginalFilename());
+			//파일 사이즈 체크 해서 0이면 업로드가 안된 항목
+			if(file[i].getSize() == 0)
+				continue;
+			//파일 쓰기
+			//업로드할 경로 설정
+			File f = new File(root, file[i].getOriginalFilename());
+			file[i].transferTo(f);//실제 파일 쓰기를 수행
+			//6. 해당 파일 경로를 DB에 등록
+			FileDTO fileDTO = new FileDTO(f, dto.getBoardNo(), i+1);
+			boardService.insertBoardFile(fileDTO);
+		}
+		//---------------------------------------------
 		int count = boardService.updateBoard(dto);
-		
-		
 		view.setViewName("redirect:/board/"+dto.getBoardNo());
 		return view;
 	}

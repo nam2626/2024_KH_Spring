@@ -152,6 +152,13 @@ public class BoardService {
 	public int updateBoard(BoardDTO dto) {
 		return mapper.updateBoard(dto);
 	}
+
+	public int deleteBoardFileList(int bno, int[] fnoList) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("array", fnoList); 
+		return mapper.deleteBoardFileList(map);
+	}
 	
 	
 }

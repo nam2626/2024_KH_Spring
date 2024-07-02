@@ -147,6 +147,15 @@
 	<select id="selectImageFile" parameterType="int" resultMap="boardFile">
 		select fno, path as BOARD_FILE_URL from board_view_image where fno = #{fno}
 	</select>
+	
+	<delete id="deleteBoardFileList" parameterType="map">
+		delete from board_file
+		where board_no = #{bno} and
+		board_file_no in
+		<foreach collection="array" item="fno" open="(" close=")" separator=",">
+			#{fno}
+		</foreach>
+	</delete>
 </mapper>
 
 
