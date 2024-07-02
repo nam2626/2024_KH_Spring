@@ -4,11 +4,13 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -550,6 +552,8 @@ public class MainController {
 		File root = new File("c:\\fileupload");
 		if(!root.exists())
 			root.mkdirs();
+		
+		TreeSet<Integer> set = new TreeSet<Integer>(boardService.selectBoardFileNumbers(dto.getBoardNo()));
 		
 		for(int i=0;i<file.length;i++) {
 			System.out.println(file[i].getSize() + " " + file[i].getOriginalFilename());

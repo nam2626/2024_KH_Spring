@@ -1,5 +1,6 @@
 package com.board.service;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,6 +159,10 @@ public class BoardService {
 		map.put("bno", bno);
 		map.put("array", fnoList); 
 		return mapper.deleteBoardFileList(map);
+	}
+
+	public List<Integer> selectBoardFileNumbers(int boardNo) {
+		return mapper.selectBoardFileNumbers(boardNo);
 	}
 	
 	

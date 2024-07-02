@@ -156,6 +156,10 @@
 			#{fno}
 		</foreach>
 	</delete>
+	
+	<select id="selectBoardFileNumbers" parameterType="int" resultType="int">
+		select board_file_no from board_file where board_no = #{bno}
+	</select>
 </mapper>
 
 

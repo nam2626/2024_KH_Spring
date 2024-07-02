@@ -40,6 +40,7 @@ public interface BoardMapper {
 	FileDTO selectImageFile(int fno);
 	int updateBoard(BoardDTO dto);
 	int deleteBoardFileList(Map<String, Object> map);
+	List<Integer> selectBoardFileNumbers(int boardNo);
 
 }
 
