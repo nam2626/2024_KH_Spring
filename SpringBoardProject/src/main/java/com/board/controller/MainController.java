@@ -520,6 +520,24 @@ public class MainController {
 		view.setViewName("board_update_view");
 		return view;
 	}
+	
+	@PostMapping("/board/update")
+	public ModelAndView updateBoard(BoardDTO dto, ModelAndView view) {
+		System.out.println(dto);
+		int count = boardService.updateBoard(dto);
+		
+		view.setViewName("redirect:/board/"+dto.getBoardNo());
+		return view;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
  }
 
 

@@ -148,6 +148,10 @@ public class BoardService {
 	public FileDTO selectImageFile(int fno) {
 		return mapper.selectImageFile(fno);
 	}
+
+	public int updateBoard(BoardDTO dto) {
+		return mapper.updateBoard(dto);
+	}
 	
 	
 }

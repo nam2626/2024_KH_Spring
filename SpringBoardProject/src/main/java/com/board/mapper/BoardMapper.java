@@ -38,6 +38,7 @@ public interface BoardMapper {
 	int selectFileNo();
 	int insertImageFile(FileDTO fileDTO);
 	FileDTO selectImageFile(int fno);
+	int updateBoard(BoardDTO dto);
 
 }
 

@@ -47,6 +47,18 @@ function uploadAdaterPlugin(editor){
 		return new UploadAdapter(loader);
 	}
 }
+function generateFileTag(){
+	let size = document.querySelectorAll('.file_list > a').length;
+	console.log(document.querySelectorAll('.file_list > a'))
+	console.log(size);
+	for(let i=0;i<3-size;i++){
+		let tag = document.createElement('input');
+		tag.type='file';
+		tag.name='file';
+		document.querySelector('.file_list').appendChild(tag);
+	}
+}
+
 window.onload = () => {
 	let myEditor = null;
     ClassicEditor
@@ -60,7 +72,8 @@ window.onload = () => {
         .catch( error => {
             console.error( error );
         } );
-    
+   
+    generateFileTag();
  }
 	
 </script>
@@ -81,14 +94,17 @@ window.onload = () => {
 			<input type="hidden" name="boardNo" th:value="${board.boardNo}">
 			<input type="text" name="boardTitle" placeholder="제목을 입력하세요" th:value="${board.boardTitle}">
 			<textarea name="boardContent" placeholder="내용을 입력하세요">[(${board.boardContent})]</textarea><br>
-			<tr th:if="${!fileList.isEmpty() }">
-			 	<td colspan="2">
-				 <th:block th:each="file : ${fileList }">
+			<tr>
+			 	<div class="file_list">
+				 <th:block th:if="${!fileList.isEmpty() }" th:each="file : ${fileList }">
 				 	<a th:href="@{/file(bno=${file.bno },fno=${file.fno})}" download>[[${file.fileName}]]</a><br>
-			 		<img th:if="${file.type == 'image' }" th:src="@{/file(bno=${file.bno },fno=${file.fno})}">
-			 		<video th:if="${file.type == 'video' }" th:src="@{/file(bno=${file.bno },fno=${file.fno})}" controls></video>
 				 </th:block>
-			 	</td>
+				 <!-- 
+				 	자바 스크립트
+				 	input 태그 파일을 a 태그 포함해서 3개가 되게끔 처리 
+				 -->
+				 				 
+			 	</div>
 			 </tr>	 
 			<div class="form_bar">
 				<button type="submit" class="btn_submit">수정하기</button>
