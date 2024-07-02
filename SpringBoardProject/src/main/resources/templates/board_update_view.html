@@ -97,7 +97,8 @@ window.onload = () => {
 			<tr>
 			 	<div class="file_list">
 				 <th:block th:if="${!fileList.isEmpty() }" th:each="file : ${fileList }">
-				 	<a th:href="@{/file(bno=${file.bno },fno=${file.fno})}" download>[[${file.fileName}]]</a><br>
+				 	<a th:href="@{/file(bno=${file.bno },fno=${file.fno})}" download>[[${file.fileName}]]</a>
+				 	<label><input type="checkbox" name="dfile" th:value="${file.fno}">삭제</label><br>
 				 </th:block>
 				 <!-- 
 				 	자바 스크립트
