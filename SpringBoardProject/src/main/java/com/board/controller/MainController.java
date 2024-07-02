@@ -569,6 +569,7 @@ public class MainController {
 			FileDTO fileDTO = new FileDTO(f, dto.getBoardNo(), i+1);
 			boardService.insertBoardFile(fileDTO);
 			no++;
+			if(no == file.length) break; //마지막 파일번호 안쓸때 체크
 		}
 		//---------------------------------------------
 		int count = boardService.updateBoard(dto);
