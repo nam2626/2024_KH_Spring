@@ -555,18 +555,20 @@ public class MainController {
 		
 		TreeSet<Integer> set = new TreeSet<Integer>(boardService.selectBoardFileNumbers(dto.getBoardNo()));
 		
-		for(int i=0;i<file.length;i++) {
-			System.out.println(file[i].getSize() + " " + file[i].getOriginalFilename());
+		int no = 0;
+		for(int i=0;i<3;i++) {
 			//파일 사이즈 체크 해서 0이면 업로드가 안된 항목
-			if(file[i].getSize() == 0)
+			if(file[no].getSize() == 0)
 				continue;
+			if(!set.add(i+1)) continue;
 			//파일 쓰기
 			//업로드할 경로 설정
-			File f = new File(root, file[i].getOriginalFilename());
-			file[i].transferTo(f);//실제 파일 쓰기를 수행
+			File f = new File(root, file[no].getOriginalFilename());
+			file[no].transferTo(f);//실제 파일 쓰기를 수행
 			//6. 해당 파일 경로를 DB에 등록
 			FileDTO fileDTO = new FileDTO(f, dto.getBoardNo(), i+1);
 			boardService.insertBoardFile(fileDTO);
+			no++;
 		}
 		//---------------------------------------------
 		int count = boardService.updateBoard(dto);
