@@ -144,7 +144,7 @@ const editorConfig = {
 console.log(myEditor,"main.js");
 ClassicEditor.create(document.querySelector('#editor'), editorConfig)
 .then((editor) => {
-	myEditor = editor;
+		myEditor = editor;
 });
 
 
