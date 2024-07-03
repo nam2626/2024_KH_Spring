@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="/css/menu.css" rel="stylesheet">
+<style>
+	
+	*{
+		margin:0;
+		padding:0;
+	}
+	.member_profile{
+		width: 48px;
+		height: 48px;
+		border-radius: 24px;
+	}
+	body{
+		height:3000px;
+	}
+	table{
+		border-collapse: collapse;
+		margin: 20px auto;
+		width: 1200px;
+	}
+	td, th{
+		padding:10px;
+		border: 1px solid black;
+		text-align: center;
+	}
+	input, select{
+		text-align: center;
+		font-size: 1.2em;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+	function btnDelete() {
+		$('.btn_delete').click(function(e){
+			//삭제 버튼을 클릭하면 해당 줄에있는 아이디값을 뽑음
+			//경고창이나 콘솔로 아이디값을 출력
+			var memberId = $(this).closest('tr').find('.boardMemberId').val();
+	        // 경고창으로 회원 아이디 출력
+	        //alert('회원 아이디: ' + memberId);
+	        
+	        //Ajax로 삭제할 데이터를 전송
+	        //	호출 경로 : /member/delete
+	        const obj = {
+	        	'id' : memberId
+	        }
+	        $.ajax({
+	        	url:'/member/delete',
+	        	method : 'DELETE',
+	        	data : obj,
+	        	dataType : 'json',
+	        	success : function (result){
+	        		console.log(result)
+	        		alert(result.msg);
+	        		location.reload();
+	        	}
+	        	
+	        })
+		});
+	}
+	function btnUpdate(){
+		$(".btn_update").click(function(){
+			console.log($(this).closest('tr').find('input, select'));
+			let obj = {};
+			$(this).closest('tr').find('input, select')
+			.each(function(idx, val){
+				obj = {...obj,[val.className]:val.value};
+			});
+			console.log(obj);
+			
+			$.ajax({
+				url:"/member/admin/update",
+				data : obj,
+				dataType : 'json',
+				method : "PUT",
+				success : function(r){
+					console.log(r);
+				}
+			});
+			
+		});
+	}
+	function gradeChange() {
+		$(".boardMemberGrade").change((e) => {
+			console.log($(e.target).val());
+			console.log(e.target.value);
+			let obj = {};
+			obj = {...obj, [e.target.className] : e.target.value};
+			let id = $(e.target).closest('tr').find('input.boardMemberId');
+			obj = {...obj, [$(id).attr('class')] : $(id).val()};
+			console.log(obj);
+			
+			//ajax 호출
+			$.ajax({
+				url:'/member/update/grade',
+				method : 'PATCH',
+				data : obj,
+				dataType:'json',
+				success:function(r){
+					console.log(r);
+				}
+				
+			});
+		});
+	}
+	$(function(){
+		btnDelete();
+		btnUpdate();
+		gradeChange();
+		
+		$('.txt_search').keyup(function(e){
+			console.log(e,e.keyCode);
+			let obj = {};
+			
+			$(this).parent().children().each(function(idx, val){
+				obj = {...obj, [val.className]:val.value};
+			})
+			
+			console.log(obj);
+			//ajax 호출
+			$.ajax({
+				url:'/member/search',
+				data: obj,
+				method:'GET',
+				dataType:'json',
+				success: function(r){
+					console.log(r);
+					//검색 결과를 tbody에 출력
+					let tag = '';
+					r.list.forEach((item) => {
+						tag += '<tr>';
+						if(item.boardMemberProfile != 0)
+							tag += `<td><img src='/file/ajax/down/${item.boardMemberProfile}' class='member_profile'></td>`;
+						else
+							tag += `<td><img src='/img/profile.png'></td>`;
+						tag += `<td><input type="text" class="boardMemberId" value="${item.boardMemberId}" readonly></td>`;
+						tag += `<td><input type="text" class="boardMemberName" value="${item.boardMemberName}"></td>`;
+						tag += `<td><input type="text" class="boardMemberNick" value="${item.boardMemberNick}"></td>`;
+						tag += '<td><select class="boardMemberGrade">';
+						r.grade.forEach((g) => {
+							tag += `<option value="${g.gradeNo}" ${g.gradeNo == item.boardMemberGrade ? 'selected' : ''}>${g.gradeName}</option>`;
+						})
+						
+						tag += '</select></td>';
+						tag += `<td><button class="btn_update">수정</button><button class="btn_delete">삭제</button></td>`;
+						tag += '</tr>';
+					});
+					$('.member_list').html(tag);
+					//출력된 태그들에게 동적 엘리먼트 처리
+					//출력된 태그들에게 수정, 삭제 이벤트 추가
+					btnDelete();
+					btnUpdate();
+					gradeChange();
+				}
+				
+			});
+			
+		});
+	});
+</script>
+</head>
+<body>
+	<th:block th:include="/fragments/header.html"></th:block>
+  	<hr>
+  	<table>
+  		<thead>
+  			<tr>
+  				<td colspan="6">
+  					<select class="search_kind">
+  						<option value="board_member_name">이름</option>
+  						<option value="board_member_id">아이디</option>
+  						<option value="board_member_nick">닉네임</option>
+  					</select>
+  					<input type="text" class="txt_search" placeholder="검색어 입력">
+  				</td>
+  			</tr>
+  			<tr>
+  				<th>프로필</th>
+  				<th>아이디</th>
+  				<th>이름</th>
+  				<th>닉네임</th>
+  				<th>회원등급</th>
+  				<th>비고</th>
+  			</tr>
+  		</thead>
+  		<tbody class="member_list">
+	  		<tr th:each="member : ${memberList}">
+	  			<td>
+	  				<img th:if="${member.boardMemberProfile != 0}" th:src="@{/file/ajax/down/{fno}(fno=${member.boardMemberProfile})}" class="member_profile">
+	  				<img th:if="${member.boardMemberProfile == 0}" src="/img/profile.png" class="member_profile">
+	  			</td>
+	  			<td><input type="text" class="boardMemberId" th:value="${member.boardMemberId}" readonly></td>
+	  			<td><input type="text" class="boardMemberName" th:value="${member.boardMemberName}"></td>
+	  			<td><input type="text" class="boardMemberNick" th:value="${member.boardMemberNick}"></td>
+	  			<td>
+	  				<select class="boardMemberGrade">
+	  					<th:block th:each="grade : ${gradeList}">
+		  					<option th:value="${grade.gradeNo}" th:selected="${grade.gradeNo == member.boardMemberGrade}">[[${grade.gradeName}]]</option>
+	  					</th:block>
+	  				</select>
+	  			</td>
+	  			<td>
+	  				<button class="btn_update">수정</button>	
+	  				<button class="btn_delete">삭제</button>	
+	  			</td>
+	  		</tr>
+  		</tbody>
+  	</table>
+</body>
+</html>

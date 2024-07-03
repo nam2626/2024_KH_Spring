@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style> 
+  input, select {
+    width: 300px;
+    text-align: center;
+    font-size: 1.5em;
+    box-sizing: border-box;
+  }
+  #profile_img{
+  	width: 100px;
+  	height: 100px;
+  	border:1px solid black;
+  	background-image: url('/file/ajax/down/[[${dto.boardMemberProfile}]]');
+  	background-repeat: no-repeat;
+  	background-position: center;
+  	background-size: contain;
+  }
+</style>
+<script>
+	window.onload = () => {
+		let profile_img = document.querySelector('#profile_img');
+		
+		profile_img.ondrop = (e) => {
+			e.preventDefault();
+			const data = e.dataTransfer;
+			let form_data = new FormData();
+			form_data.append('upload', data.files[0]);
+			fetch('/ajax/profile/upload',{
+				method:"POST",
+				body:form_data,
+				processData : false,
+				contentType : false
+			}).then(response => response.json())
+			.then(data => {
+				console.log(data);
+				//profile_img의 css를 변경
+				profile_img.style.backgroundImage=`url('${data.url}')`;
+				document.querySelector('input[name=boardMemberProfile]').value=data.fno;
+			}).catch(error => console.error(error));
+			
+		}
+		
+		profile_img.ondragover = (e) => e.preventDefault();
+		profile_img.ondragenter= (e) => e.preventDefault();
+		profile_img.ondragleave= (e) => e.preventDefault();
+	}
+</script>
+<link href="/css/menu.css" rel="stylesheet">
+</head>
+<body>
+	<th:block th:include="/fragments/header.html"></th:block>
+	<hr>
+  <h2>마이 페이지</h2>
+  <form action="/member/update" method="post">
+  	<div id="profile_img"></div>
+  	<input type="hidden" name="boardMemberProfile" th:value="${dto.boardMemberProfile}">
+    <input type="text" name="boardMemberId" th:value="${dto.boardMemberId}" readonly/><br>
+    <input type="password" name="boardMemberPasswd" placeholder="암호 입력" required/><br>
+    <input type="text" name="boardMemberName" th:value="${dto.boardMemberName}" placeholder="이름 입력"/><br>
+    <input type="text"  name="boardMemberNick" th:value="${dto.boardMemberNick}" placeholder="닉네임 입력"/><br>
+    <br>
+    <button>수정하기</button>
+    <button type="button" id="btn_back">뒤로가기</button>
+  </form>
+  <script>
+  	document.querySelector("#btn_back").onclick = () => {
+		history.back();
+  	}
+  </script>
+</body>
+</html>
+
+
+
+
+
+

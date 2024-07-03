@@ -244,6 +244,8 @@ public class MainController {
 				member.getBoardMemberId().equals(board.getBoardMemberId())) {
 			//삭제 처리
 			boardService.deleteBoard(bno);
+			//해당 첨부파일도 삭제 처리
+			
 		}else {
 			//권한이 없는 사용자가 삭제를 수행
 			//경고창 출력 이전 페이지로 이동
@@ -526,50 +528,54 @@ public class MainController {
 	
 	@PostMapping("/board/update")
 	public ModelAndView updateBoard(BoardDTO dto, ModelAndView view,
-			@RequestParam("file") MultipartFile[] file, 
-			@RequestParam("dfile") int[] fnoList) throws IOException {
+			@RequestParam(name = "file", required = false) MultipartFile[] file, 
+			@RequestParam(name = "dfile", required = false) int[] fnoList) throws IOException {
 		System.out.println(Arrays.toString(fnoList));
 		System.out.println(dto);
 		
+		
 		//파일 삭제
 		//	1. 삭제할 파일 목록을 조회
-		List<FileDTO> deleteFileList = boardService.selectBoardFileList(dto.getBoardNo());
-		//	2. 물리적으로 삭제
-		for(int fno : fnoList) {
-			for(int i = 0; i<deleteFileList.size();i++) {
-				if(deleteFileList.get(i).getFno() == fno) {
-					File f = new File(deleteFileList.get(i).getPath());
-					f.delete();
+		if(fnoList != null) {
+			List<FileDTO> deleteFileList = boardService.selectBoardFileList(dto.getBoardNo());
+			//	2. 물리적으로 삭제
+			for(int fno : fnoList) {
+				for(int i = 0; i<deleteFileList.size();i++) {
+					if(deleteFileList.get(i).getFno() == fno) {
+						File f = new File(deleteFileList.get(i).getPath());
+						f.delete();
+					}
 				}
 			}
+			//	3. DB에서 삭제
+			boardService.deleteBoardFileList(dto.getBoardNo(),fnoList);
 		}
-		//	3. DB에서 삭제
-		boardService.deleteBoardFileList(dto.getBoardNo(),fnoList);
-		
 		//새 파일 업로드
 		//	1. 물리적으로 저장
 		//	2. DB에 추가
-		File root = new File("c:\\fileupload");
-		if(!root.exists())
-			root.mkdirs();
-		
-		TreeSet<Integer> set = new TreeSet<Integer>(boardService.selectBoardFileNumbers(dto.getBoardNo()));
-		
-		int no = 0;
-		for(int i=0;i<3;i++) {
-			//파일 사이즈 체크 해서 0이면 업로드가 안된 항목
-			if(file[no].getSize() == 0)
-				continue;
-			if(!set.add(i+1)) continue;
-			//파일 쓰기
-			//업로드할 경로 설정
-			File f = new File(root, file[no].getOriginalFilename());
-			file[no].transferTo(f);//실제 파일 쓰기를 수행
-			//6. 해당 파일 경로를 DB에 등록
-			FileDTO fileDTO = new FileDTO(f, dto.getBoardNo(), i+1);
-			boardService.insertBoardFile(fileDTO);
-			no++;
-			if(no == file.length) break; //마지막 파일번호 안쓸때 체크
+		if(file != null) {
+			File root = new File("c:\\fileupload");
+			if(!root.exists())
+				root.mkdirs();
+			
+			TreeSet<Integer> set = new TreeSet<Integer>(boardService.selectBoardFileNumbers(dto.getBoardNo()));
+			
+			int no = 0;
+			for(int i=0;i<3;i++) {
+				//파일 사이즈 체크 해서 0이면 업로드가 안된 항목
+				if(file[no].getSize() == 0)
+					continue;
+				if(!set.add(i+1)) continue;
+				//파일 쓰기
+				//업로드할 경로 설정
+				File f = new File(root, file[no].getOriginalFilename());
+				file[no].transferTo(f);//실제 파일 쓰기를 수행
+				//6. 해당 파일 경로를 DB에 등록
+				FileDTO fileDTO = new FileDTO(f, dto.getBoardNo(), i+1);
+				boardService.insertBoardFile(fileDTO);
+				no++;
+				if(no == file.length) break; //마지막 파일번호 안쓸때 체크
+			}
 		}
 		//---------------------------------------------
 		int count = boardService.updateBoard(dto);

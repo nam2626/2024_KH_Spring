@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	body{
+		height:3000px;
+	}
+	table{
+		border-collapse: collapse;
+		margin: 20px auto;
+		width: 1200px;
+	}
+	td, th{
+		padding:10px;
+		border: 1px solid black;
+		text-align: center;
+	}
+</style>
+<link href="/css/menu.css" rel="stylesheet">
+</head>
+<body>
+	<th:block th:include="/fragments/header.html"></th:block>
+  	<hr>
+	<table>
+		<thead>
+			<tr>
+				<th>글번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>조회수</th>
+				<th>작성일</th>
+				<th>좋아요</th>
+				<th>싫어요</th>
+			</tr>	
+		</thead>
+		<tbody>
+			<tr th:each="board : ${list}">
+				<td>[[${board.boardNo}]]</td>
+				<td><a th:href="@{/board/{bno}(bno=${board.boardNo})}">[[${board.boardTitle}]]</a></td>
+				<td>[[${board.boardMemberNick}]]</td>
+				<td>[[${board.boardCount}]]</td>
+				<td>[[${board.boardWriteDate}]]</td>
+				<td>[[${board.boardLike}]]</td>
+				<td>[[${board.boardHate}]]</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="7">
+					<!-- 페이지 번호, ◀  ▶  -->
+					<a th:href="@{/main(pageNo=${pagging.startPageOfPageGroup - 1},pageContentEa=${pagging.pageOfContentCount})}" th:if="${pagging.priviousPageGroup}">◀</a>
+					
+					<a th:href="@{/main(pageNo=${i},pageContentEa=${pagging.pageOfContentCount})}" th:each="i : ${#numbers.sequence(pagging.startPageOfPageGroup,pagging.endPageOfPageGroup)}">[[${i}]]</a>
+					
+					<a th:href="@{/main(pageNo=${pagging.endPageOfPageGroup + 1},pageContentEa=${pagging.pageOfContentCount})}" th:if="${pagging.nextPageGroup}">▶</a>
+				</td>
+			</tr>
+		</tfoot>	
+	</table>  
+  
+  
+</body>
+</html>
+
+
+
+
+

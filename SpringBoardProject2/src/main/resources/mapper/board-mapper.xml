@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mapper.BoardMapper">
+ 	<!-- BoardDTO에 해당하는 resultMap -->
+ 	<resultMap type="com.board.dto.BoardDTO" id="board">
+ 		<id column="BOARD_NO" property="boardNo" />
+ 		<result column="BOARD_TITLE" property="boardTitle"/>
+ 		<result column="BOARD_MEMBER_ID" property="boardMemberId"/>
+ 		<result column="BOARD_MEMBER_NICK" property="boardMemberNick"/>
+ 		<result column="BOARD_CONTENT" property="boardContent"/>
+ 		<result column="BOARD_WRITE_DATE" property="boardWriteDate"/>
+ 		<result column="BOARD_COUNT" property="boardCount"/>
+ 		<result column="BOARD_CONTENT_LIKE" property="boardLike"/>
+ 		<result column="BOARD_CONTENT_HATE" property="boardHate"/>
+ 	</resultMap>
+ 	<!-- BoardCommentDTO에 해당하는 resultMap -->
+ 	<resultMap type="com.board.dto.BoardCommentDTO" id="comment">
+ 		<id column="BOARD_COMMENT_NO" property="cno"/>
+ 		<result column="BOARD_NO" property="bno"/>
+ 		<result column="BOARD_MEMBER_ID" property="writer"/>
+ 		<result column="BOARD_COMMENT_CONTENT" property="comment"/>
+ 		<result column="BOARD_COMMENT_WRITE_DATE" property="cdate"/>
+ 		<result column="COMMENT_LIKE" property="clike"/>
+ 		<result column="COMMENT_HATE" property="chate"/>
+ 	</resultMap>
+ 	<!-- FileDTO에 해당하는 resultMap -->
+ 	<resultMap type="com.board.dto.FileDTO" id="boardFile">
+ 		<result column="BOARD_FILE_NO" property="fno"/>
+ 		<result column="BOARD_NO" property="bno"/>
+ 		<result column="BOARD_FILE_URL" property="path"/>
+ 	</resultMap>
+ 	<!-- 전체 게시글 조회하는 SQL문 작성  -->
+	<select id="selectBoardList" resultMap="board">
+		select * from board_view 
+	</select>
+	<select id="selectBoard" parameterType="int" resultMap="board">
+		select * from board_view where board_no = #{bno}
+	</select>
+	<select id="getBoardNo" resultType="int">
+		select board_seq.nextval from dual
+	</select>
+	<insert id="insertBoard" parameterType="com.board.dto.BoardDTO">
+		insert into board(board_no, board_title, board_content, board_member_id)
+		values(#{boardNo},#{boardTitle},#{boardContent},#{boardMemberId})
+	</insert>
+	<insert id="insertBoardFile" parameterType="com.board.dto.FileDTO">
+		insert into board_file(board_file_no, board_no, board_file_url) 
+		values(#{fno}, #{bno}, #{path})
+	</insert>
+	
+	<select id="selectBoardFileList" parameterType="int" resultMap="boardFile">
+		select board_file_no, board_no, board_file_url from board_file where board_no = #{bno}	
+	</select>
+	
+	<select id="selectBoardFile" parameterType="map" resultMap="boardFile">
+		select board_file_no, board_no, board_file_url from board_file 
+		where board_no = #{bno} and board_file_no = #{fno}
+	</select>
+	
+	<update id="updateBoard" parameterType="com.board.dto.BoardDTO">
+		update board set board_title = #{boardTitle}, board_content = #{boardContent}
+		where board_no = #{boardNo}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board where board_no = #{bno}
+	</delete>
+	
+	<insert id="insertBoardLike" parameterType="map">
+		insert into board_content_like values(#{id},#{bno})
+	</insert>
+	<delete id="deleteBoardLike" parameterType="map">
+		delete from board_content_like where board_member_id = #{id} and board_no = #{bno}
+	</delete>
+	<select id="selectBoardLikeCount" parameterType="int">
+		select count(*) from board_content_like where board_no = #{bno}
+	</select>
+	<insert id="insertBoardHate" parameterType="map">
+		insert into board_content_hate values(#{id},#{bno})
+	</insert>
+	<delete id="deleteBoardHate" parameterType="map">
+		delete from board_content_hate where board_member_id = #{id} and board_no = #{bno}
+	</delete>
+	<select id="selectBoardHateCount" parameterType="int">
+		select count(*) from board_content_hate where board_no = #{bno}
+	</select>
+	<select id="selectBoardNewList" parameterType="map" resultMap="board">
+		SELECT * FROM
+		(SELECT CEIL(ROW_NUMBER() OVER(ORDER BY B.BOARD_NO DESC) / #{pageContentCount}) AS PAGE_NO,
+		B.* FROM BOARD_VIEW B) WHERE PAGE_NO = #{pageNo}
+	</select>
+	
+	<select id="selectBoardTotalCount">
+		SELECT COUNT(*) FROM BOARD_VIEW
+	</select>
+	
+	<insert id="insertBoardComment" parameterType="comment">
+		INSERT INTO 
+		BOARD_COMMENT(BOARD_COMMENT_NO, BOARD_NO, BOARD_MEMBER_ID, BOARD_COMMENT_CONTENT)
+		VALUES(BOARD_COMMENT_SEQ.NEXTVAL,#{bno},#{writer},#{comment})
+	</insert>
+	
+	<select id="selectBoardCommentList" parameterType="int" resultMap="comment">
+		SELECT * FROM BOARD_COMMENT_VIEW 
+		WHERE BOARD_NO = #{bno}
+		ORDER BY BOARD_COMMENT_NO DESC
+	</select>
+	
+	<delete id="deleteBoardComment" parameterType="int">
+		DELETE FROM BOARD_COMMENT WHERE BOARD_COMMENT_NO = #{cno}
+	</delete>
+	
+	<insert id="insertBoardCommentLike" parameterType="map">
+		insert into board_comment_like values(#{id},#{cno})
+	</insert>
+	
+	<delete id="deleteBoardCommentLike" parameterType="map">
+		delete from board_comment_like 
+		where board_member_id like #{id} and board_comment_no = #{cno} 
+	</delete>
+
+	<insert id="insertBoardCommentHate" parameterType="map">
+		insert into board_comment_hate values(#{id},#{cno})
+	</insert>
+	
+	<delete id="deleteBoardCommentHate" parameterType="map">
+		delete from board_comment_hate 
+		where board_member_id like #{id} and board_comment_no = #{cno} 
+	</delete>
+	
+	<update id="updateBoardCount" parameterType="int">
+		update board set board_count = board_count + 1
+		where board_no = #{bno}
+	</update>
+	
+	<select id="selectFileNo" resultType="int">
+		select board_image_seq.nextval from dual
+	</select>
+	
+	<insert id="insertImageFile" parameterType="file">
+		insert into board_view_image
+		values(#{fno}, #{path})
+	</insert>
+	
+	<select id="selectImageFile" parameterType="int" resultMap="boardFile">
+		select fno, path as BOARD_FILE_URL from board_view_image where fno = #{fno}
+	</select>
+	
+	<delete id="deleteBoardFileList" parameterType="map">
+		delete from board_file
+		where board_no = #{bno} and
+		board_file_no in
+		<foreach collection="array" item="fno" open="(" close=")" separator=",">
+			#{fno}
+		</foreach>
+	</delete>
+	
+	<select id="selectBoardFileNumbers" parameterType="int" resultType="int">
+		select board_file_no from board_file where board_no = #{bno}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+

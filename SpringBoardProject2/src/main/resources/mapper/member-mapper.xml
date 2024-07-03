@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mapper.MemberMapper">
+	<!-- ResultMap -->
+	<resultMap type="com.board.dto.BoardMemberDTO" id="member">
+		<id column="board_member_id" property="boardMemberId" />
+		<result column="board_member_name" property="boardMemberName" />
+		<result column="board_member_passwd"
+			property="boardMemberPasswd" />
+		<result column="board_member_nick" property="boardMemberNick" />
+		<result column="board_member_grade" property="boardMemberGrade" />
+		<result column="board_member_profile" property="boardMemberProfile" />
+	</resultMap>
+	
+	<resultMap type="grade" id="grade">
+		<id column="grade_no" property="gradeNo"/>
+		<result column="grade_name" property="gradeName"/>
+	</resultMap>
+	
+	<!-- 로그인 -->
+	<select id="login" parameterType="map" resultMap="member">
+		select * from
+		board_member
+		where board_member_id like #{id} and
+		board_member_passwd
+		like STANDARD_HASH(#{pass},'SHA512')
+	</select>
+
+	<select id="selectAllMember" resultMap="member">
+		select * from
+		board_member
+	</select>
+
+	<select id="selectMember" parameterType="string"
+		resultMap="member">
+		select * from board_member where board_member_id = #{id}
+	</select>
+
+	<update id="updateMember" parameterType="member">
+		update board_member set board_member_name = #{boardMemberName},
+		board_member_nick = #{boardMemberNick}
+		, 
+		<if test="boardMemberPasswd != null">
+		board_member_passwd =
+		standard_hash(#{boardMemberPasswd},'SHA512'),
+		</if>
+		
+		<if test="boardMemberProfile > -1">
+		board_member_profile = #{boardMemberProfile}, 
+		</if>
+		board_member_grade = #{boardMemberGrade}
+		
+		where board_member_id like
+		#{boardMemberId}
+	</update>
+	
+	<select id="searchMember" parameterType="map" resultMap="member">
+		select * from board_member
+		where ${search_kind} like '%' || #{txt_search} || '%'
+	</select>
+	
+	<update id="updateMemberGrade" parameterType="map">
+		update board_member set board_member_grade = #{boardMemberGrade}
+		where board_member_id like #{boardMemberId}
+	</update>
+		
+	<delete id="deleteMember" parameterType="string">
+		delete from board_member where board_member_id like #{id}
+	</delete>
+	
+	<insert id="insertMember" parameterType="member">
+		insert into board_member
+		values(#{boardMemberId},#{boardMemberName},STANDARD_HASH(#{boardMemberPasswd},'SHA512'),#{boardMemberNick},1,#{boardMemberProfile})
+	</insert>
+
+	<select id="selectAllGrade" resultMap="grade">
+		select * from board_member_grade
+	</select>	
+	
+	<update id="updateGrade" parameterType="grade">
+		update board_member_grade set grade_name = #{gradeName}
+		where grade_no = #{gradeNo}
+	</update>
+	
+	<insert id="insertGrade" parameterType="grade">
+		insert into board_member_grade
+		values(#{gradeNo}, #{gradeName})
+	</insert>
+	
+	<delete id="deleteGrade">
+		delete from board_member_grade
+		where grade_no = #{gradeNo}
+	</delete>
+	
+	<select id="selectGradeMember" resultMap="member">
+		select * from board_member
+		where 
+		board_member_grade in
+		<foreach collection="array" open="(" item="i" separator="," close=")">
+		#{i}
+		</foreach>		
+		
+	</select>
+</mapper>
+
+
+
+
+
+

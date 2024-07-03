@@ -1,0 +1,32 @@
+<nav>
+	<ul>
+		<!-- 홈, 회원관리, 회원가입, 로그인, 로그아웃 -->
+		<li><a href="/main">홈</a></li>
+		<!-- 
+			로그인 안한 상태
+				홈, 로그인, 회원가입
+		-->
+		<th:block th:if="${session.user == null}">
+			<li><a href="/member/register/view">회원가입</a></li>	
+			<li><a href="/login/view">로그인</a></li>	
+		</th:block>
+		<!-- 로그인 한 상태 
+			홈
+			로그아웃
+			
+			관리자
+				회원관리 
+		-->
+		<th:block th:if="${session.user != null}">
+			<li><a href="/member" th:if="${session.user.boardMemberGrade == 0}">회원관리</a></li>
+			<li><a href="/board/write/view">글쓰기</a></li>
+			<li><a href="/logout">로그아웃</a></li>
+		</th:block>
+	</ul>
+	<div class="profile" th:if="${session.user != null}">
+		<a class="user" th:href="@{/member/update/{id}(id=${session.user.boardMemberId})}"><img th:src="@{/file/ajax/down/{fno}(fno=${session.user.boardMemberProfile})}" alt=""></a>
+		<span>[[${session.user.boardMemberNick}]]님이 로그인 하셨습니다.</span>
+	</div>
+</nav>
+
+
