@@ -39,14 +39,11 @@
 	    min-height: 500px;
 	}
 </style>
-<script src="/js/ckeditor.js"></script>
-<script src="/js/UploadAdapter.js"></script>
+<link rel="stylesheet" href="/js/ckeditor5/ckeditor5.css">
+<link rel="stylesheet" href="/css/style.css">
+<script type="module" src="/js/main.js"></script>
+<link href="/css/menu.css" rel="stylesheet">
 <script>
-function uploadAdaterPlugin(editor){
-	editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-		return new UploadAdapter(loader);
-	}
-}
 function generateFileTag(){
 	let aLength = document.querySelectorAll('.file_list > a').length;
 	let fileLength = document.querySelectorAll('input[name=dfile]:checked').length;
@@ -61,18 +58,6 @@ function generateFileTag(){
 }
 
 window.onload = () => {
-	let myEditor = null;
-    ClassicEditor
-        .create( document.querySelector( 'textarea' ),
-		{
-				extraPlugins:[uploadAdaterPlugin]
-		})
-        .then(editor => {
-        	myEditor = editor;
-        })
-        .catch( error => {
-            console.error( error );
-        } );
     generateFileTag();
     document.querySelectorAll('input[name=dfile]').forEach((item,idx) =>{
     	console.log(item);
@@ -97,7 +82,11 @@ window.onload = () => {
 		<form action="/board/update" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="boardNo" th:value="${board.boardNo}">
 			<input type="text" name="boardTitle" placeholder="제목을 입력하세요" th:value="${board.boardTitle}">
-			<textarea name="boardContent" placeholder="내용을 입력하세요">[(${board.boardContent})]</textarea><br>
+			<div class="main-container">
+				<div class="editor-container editor-container_classic-editor" id="editor-container">
+					<div class="editor-container__editor"><textarea name="boardContent" id="editor">[(${board.boardContent})]</textarea></div>
+				</div>
+			</div>
 			<tr>
 			 	<div class="file_list">
 				 <th:block th:if="${!fileList.isEmpty() }" th:each="file : ${fileList }">

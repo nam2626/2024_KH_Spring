@@ -42,29 +42,6 @@
 <link rel="stylesheet" href="/js/ckeditor5/ckeditor5.css">
 <link rel="stylesheet" href="/css/style.css">
 <script type="module" src="/js/main.js"></script>
-<script>
-function uploadAdaterPlugin(editor){
-	editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-		return new UploadAdapter(loader);
-	}
-}
-window.onload = () => {
-	let myEditor = null;
-    ClassicEditor
-        .create( document.querySelector( 'textarea' ),
-		{
-				extraPlugins:[uploadAdaterPlugin]
-		})
-        .then(editor => {
-        	myEditor = editor;
-        })
-        .catch( error => {
-            console.error( error );
-        } );
-    
- }
-	
-</script>
 <link href="/css/menu.css" rel="stylesheet">
 
 </head>
