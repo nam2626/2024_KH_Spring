@@ -141,7 +141,11 @@ const editorConfig = {
 	extraPlugins:[uploadAdaterPlugin]
 };
 
-ClassicEditor.create(document.querySelector('#editor'), editorConfig);
+console.log(myEditor,"main.js");
+ClassicEditor.create(document.querySelector('#editor'), editorConfig)
+.then((editor) => {
+	myEditor = editor;
+});
 
 
 

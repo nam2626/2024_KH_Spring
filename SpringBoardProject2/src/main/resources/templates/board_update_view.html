@@ -41,9 +41,12 @@
 </style>
 <link rel="stylesheet" href="/js/ckeditor5/ckeditor5.css">
 <link rel="stylesheet" href="/css/style.css">
+<script>
+	let myEditor = "테스트";
+</script>
 <script type="module" src="/js/main.js"></script>
 <link href="/css/menu.css" rel="stylesheet">
-<script>
+<script th:inline="javascript">
 function generateFileTag(){
 	let aLength = document.querySelectorAll('.file_list > a').length;
 	let fileLength = document.querySelectorAll('input[name=dfile]:checked').length;
@@ -63,6 +66,8 @@ window.onload = () => {
     	console.log(item);
     	item.onclick = generateFileTag;
     });
+    console.log(myEditor);
+    myEditor.setData([[${board.boardContent}]])
  }
 	
 </script>
@@ -84,7 +89,7 @@ window.onload = () => {
 			<input type="text" name="boardTitle" placeholder="제목을 입력하세요" th:value="${board.boardTitle}">
 			<div class="main-container">
 				<div class="editor-container editor-container_classic-editor" id="editor-container">
-					<div class="editor-container__editor"><textarea name="boardContent" id="editor">[(${board.boardContent})]</textarea></div>
+					<div class="editor-container__editor"><textarea name="boardContent" id="editor"></textarea></div>
 				</div>
 			</div>
 			<tr>
