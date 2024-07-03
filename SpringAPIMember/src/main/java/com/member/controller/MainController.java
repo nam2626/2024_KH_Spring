@@ -2,6 +2,7 @@ package com.member.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +10,7 @@ import com.member.dto.BoardMemberDTO;
 import com.member.service.MemberService;
 
 @RestController
+@CrossOrigin(origins = "*" , allowedHeaders = "*" )
 public class MainController {
 	private MemberService service;
 
