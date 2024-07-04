@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.member.dto.BoardMemberDTO;
@@ -62,6 +64,16 @@ public class MainController {
 	public BoardMemberDTO selectMember(@PathVariable("id") String id) {
 		return service.selectMember(id);
 	}
+	
+	@DeleteMapping("/member/delete")
+	public Map<String, Object> deleteMember(String id){
+		System.out.println("삭제할 아이디 : " + id);
+		service.deleteMember(id);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("msg", "회원정보 삭제 완료");
+		return result;
+	}
+	
 }
 
 
