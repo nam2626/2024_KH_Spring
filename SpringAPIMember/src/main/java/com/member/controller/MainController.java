@@ -1,5 +1,6 @@
 package com.member.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +35,24 @@ public class MainController {
 	}
 	
 	@PostMapping("/member/insert")
-	public Map<String, Object> insertMember(){
+	public Map<String, Object> insertMember(
+			@RequestBody Map<String, String> param){
+		System.out.println(param);
+		BoardMemberDTO dto = new BoardMemberDTO();
+		dto.setBoardMemberId(param.get("boardMemberId"));
+		dto.setBoardMemberName(param.get("boardMemberName"));
+		dto.setBoardMemberNick(param.get("boardMemberNick"));
+		dto.setBoardMemberPasswd(param.get("boardMemberPasswd"));
+		dto.setBoardMemberGrade(Integer.parseInt(param.get("boardMemberGrade")));
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("msg", "테스트 메세지");
+		try {
+			service.insertMember(dto);
+			map.put("msg", "회원 등록 성공");
+			map.put("result", true);
+		} catch (Exception e) {
+			map.put("msg", "회원 등록 실패");
+			map.put("result", false);
+		}
 		return map;
 	}
 }
