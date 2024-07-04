@@ -1,6 +1,5 @@
 package com.member.controller;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,10 +45,12 @@ public class MainController {
 		dto.setBoardMemberGrade(Integer.parseInt(param.get("boardMemberGrade")));
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
+			System.out.println(dto);
 			service.insertMember(dto);
 			map.put("msg", "회원 등록 성공");
 			map.put("result", true);
 		} catch (Exception e) {
+			e.printStackTrace();
 			map.put("msg", "회원 등록 실패");
 			map.put("result", false);
 		}

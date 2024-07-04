@@ -53,7 +53,7 @@
 	
 	<insert id="insertMember" parameterType="member">
 		insert into board_member
-		values(#{boardMemberId},#{boardMemberName},#{boardMemberPasswd},#{boardMemberNick},#{boardMemberGrade})
+		values(#{boardMemberId},#{boardMemberName},#{boardMemberPasswd},#{boardMemberNick},#{boardMemberGrade},'')
 	</insert>
 
 	<select id="selectAllGrade" resultMap="grade">
