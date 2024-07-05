@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.member.mapper.MemberMapper">
+	<resultMap type="member" id="member">
+		<id column="USER_ID" property="userID" />
+		<result column="PASSWORD" property="userPassword" />
+		<result column="USERNAME" property="userName" />
+		<result column="EMAIL" property="userEmail" />
+		<result column="PHONE_NUMBER" property="userPhone" />
+		<result column="JOIN_DATE" property="userJoinDate" />
+		<result column="NICKNAME" property="userNickName" />
+		<result column="GENDER" property="userGender" />
+	</resultMap>
+
+	<select id="login" parameterType="hashmap" resultMap="member">
+		SELECT * 
+		FROM MEMBER
+		WHERE USER_ID LIKE #{id} AND PASSWORD LIKE STANDARD_HASH(#{pass},'SHA512')
+	</select>
+	<insert id="insertMember" parameterType="member">
+		insert into member(USER_ID,USERNAME,PASSWORD,EMAIL,PHONE_NUMBER,NICKNAME,GENDER) 
+		values(#{userID},#{userName},STANDARD_HASH(#{userPassword},'SHA512'),#{userEmail},#{userPhone},#{userNickName},#{userGender})
+	</insert>	
+	
+</mapper>
+
+
+
+
+

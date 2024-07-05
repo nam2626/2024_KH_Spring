@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		let token = sessionStorage.getItem("token");
+		$('#token').text(token);
+		
+		$.ajax({
+			url:'http://localhost:9999/get',
+			type:'get',
+			dataType:'json',
+			headers:{'token':token},
+			success:function(result){
+				if(result.flag){
+					alert(result.id + " / " + result.type);
+				}else{
+					alert('인증 실패');
+				}
+			},
+			error:function(req, status){//req:요청객체, status:상태값
+				alert(status);
+			}
+		});
+	});
+</script>
+</head>
+<body>
+token:<span id="token"></span><br/>
+</body>
+</html>

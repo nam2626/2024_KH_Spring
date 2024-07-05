@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#btn').click(function(){
+			let id = $('#id').val();
+			$.ajax({
+				url:'http://localhost:9999/login',
+				type:'post',
+				dataType:'json',
+				data:{'id':$('#id').val(), 'pwd':$('#pwd').val()},
+				success:function(result){
+					if(result.flag){
+						sessionStorage.setItem("token", result.token);
+						location.href="/index2";
+					}else{
+						alert('로그인 실패');
+					}
+				},
+				error:function(req, status){//req:요청객체, status:상태값
+					alert(status);
+				}
+			});
+			
+		});
+	});
+</script>
+</head>
+<body>
+<h3>로그인폼</h3>
+id:<input type="text" id="id"><br/>
+pwd:<input type="text" id="pwd"><br/>
+<input type="button" value="login" id="btn">
+</body>
+</html>
