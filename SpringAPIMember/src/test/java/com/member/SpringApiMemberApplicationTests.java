@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
@@ -114,8 +115,25 @@ class SpringApiMemberApplicationTests {
 	public void assertAllTest() {
 		assertAll(
 		    () -> assertEquals(4, 2 + 2),
-		    () -> assertTrue(3 > 2)
+		    () -> assertTrue(3 < 2)
 		);
+	}
+	
+	@DisplayName("결과값 True/False 테스트 확인")
+	@Order(6)
+	@Test
+	public void assertTrueFalseTest() {
+		assertTrue(3 > 2);
+//		assertFalse(3 < 2);
+
+	}
+	@DisplayName("결과값 Null/Not Null 테스트 확인")
+	@Order(7)
+	@Test
+	public void assertNullNotNullTest() {
+		assertNull(null);
+//		assertNotNull(new Object());
+
 	}
 }
 
