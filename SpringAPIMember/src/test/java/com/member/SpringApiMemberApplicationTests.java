@@ -1,7 +1,10 @@
 package com.member;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -98,6 +101,22 @@ class SpringApiMemberApplicationTests {
 		assertNotNull(service.selectMember(value),"검색 테스트 실패");
 	}
 	
+	@DisplayName("배열 비교 테스트")
+	@Order(4)
+	@Test
+	public void arrayTest() {
+		assertArrayEquals(new int[]{1, 2, 3}, new int[]{1, 2, 3});
+	}
+	
+	@DisplayName("여러개의 테스트 확인")
+	@Order(5)
+	@Test
+	public void assertAllTest() {
+		assertAll(
+		    () -> assertEquals(4, 2 + 2),
+		    () -> assertTrue(3 > 2)
+		);
+	}
 }
 
 
